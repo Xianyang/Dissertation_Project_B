@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		621668D91E31D622007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668D81E31D622007292A4 /* main.m */; };
+		621668DC1E31D622007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DB1E31D622007292A4 /* AppDelegate.m */; };
+		621668DF1E31D622007292A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DE1E31D622007292A4 /* ViewController.m */; };
+		621668E21E31D622007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E01E31D622007292A4 /* Main.storyboard */; };
+		621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 621668E31E31D622007292A4 /* Wil_Valet.xcdatamodeld */; };
+		621668E71E31D622007292A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 621668E61E31D622007292A4 /* Assets.xcassets */; };
+		621668EA1E31D622007292A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E81E31D622007292A4 /* LaunchScreen.storyboard */; };
+		621668F51E31D622007292A4 /* Wil_ValetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668F41E31D622007292A4 /* Wil_ValetTests.m */; };
+		621669001E31D622007292A4 /* Wil_ValetUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668FF1E31D622007292A4 /* Wil_ValetUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		621668F11E31D622007292A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 621668CC1E31D622007292A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 621668D31E31D622007292A4;
+			remoteInfo = Wil_Valet;
+		};
+		621668FC1E31D622007292A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 621668CC1E31D622007292A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 621668D31E31D622007292A4;
+			remoteInfo = Wil_Valet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		621668DB1E31D622007292A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		621668DD1E31D622007292A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		621668DE1E31D622007292A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		621668E11E31D622007292A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		621668E41E31D622007292A4 /* Wil_Valet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wil_Valet.xcdatamodel; sourceTree = "<group>"; };
+		621668E61E31D622007292A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		621668E91E31D622007292A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		621668EB1E31D622007292A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		621668F01E31D622007292A4 /* Wil_ValetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wil_ValetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		621668F41E31D622007292A4 /* Wil_ValetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wil_ValetTests.m; sourceTree = "<group>"; };
+		621668F61E31D622007292A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		621668FB1E31D622007292A4 /* Wil_ValetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wil_ValetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		621668FF1E31D622007292A4 /* Wil_ValetUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wil_ValetUITests.m; sourceTree = "<group>"; };
+		621669011E31D622007292A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		621668D11E31D622007292A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668ED1E31D622007292A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668F81E31D622007292A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		621668CB1E31D622007292A4 = {
+			isa = PBXGroup;
+			children = (
+				621668D61E31D622007292A4 /* Wil_Valet */,
+				621668F31E31D622007292A4 /* Wil_ValetTests */,
+				621668FE1E31D622007292A4 /* Wil_ValetUITests */,
+				621668D51E31D622007292A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		621668D51E31D622007292A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				621668D41E31D622007292A4 /* Wil_Valet.app */,
+				621668F01E31D622007292A4 /* Wil_ValetTests.xctest */,
+				621668FB1E31D622007292A4 /* Wil_ValetUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		621668D61E31D622007292A4 /* Wil_Valet */ = {
+			isa = PBXGroup;
+			children = (
+				621668DA1E31D622007292A4 /* AppDelegate.h */,
+				621668DB1E31D622007292A4 /* AppDelegate.m */,
+				621668DD1E31D622007292A4 /* ViewController.h */,
+				621668DE1E31D622007292A4 /* ViewController.m */,
+				621668E01E31D622007292A4 /* Main.storyboard */,
+				621668E61E31D622007292A4 /* Assets.xcassets */,
+				621668E81E31D622007292A4 /* LaunchScreen.storyboard */,
+				621668EB1E31D622007292A4 /* Info.plist */,
+				621668E31E31D622007292A4 /* Wil_Valet.xcdatamodeld */,
+				621668D71E31D622007292A4 /* Supporting Files */,
+			);
+			path = Wil_Valet;
+			sourceTree = "<group>";
+		};
+		621668D71E31D622007292A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				621668D81E31D622007292A4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		621668F31E31D622007292A4 /* Wil_ValetTests */ = {
+			isa = PBXGroup;
+			children = (
+				621668F41E31D622007292A4 /* Wil_ValetTests.m */,
+				621668F61E31D622007292A4 /* Info.plist */,
+			);
+			path = Wil_ValetTests;
+			sourceTree = "<group>";
+		};
+		621668FE1E31D622007292A4 /* Wil_ValetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				621668FF1E31D622007292A4 /* Wil_ValetUITests.m */,
+				621669011E31D622007292A4 /* Info.plist */,
+			);
+			path = Wil_ValetUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		621668D31E31D622007292A4 /* Wil_Valet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 621669041E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_Valet" */;
+			buildPhases = (
+				621668D01E31D622007292A4 /* Sources */,
+				621668D11E31D622007292A4 /* Frameworks */,
+				621668D21E31D622007292A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Wil_Valet;
+			productName = Wil_Valet;
+			productReference = 621668D41E31D622007292A4 /* Wil_Valet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		621668EF1E31D622007292A4 /* Wil_ValetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 621669071E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetTests" */;
+			buildPhases = (
+				621668EC1E31D622007292A4 /* Sources */,
+				621668ED1E31D622007292A4 /* Frameworks */,
+				621668EE1E31D622007292A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				621668F21E31D622007292A4 /* PBXTargetDependency */,
+			);
+			name = Wil_ValetTests;
+			productName = Wil_ValetTests;
+			productReference = 621668F01E31D622007292A4 /* Wil_ValetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		621668FA1E31D622007292A4 /* Wil_ValetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6216690A1E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetUITests" */;
+			buildPhases = (
+				621668F71E31D622007292A4 /* Sources */,
+				621668F81E31D622007292A4 /* Frameworks */,
+				621668F91E31D622007292A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				621668FD1E31D622007292A4 /* PBXTargetDependency */,
+			);
+			name = Wil_ValetUITests;
+			productName = Wil_ValetUITests;
+			productReference = 621668FB1E31D622007292A4 /* Wil_ValetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		621668CC1E31D622007292A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = xianyang;
+				TargetAttributes = {
+					621668D31E31D622007292A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K5J44K984X;
+						ProvisioningStyle = Automatic;
+					};
+					621668EF1E31D622007292A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K5J44K984X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 621668D31E31D622007292A4;
+					};
+					621668FA1E31D622007292A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K5J44K984X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 621668D31E31D622007292A4;
+					};
+				};
+			};
+			buildConfigurationList = 621668CF1E31D622007292A4 /* Build configuration list for PBXProject "Wil_Valet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 621668CB1E31D622007292A4;
+			productRefGroup = 621668D51E31D622007292A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				621668D31E31D622007292A4 /* Wil_Valet */,
+				621668EF1E31D622007292A4 /* Wil_ValetTests */,
+				621668FA1E31D622007292A4 /* Wil_ValetUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		621668D21E31D622007292A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				621668EA1E31D622007292A4 /* LaunchScreen.storyboard in Resources */,
+				621668E71E31D622007292A4 /* Assets.xcassets in Resources */,
+				621668E21E31D622007292A4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668EE1E31D622007292A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668F91E31D622007292A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		621668D01E31D622007292A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				621668DF1E31D622007292A4 /* ViewController.m in Sources */,
+				621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */,
+				621668DC1E31D622007292A4 /* AppDelegate.m in Sources */,
+				621668D91E31D622007292A4 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668EC1E31D622007292A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				621668F51E31D622007292A4 /* Wil_ValetTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		621668F71E31D622007292A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				621669001E31D622007292A4 /* Wil_ValetUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		621668F21E31D622007292A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 621668D31E31D622007292A4 /* Wil_Valet */;
+			targetProxy = 621668F11E31D622007292A4 /* PBXContainerItemProxy */;
+		};
+		621668FD1E31D622007292A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 621668D31E31D622007292A4 /* Wil_Valet */;
+			targetProxy = 621668FC1E31D622007292A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		621668E01E31D622007292A4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				621668E11E31D622007292A4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		621668E81E31D622007292A4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				621668E91E31D622007292A4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		621669021E31D622007292A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		621669031E31D622007292A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		621669051E31D622007292A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_Valet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-Valet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		621669061E31D622007292A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_Valet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-Valet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		621669081E31D622007292A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_ValetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-ValetTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wil_Valet.app/Wil_Valet";
+			};
+			name = Debug;
+		};
+		621669091E31D622007292A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_ValetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-ValetTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wil_Valet.app/Wil_Valet";
+			};
+			name = Release;
+		};
+		6216690B1E31D622007292A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_ValetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-ValetUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Wil_Valet;
+			};
+			name = Debug;
+		};
+		6216690C1E31D622007292A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = K5J44K984X;
+				INFOPLIST_FILE = Wil_ValetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-ValetUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Wil_Valet;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		621668CF1E31D622007292A4 /* Build configuration list for PBXProject "Wil_Valet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				621669021E31D622007292A4 /* Debug */,
+				621669031E31D622007292A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		621669041E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_Valet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				621669051E31D622007292A4 /* Debug */,
+				621669061E31D622007292A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		621669071E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				621669081E31D622007292A4 /* Debug */,
+				621669091E31D622007292A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6216690A1E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6216690B1E31D622007292A4 /* Debug */,
+				6216690C1E31D622007292A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		621668E31E31D622007292A4 /* Wil_Valet.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				621668E41E31D622007292A4 /* Wil_Valet.xcdatamodel */,
+			);
+			currentVersion = 621668E41E31D622007292A4 /* Wil_Valet.xcdatamodel */;
+			path = Wil_Valet.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 621668CC1E31D622007292A4 /* Project object */;
+}
