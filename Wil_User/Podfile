@@ -1,0 +1,31 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Wil_User' do
+  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for Wil_User
+  pod 'MBProgressHUD', '~> 1.0.0'
+  # pod 'AFNetworkActivityLogger', '~> 2.0.4'
+  pod 'RESideMenu', '~> 4.0.7'
+  pod 'INTULocationManager', '~> 4.2.0'
+  pod 'UMengAnalytics', '~> 4.0.4'
+  pod 'NJKWebViewProgress', '~> 0.2.3'
+  pod 'AFNetworking', '~> 3.1.0'
+  pod 'JSONModel', '~> 1.3.0'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+
+  target 'Wil_UserTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'Wil_UserUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+

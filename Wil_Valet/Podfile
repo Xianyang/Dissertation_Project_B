@@ -1,0 +1,20 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Wil_Valet' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for Wil_Valet
+
+  target 'Wil_ValetTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'Wil_ValetUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
