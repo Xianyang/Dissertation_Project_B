@@ -23,6 +23,7 @@
 		623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67DF1E335193009A63AC /* SubscriptionsViewController.m */; };
 		623A67E31E335199009A63AC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E21E335199009A63AC /* AboutViewController.m */; };
 		623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E51E3351A0009A63AC /* ContactViewController.m */; };
+		623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E91E33633F009A63AC /* SideMenuCell.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -78,6 +79,8 @@
 		623A67E21E335199009A63AC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ViewControllers/AboutViewController.m; sourceTree = "<group>"; };
 		623A67E41E3351A0009A63AC /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ViewControllers/ContactViewController.h; sourceTree = "<group>"; };
 		623A67E51E3351A0009A63AC /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ViewControllers/ContactViewController.m; sourceTree = "<group>"; };
+		623A67E81E33633F009A63AC /* SideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuCell.h; path = Views/SideMenuCell.h; sourceTree = "<group>"; };
+		623A67E91E33633F009A63AC /* SideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuCell.m; path = Views/SideMenuCell.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +146,8 @@
 			children = (
 				6216691C1E31D65B007292A4 /* AppDelegate.h */,
 				6216691D1E31D65B007292A4 /* AppDelegate.m */,
+				623A67E81E33633F009A63AC /* SideMenuCell.h */,
+				623A67E91E33633F009A63AC /* SideMenuCell.m */,
 				6216695E1E324517007292A4 /* ViewControllers */,
 				621669221E31D65B007292A4 /* Main.storyboard */,
 				621669281E31D65B007292A4 /* Assets.xcassets */,
@@ -528,6 +533,7 @@
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
 				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
 				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
+				623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
