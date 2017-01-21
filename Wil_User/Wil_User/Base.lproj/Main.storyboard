@@ -40,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="53" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="69J-B3-4rk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="27" width="375" height="640"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideMenuCell" rowHeight="54" id="s5U-mE-6r0" customClass="SideMenuCell">
@@ -115,7 +115,7 @@
                         <color key="backgroundColor" red="0.1295326352" green="0.12952888009999999" blue="0.12952961029999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="69J-B3-4rk" firstAttribute="leading" secondItem="uGy-4r-szB" secondAttribute="leading" id="8nM-8l-6Y1"/>
-                            <constraint firstItem="69J-B3-4rk" firstAttribute="top" secondItem="i36-sl-O0V" secondAttribute="bottom" id="BKz-HG-4qY"/>
+                            <constraint firstItem="69J-B3-4rk" firstAttribute="top" secondItem="i36-sl-O0V" secondAttribute="bottom" constant="7" id="CKi-07-EQ4"/>
                             <constraint firstAttribute="trailing" secondItem="69J-B3-4rk" secondAttribute="trailing" id="LCJ-4R-esI"/>
                             <constraint firstItem="e4P-HY-40O" firstAttribute="top" secondItem="69J-B3-4rk" secondAttribute="bottom" id="cZz-Kb-sQG"/>
                         </constraints>
