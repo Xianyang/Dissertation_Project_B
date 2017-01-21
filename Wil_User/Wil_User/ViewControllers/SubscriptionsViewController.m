@@ -1,18 +1,18 @@
 //
-//  ProfileViewController.m
+//  SubscriptionsViewController.m
 //  Wil_User
 //
-//  Created by xianyang on 20/01/2017.
+//  Created by xianyang on 21/01/2017.
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
-#import "ProfileViewController.h"
+#import "SubscriptionsViewController.h"
 
-@interface ProfileViewController ()
+@interface SubscriptionsViewController ()
 
 @end
 
-@implementation ProfileViewController
+@implementation SubscriptionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

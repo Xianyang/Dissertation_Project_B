@@ -19,6 +19,10 @@
 		621669571E324339007292A4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621669561E324339007292A4 /* MenuViewController.m */; };
 		6216695A1E324390007292A4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621669591E324390007292A4 /* MainViewController.m */; };
 		6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6216695C1E32439D007292A4 /* ProfileViewController.m */; };
+		623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67DC1E335181009A63AC /* PaymentViewController.m */; };
+		623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67DF1E335193009A63AC /* SubscriptionsViewController.m */; };
+		623A67E31E335199009A63AC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E21E335199009A63AC /* AboutViewController.m */; };
+		623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E51E3351A0009A63AC /* ContactViewController.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -66,6 +70,14 @@
 		621669591E324390007292A4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ViewControllers/MainViewController.m; sourceTree = "<group>"; };
 		6216695B1E32439D007292A4 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ViewControllers/ProfileViewController.h; sourceTree = "<group>"; };
 		6216695C1E32439D007292A4 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ViewControllers/ProfileViewController.m; sourceTree = "<group>"; };
+		623A67DB1E335181009A63AC /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentViewController.h; path = ViewControllers/PaymentViewController.h; sourceTree = "<group>"; };
+		623A67DC1E335181009A63AC /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentViewController.m; path = ViewControllers/PaymentViewController.m; sourceTree = "<group>"; };
+		623A67DE1E335193009A63AC /* SubscriptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubscriptionsViewController.h; path = ViewControllers/SubscriptionsViewController.h; sourceTree = "<group>"; };
+		623A67DF1E335193009A63AC /* SubscriptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubscriptionsViewController.m; path = ViewControllers/SubscriptionsViewController.m; sourceTree = "<group>"; };
+		623A67E11E335199009A63AC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ViewControllers/AboutViewController.h; sourceTree = "<group>"; };
+		623A67E21E335199009A63AC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ViewControllers/AboutViewController.m; sourceTree = "<group>"; };
+		623A67E41E3351A0009A63AC /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ViewControllers/ContactViewController.h; sourceTree = "<group>"; };
+		623A67E51E3351A0009A63AC /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ViewControllers/ContactViewController.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,14 +185,30 @@
 			children = (
 				621669521E3242EC007292A4 /* RootViewController.h */,
 				621669531E3242EC007292A4 /* RootViewController.m */,
+				621669551E324339007292A4 /* MenuViewController.h */,
+				621669561E324339007292A4 /* MenuViewController.m */,
+				623A67E71E3351AF009A63AC /* FunctionVC */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		623A67E71E3351AF009A63AC /* FunctionVC */ = {
+			isa = PBXGroup;
+			children = (
 				621669581E324390007292A4 /* MainViewController.h */,
 				621669591E324390007292A4 /* MainViewController.m */,
 				6216695B1E32439D007292A4 /* ProfileViewController.h */,
 				6216695C1E32439D007292A4 /* ProfileViewController.m */,
-				621669551E324339007292A4 /* MenuViewController.h */,
-				621669561E324339007292A4 /* MenuViewController.m */,
+				623A67DB1E335181009A63AC /* PaymentViewController.h */,
+				623A67DC1E335181009A63AC /* PaymentViewController.m */,
+				623A67DE1E335193009A63AC /* SubscriptionsViewController.h */,
+				623A67DF1E335193009A63AC /* SubscriptionsViewController.m */,
+				623A67E11E335199009A63AC /* AboutViewController.h */,
+				623A67E21E335199009A63AC /* AboutViewController.m */,
+				623A67E41E3351A0009A63AC /* ContactViewController.h */,
+				623A67E51E3351A0009A63AC /* ContactViewController.m */,
 			);
-			name = ViewControllers;
+			name = FunctionVC;
 			sourceTree = "<group>";
 		};
 		64BE710344231A751917F0AA /* Pods */ = {
@@ -494,8 +522,12 @@
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,
 				6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */,
+				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
+				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
+				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
+				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

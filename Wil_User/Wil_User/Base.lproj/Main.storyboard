@@ -25,7 +25,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-74" y="12"/>
+            <point key="canvasLocation" x="-439" y="893"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Px5-dD-2gq">
@@ -43,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vev-lW-zck" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="593" y="11"/>
+            <point key="canvasLocation" x="457" y="893"/>
         </scene>
         <!--WIL-->
         <scene sceneID="7jk-dp-GRN">
@@ -69,9 +69,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CO7-xa-hYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="11"/>
+            <point key="canvasLocation" x="-463" y="1889"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="oEo-wq-Z1v">
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="lkn-hr-i0Q" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -84,10 +84,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Profile" id="v9x-Mb-4lG">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="Gs5-z9-QuL">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="lkn-hr-i0Q" id="L9r-ja-Rur"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOP-5k-Gpb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2281" y="771"/>
+            <point key="canvasLocation" x="265" y="1889"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JCY-9d-iaa">
@@ -102,11 +109,115 @@
                     <connections>
                         <segue destination="wNv-Oz-9Qz" kind="relationship" relationship="rootViewController" id="rbw-b4-tsL"/>
                         <segue destination="lkn-hr-i0Q" kind="show" id="DSO-Sv-nMh"/>
+                        <segue destination="sih-sq-cU9" kind="show" id="3yy-J2-HLy"/>
+                        <segue destination="hKa-W9-GhC" kind="show" id="KJ2-WC-teq"/>
+                        <segue destination="4ol-xW-40Y" kind="show" id="4lT-oM-BbH"/>
+                        <segue destination="LQX-Og-6Ht" kind="show" id="zcP-yP-bUR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mx7-qU-epU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="10"/>
+            <point key="canvasLocation" x="1322" y="893"/>
+        </scene>
+        <!--Subscriptions-->
+        <scene sceneID="U4z-Nm-uQT">
+            <objects>
+                <viewController storyboardIdentifier="SubscriptionsViewController" id="hKa-W9-GhC" customClass="SubscriptionsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qeU-mQ-uPT"/>
+                        <viewControllerLayoutGuide type="bottom" id="KSt-li-w2Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2De-B7-zur">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Subscriptions" id="fE9-76-vjI">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="HNJ-yf-V2H">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="hKa-W9-GhC" id="KWs-zD-Ghq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kXH-Yu-9U2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1686" y="1889"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="118-xh-WUD">
+            <objects>
+                <viewController storyboardIdentifier="AboutViewController" id="4ol-xW-40Y" customClass="AboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VkS-xD-gqk"/>
+                        <viewControllerLayoutGuide type="bottom" id="OMw-Z3-EXe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mEM-UU-f15">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="OHD-gk-3nM">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="ZCf-C0-9lw">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="4ol-xW-40Y" id="M0M-Ac-Hxu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V2V-P7-a0M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2401" y="1889"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="Jiz-eC-gaf">
+            <objects>
+                <viewController storyboardIdentifier="ContactViewController" id="LQX-Og-6Ht" customClass="ContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GnA-G2-pef"/>
+                        <viewControllerLayoutGuide type="bottom" id="sxe-g6-nbS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qln-4X-q7d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Contact" id="sas-Ir-7wp">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="hoR-5B-TpK">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="LQX-Og-6Ht" id="GdP-qx-xH8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1gs-2g-wOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3129" y="1889"/>
+        </scene>
+        <!--Payment-->
+        <scene sceneID="5yl-vO-cqR">
+            <objects>
+                <viewController storyboardIdentifier="PaymentViewController" id="sih-sq-cU9" customClass="PaymentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HNs-GD-A5M"/>
+                        <viewControllerLayoutGuide type="bottom" id="GlL-VR-1i4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fiz-gg-LKZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payment" id="cVc-fq-neL">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="FGn-dm-7wE">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="sih-sq-cU9" id="P7r-7c-YUU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CTr-7s-m7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983" y="1889"/>
         </scene>
     </scenes>
     <resources>
