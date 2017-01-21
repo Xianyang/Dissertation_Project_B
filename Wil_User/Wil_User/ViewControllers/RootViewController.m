@@ -30,6 +30,8 @@
     self.backgroundImage = [UIImage imageNamed:@"Stars"];
     
     //    self.animationDuration = 2;
+//    self.contentViewInLandscapeOffsetCenterX = 0.5;
+    self.panGestureEnabled = NO;
     self.scaleMenuView = NO;
     self.scaleContentView = NO;
     self.delegate = self;

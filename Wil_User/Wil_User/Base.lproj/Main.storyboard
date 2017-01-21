@@ -56,20 +56,14 @@
                     <view key="view" contentMode="scaleToFill" id="fEH-l6-J4r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuG-Xl-KWf">
-                                <rect key="frame" x="49" y="112" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="presentLeftMenuViewController:" destination="wNv-Oz-9Qz" eventType="touchUpInside" id="Jdk-wj-BSK"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="WIL" id="LlY-Uo-UVx">
-                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="qvV-iy-t5w"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu_white" id="qvV-iy-t5w">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="wNv-Oz-9Qz" id="t31-DI-vp5"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="navigation" id="CP3-7I-Wrf"/>
                     </navigationItem>
                 </viewController>
@@ -116,7 +110,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="menu_white" width="24" height="24"/>
-        <image name="navigation" width="24" height="24"/>
+        <image name="menu_white" width="18" height="18"/>
+        <image name="navigation" width="18" height="18"/>
     </resources>
 </document>
