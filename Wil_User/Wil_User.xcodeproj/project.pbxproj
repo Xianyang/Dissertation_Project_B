@@ -24,6 +24,7 @@
 		623A67E31E335199009A63AC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E21E335199009A63AC /* AboutViewController.m */; };
 		623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E51E3351A0009A63AC /* ContactViewController.m */; };
 		623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E91E33633F009A63AC /* SideMenuCell.m */; };
+		62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -81,6 +82,9 @@
 		623A67E51E3351A0009A63AC /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ViewControllers/ContactViewController.m; sourceTree = "<group>"; };
 		623A67E81E33633F009A63AC /* SideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuCell.h; path = Views/SideMenuCell.h; sourceTree = "<group>"; };
 		623A67E91E33633F009A63AC /* SideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuCell.m; path = Views/SideMenuCell.m; sourceTree = "<group>"; };
+		62F7D6ED1E54063E001AC360 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultCell.h; path = Views/SearchResultCell.h; sourceTree = "<group>"; };
+		62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultCell.m; path = Views/SearchResultCell.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,12 +152,15 @@
 				6216691D1E31D65B007292A4 /* AppDelegate.m */,
 				623A67E81E33633F009A63AC /* SideMenuCell.h */,
 				623A67E91E33633F009A63AC /* SideMenuCell.m */,
+				62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */,
+				62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */,
 				6216695E1E324517007292A4 /* ViewControllers */,
 				621669221E31D65B007292A4 /* Main.storyboard */,
 				621669281E31D65B007292A4 /* Assets.xcassets */,
 				6216692A1E31D65B007292A4 /* LaunchScreen.storyboard */,
 				6216692D1E31D65B007292A4 /* Info.plist */,
 				621669251E31D65B007292A4 /* Wil_User.xcdatamodeld */,
+				62F7D6ED1E54063E001AC360 /* PrefixHeader.pch */,
 				621669191E31D65B007292A4 /* Supporting Files */,
 			);
 			path = Wil_User;
@@ -529,6 +536,7 @@
 				6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */,
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
+				62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
 				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
@@ -682,6 +690,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K5J44K984X;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = Wil_User/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-User";
@@ -695,6 +705,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K5J44K984X;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = Wil_User/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luoxianyang.Wil-User";
