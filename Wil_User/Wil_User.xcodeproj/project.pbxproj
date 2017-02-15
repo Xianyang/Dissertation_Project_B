@@ -150,10 +150,7 @@
 			children = (
 				6216691C1E31D65B007292A4 /* AppDelegate.h */,
 				6216691D1E31D65B007292A4 /* AppDelegate.m */,
-				623A67E81E33633F009A63AC /* SideMenuCell.h */,
-				623A67E91E33633F009A63AC /* SideMenuCell.m */,
-				62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */,
-				62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */,
+				62F7D6F11E543BCD001AC360 /* Views */,
 				6216695E1E324517007292A4 /* ViewControllers */,
 				621669221E31D65B007292A4 /* Main.storyboard */,
 				621669281E31D65B007292A4 /* Assets.xcassets */,
@@ -221,6 +218,17 @@
 				623A67E51E3351A0009A63AC /* ContactViewController.m */,
 			);
 			name = FunctionVC;
+			sourceTree = "<group>";
+		};
+		62F7D6F11E543BCD001AC360 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				623A67E81E33633F009A63AC /* SideMenuCell.h */,
+				623A67E91E33633F009A63AC /* SideMenuCell.m */,
+				62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */,
+				62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		64BE710344231A751917F0AA /* Pods */ = {

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchResultCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *heartButton;
 
 @end
