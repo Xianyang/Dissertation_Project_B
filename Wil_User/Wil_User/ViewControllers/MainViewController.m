@@ -28,7 +28,7 @@
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate>
+@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate>
 {
     BOOL _firstLocationUpdate;
 }
@@ -80,6 +80,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                    forKeyPath:@"myLocation"
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
+    self.mapView.delegate = self;
     
     // enable my location button
     self.mapView.settings.myLocationButton = YES;
@@ -115,6 +116,23 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         // TODO check if the position is in the service area
 //        [self popUpRequestValet];
     }
+}
+
+- (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
+    // check if the position is within polygons
+    for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
+        if (GMSGeometryContainsLocation(position.target, polygon.path, YES)) {
+            NSLog(@"YES: you are in %@.", polygon.title);
+            
+            return;
+        }
+    }
+    
+    NSLog(@"out of polygon");
+}
+
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
+    
 }
 
 - (void)popUpRequestValet {
