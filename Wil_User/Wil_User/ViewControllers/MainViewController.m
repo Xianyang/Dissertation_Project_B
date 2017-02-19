@@ -11,28 +11,29 @@
 // AIzaSyC-f-MbvinrjO8ZtxLqpFkhbQDONbvuOe0
 // ----------------------------------------------
 
-#define SEARCH_TABLEVIEW_ORIGIN_Y 140
-#define SEARCH_TABLEVIEW_HEIGHT 250
+#define SEARCH_TABLEVIEW_ORIGIN_Y                   140
+#define SEARCH_TABLEVIEW_HEIGHT                     250
+#define LEFT_TOP_CORNER_LATITUDE_HONG_KONG          22.514216
+#define LEFT_TOP_CORNER_LONGITUDE_HONG_KONG         113.794132
+#define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
+#define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
 
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 
 #import "SearchResultCell.h"
+#import "RequestValetPopup.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate>
 {
     BOOL _firstLocationUpdate;
 }
-@property (weak, nonatomic) IBOutlet UIView *searchFieldBackground;
-@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-@property (weak, nonatomic) IBOutlet UITableView *searchResultTableView;
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
-@property (strong, nonatomic) GMSPlacesClient *placesClient;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightBarButton;
+@property (strong, nonatomic) GMSPlacesClient *placesClient;
 
 @property (strong, nonatomic) NSArray * filterPlaces;
 @end
@@ -45,7 +46,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _firstLocationUpdate = NO;
     
     [self setNavigationBar];
-    [self setSearchField];
     
     [self setMap];
 }
@@ -80,6 +80,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
     
+    // enable my location button
+    self.mapView.settings.myLocationButton = YES;
+    
     // Ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
@@ -90,98 +93,71 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-     if (!_firstLocationUpdate) {
-         // If the first location update has not yet been recieved, then jump to that location.
-         _firstLocationUpdate = YES;
-         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:14];
-     }
+    // first location update means google map gets the user's location after launching the app
+    if (!_firstLocationUpdate) {
+        // If the first location update has not yet been recieved, then jump to that location.
+        _firstLocationUpdate = YES;
+        CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
+        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:16.5];
+        
+        // add the drop off flag
+        CGFloat flagSize = 50;
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop_off_flag"]];
+        imageView.frame = CGRectMake(self.mapView.frame.size.width / 2 - flagSize / 2, self.mapView.frame.size.height / 2 - flagSize, flagSize, flagSize);
+        [self.mapView addSubview:imageView];
+        
+        // TODO check if the position is in the service area
+//        [self popUpRequestValet];
+    }
+}
+
+- (void)popUpRequestValet {
+    RequestValetPopup *rvPopup = [[RequestValetPopup alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height - 128, self.mapView.frame.size.width, 128)];
+    rvPopup.backgroundColor = [UIColor redColor];
+    [self.mapView addSubview:rvPopup];
 }
 
 - (void)backToMyPosition {
     [self.mapView animateToLocation:self.mapView.myLocation.coordinate];
 }
 
-# pragma mark - Search Field
+# pragma mark - Search for a place
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if ([textField isEqual:self.searchTextField]) {
-        [UIView animateWithDuration:0.3
-                         animations:^{
-                             self.searchResultTableView.frame = CGRectMake(10.0f, SEARCH_TABLEVIEW_ORIGIN_Y,
-                                                                           DEVICE_WIDTH - 20.0f, SEARCH_TABLEVIEW_HEIGHT);
-                             self.maskView.hidden = NO;
-                             self.rightBarButton.image = nil;
-                             self.rightBarButton.title = @"cancel";
-                             self.rightBarButton.target = self;
-                             self.rightBarButton.action = @selector(cancelSearch);
-                         }];
-    }
+- (IBAction)launchSearch:(id)sender {
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    acController.delegate = self;
+    acController.autocompleteBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(LEFT_TOP_CORNER_LATITUDE_HONG_KONG, LEFT_TOP_CORNER_LONGITUDE_HONG_KONG)
+                                                                           coordinate:CLLocationCoordinate2DMake(RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG, RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG)];
+    [self presentViewController:acController animated:YES completion:nil];
 }
 
-- (void)textFieldDidChange:(UITextField *)textField {
-    if ([textField isEqual:self.searchTextField]) {
-        GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-        filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
-        
-        // set the bound for hong kong
-        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(22.514216, 113.794132)
-                                                                           coordinate:CLLocationCoordinate2DMake(22.131892, 114.392184)];
-        
-        [self.placesClient autocompleteQuery:textField.text
-                                      bounds:bounds
-                                      filter:filter
-                                    callback:^(NSArray *results, NSError *error) {
-                                        if (error != nil) {
-                                            NSLog(@"Autocomplete error %@", [error localizedDescription]);
-                                            return;
-                                        }
-                                        
-                                        for (GMSAutocompletePrediction* result in results) {
-                                            NSLog(@"Result '%@' with placeID %@", result.attributedFullText.string, result.placeID);
-                                        }
-                                        
-                                        self.filterPlaces = results;
-                                        [self.searchResultTableView reloadData];
-                                    }];
-    }
-}
-
-- (void)cancelSearch {
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.searchResultTableView.frame = CGRectMake(10.0f, DEVICE_HEIGHT,
-                                                                       DEVICE_WIDTH - 20.0f, SEARCH_TABLEVIEW_HEIGHT);
-                         [self.searchTextField resignFirstResponder];
-                         self.maskView.hidden = YES;
-                         self.rightBarButton.image = [UIImage imageNamed:@"navigation"];
-                         self.rightBarButton.title = @"";
-                         self.rightBarButton.action = @selector(backToMyPosition);
-                     }];
-}
-
-# pragma mark - UITableView
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+// handle the user's selection
+- (void)viewController:(GMSAutocompleteViewController *)viewController didAutocompleteWithPlace:(GMSPlace *)place {
+    [self dismissViewControllerAnimated:YES completion:nil];
     
+    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:16.5];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0f;
+- (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: handle the error.
+    NSLog(@"Error: %@", [error description]);
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.filterPlaces.count;
+// User canceled the operation.
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:SearchResultCellIdentifier];
-    
-    GMSAutocompletePrediction *result = self.filterPlaces[indexPath.row];
-    cell.textLabel.text = result.attributedFullText.string;
-    
-    return cell;
+// Turn the network activity indicator on and off again.
+- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
+
+- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
 
 #pragma mark - Some Settings
 
@@ -194,50 +170,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    self.rightBarButton.target = self;
-    self.rightBarButton.action = @selector(backToMyPosition);
-    
     //    UIBarButtonItem *backButton =
     //    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
     //                                     style:UIBarButtonItemStylePlain
     //                                    target:nil
     //                                    action:nil];
     //    [self.navigationItem setBackBarButtonItem:backButton];
-}
-
-- (void)setSearchField {
-    // 1. set the text field
-    [self.searchTextField addTarget:self
-                             action:@selector(textFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
-    self.searchFieldBackground.layer.cornerRadius = 5;
-    self.searchFieldBackground.layer.masksToBounds = YES;
-    
-    // 2. set the table view
-    self.searchResultTableView.frame = CGRectMake(10.0f, DEVICE_HEIGHT, DEVICE_WIDTH - 20.0f, 200.0f);
-    self.searchResultTableView.layer.cornerRadius = 5;
-    self.searchResultTableView.layer.masksToBounds = YES;
-    
-    // 3. set delegate
-    self.searchResultTableView.delegate = self;
-    self.searchResultTableView.dataSource = self;
-    self.searchTextField.delegate = self;
-}
-
-- (GMSPlacesClient *)placesClient {
-    if (!_placesClient) {
-        _placesClient = [[GMSPlacesClient alloc] init];
-    }
-    
-    return _placesClient;
-}
-
-- (NSArray *)filterPlaces {
-    if (!_filterPlaces) {
-        _filterPlaces = [[NSArray alloc] init];
-    }
-    
-    return _filterPlaces;
 }
 
 - (void)dealloc {
