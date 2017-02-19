@@ -22,6 +22,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 
+#import "LibraryAPI.h"
 #import "SearchResultCell.h"
 #import "RequestValetPopup.h"
 
@@ -105,6 +106,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop_off_flag"]];
         imageView.frame = CGRectMake(self.mapView.frame.size.width / 2 - flagSize / 2, self.mapView.frame.size.height / 2 - flagSize, flagSize, flagSize);
         [self.mapView addSubview:imageView];
+        
+        // *** Draw the polygon ***
+        for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
+            polygon.map = self.mapView;
+        }
         
         // TODO check if the position is in the service area
 //        [self popUpRequestValet];

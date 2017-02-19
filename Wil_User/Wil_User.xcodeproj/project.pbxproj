@@ -26,6 +26,8 @@
 		623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E91E33633F009A63AC /* SideMenuCell.m */; };
 		62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */; };
 		62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */; };
+		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
+		62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7001E59F9C5001AC360 /* PolygonClient.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -88,6 +90,10 @@
 		62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultCell.m; path = Views/SearchResultCell.m; sourceTree = "<group>"; };
 		62F7D6F51E5954D5001AC360 /* RequestValetPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestValetPopup.h; path = Views/RequestValetPopup.h; sourceTree = "<group>"; };
 		62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestValetPopup.m; path = Views/RequestValetPopup.m; sourceTree = "<group>"; };
+		62F7D6F81E59A75B001AC360 /* LibraryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryAPI.h; path = API/LibraryAPI.h; sourceTree = "<group>"; };
+		62F7D6F91E59A75B001AC360 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryAPI.m; path = API/LibraryAPI.m; sourceTree = "<group>"; };
+		62F7D6FF1E59F9C5001AC360 /* PolygonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolygonClient.h; path = API/PolygonClient.h; sourceTree = "<group>"; };
+		62F7D7001E59F9C5001AC360 /* PolygonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PolygonClient.m; path = API/PolygonClient.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,8 +159,9 @@
 			children = (
 				6216691C1E31D65B007292A4 /* AppDelegate.h */,
 				6216691D1E31D65B007292A4 /* AppDelegate.m */,
-				62F7D6F11E543BCD001AC360 /* Views */,
+				62F7D6FB1E59A75F001AC360 /* API */,
 				6216695E1E324517007292A4 /* ViewControllers */,
+				62F7D6F11E543BCD001AC360 /* Views */,
 				621669221E31D65B007292A4 /* Main.storyboard */,
 				621669281E31D65B007292A4 /* Assets.xcassets */,
 				6216692A1E31D65B007292A4 /* LaunchScreen.storyboard */,
@@ -234,6 +241,17 @@
 				62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		62F7D6FB1E59A75F001AC360 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				62F7D6F81E59A75B001AC360 /* LibraryAPI.h */,
+				62F7D6F91E59A75B001AC360 /* LibraryAPI.m */,
+				62F7D6FF1E59F9C5001AC360 /* PolygonClient.h */,
+				62F7D7001E59F9C5001AC360 /* PolygonClient.m */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		64BE710344231A751917F0AA /* Pods */ = {
@@ -544,6 +562,7 @@
 			files = (
 				6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */,
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
+				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
 				62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,
@@ -551,6 +570,7 @@
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
 				62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */,
+				62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
 				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
