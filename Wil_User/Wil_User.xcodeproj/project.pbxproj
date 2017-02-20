@@ -28,6 +28,7 @@
 		62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */; };
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
 		62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7001E59F9C5001AC360 /* PolygonClient.m */; };
+		62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7031E5AD237001AC360 /* RequestValetButton.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -94,6 +95,8 @@
 		62F7D6F91E59A75B001AC360 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryAPI.m; path = API/LibraryAPI.m; sourceTree = "<group>"; };
 		62F7D6FF1E59F9C5001AC360 /* PolygonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolygonClient.h; path = API/PolygonClient.h; sourceTree = "<group>"; };
 		62F7D7001E59F9C5001AC360 /* PolygonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PolygonClient.m; path = API/PolygonClient.m; sourceTree = "<group>"; };
+		62F7D7021E5AD237001AC360 /* RequestValetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestValetButton.h; path = Views/RequestValetButton.h; sourceTree = "<group>"; };
+		62F7D7031E5AD237001AC360 /* RequestValetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestValetButton.m; path = Views/RequestValetButton.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +242,8 @@
 				62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */,
 				62F7D6F51E5954D5001AC360 /* RequestValetPopup.h */,
 				62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */,
+				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
+				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -570,6 +575,7 @@
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
 				62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */,
+				62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */,
 				62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,

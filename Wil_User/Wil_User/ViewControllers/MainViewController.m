@@ -25,18 +25,22 @@
 #import "LibraryAPI.h"
 #import "SearchResultCell.h"
 #import "RequestValetPopup.h"
+#import "RequestValetButton.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 @interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate>
 {
     BOOL _firstLocationUpdate;
+    BOOL _isInPolygon;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
 @property (strong, nonatomic) GMSPlacesClient *placesClient;
+@property (strong, nonnull) GMSGeocoder *geocoder;
 
 @property (strong, nonatomic) NSArray * filterPlaces;
+@property (strong, nonatomic) RequestValetButton *requestValetButton;
 @end
 
 @implementation MainViewController
@@ -48,11 +52,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     [self setNavigationBar];
     
-    [self setMap];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self setMap];
 }
 
 #pragma mark - Google Map
@@ -81,6 +91,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
     self.mapView.delegate = self;
+    _isInPolygon = NO;
+    
+    // add request service button
+    [self.mapView addSubview:self.requestValetButton];
     
     // enable my location button
     self.mapView.settings.myLocationButton = YES;
@@ -122,17 +136,63 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // check if the position is within polygons
     for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
         if (GMSGeometryContainsLocation(position.target, polygon.path, YES)) {
-            NSLog(@"YES: you are in %@.", polygon.title);
+            if (!_isInPolygon) {
+                // change to service area
+                NSLog(@"YES: you are in %@.", polygon.title);
+                
+                _isInPolygon = YES;
+                
+                // pop up request service button
+                [UIView animateWithDuration:0.1
+                                      delay:0
+                                    options:UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                                     self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height - self.requestValetButton.frame.size.height,
+                                                                                self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                                 }
+                                 completion:^(BOOL finished) {
+                                     
+                                 }];
+                
+                // TODO change the flag to valet
+                
+            }
             
             return;
         }
     }
     
-    NSLog(@"out of polygon");
+    if (_isInPolygon) {
+        // get out of service area
+        NSLog(@"get out of polygon");
+        
+        _isInPolygon = NO;
+        
+        // hide the request service button
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height,
+                                                                        self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
+        
+        // TODO change the flag to "go to service area"
+    }
+    
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
-    
+    if (_isInPolygon) {
+        // update the postion of target
+        [self.geocoder reverseGeocodeCoordinate:position.target
+                              completionHandler:^(GMSReverseGeocodeResponse * response, NSError * error) {
+                                  [self.requestValetButton setLocation:response.results[0].lines[0]];
+                              }];
+    }
 }
 
 - (void)popUpRequestValet {
@@ -159,7 +219,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewController:(GMSAutocompleteViewController *)viewController didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:16.5];
+    [self.mapView animateToLocation:place.coordinate];
+    [self.mapView animateToZoom:16.5];
+//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:16.5];
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
@@ -200,6 +262,22 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     //                                    target:nil
     //                                    action:nil];
     //    [self.navigationItem setBackBarButtonItem:backButton];
+}
+
+- (RequestValetButton *)requestValetButton {
+    if (!_requestValetButton) {
+        _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, 64.0f)];
+    }
+    
+    return _requestValetButton;
+}
+
+- (GMSGeocoder *)geocoder {
+    if (!_geocoder) {
+        _geocoder = [GMSGeocoder geocoder];
+    }
+    
+    return _geocoder;
 }
 
 - (void)dealloc {
