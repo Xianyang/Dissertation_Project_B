@@ -23,6 +23,7 @@
 #import <GooglePlaces/GooglePlaces.h>
 
 #import "LibraryAPI.h"
+#import "InstructionView.h"
 #import "SearchResultCell.h"
 #import "RequestValetPopup.h"
 #import "RequestValetButton.h"
@@ -50,9 +51,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     _firstLocationUpdate = NO;
     
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"is_first"]) {
+//        NSString *string = @"App_had_launched";
+//        [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"is_first"];
+    
+    InstructionView *instructionView = [[InstructionView alloc] initWithFrame:self.view.frame withPanelCount:3];
+    [instructionView showInView:self.navigationController.view];
+//    }
+    
     [self setNavigationBar];
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

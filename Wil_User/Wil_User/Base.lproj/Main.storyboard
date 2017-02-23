@@ -212,7 +212,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ContentViewController" automaticallyAdjustsScrollViewInsets="NO" id="3b8-w4-GSv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GwN-37-zFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GwN-37-zFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -338,23 +338,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CTr-7s-m7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="981.60000000000002" y="1888.6056971514245"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Yet-NG-CRF">
-            <objects>
-                <viewController id="st0-BG-z8o" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vpV-6K-0G5"/>
-                        <viewControllerLayoutGuide type="bottom" id="E91-iO-T4k"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="deM-92-cxT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g3G-Mh-yCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>
