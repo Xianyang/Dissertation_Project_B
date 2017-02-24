@@ -29,8 +29,9 @@
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
 		62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7001E59F9C5001AC360 /* PolygonClient.m */; };
 		62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7031E5AD237001AC360 /* RequestValetButton.m */; };
-		62F7D72A1E5EC112001AC360 /* InstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7291E5EC112001AC360 /* InstructionView.m */; };
 		62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */; };
+		62F7D7301E5F35B3001AC360 /* SetPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */; };
+		62F7D7331E5F360B001AC360 /* InstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7321E5F360B001AC360 /* InstructionViewController.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -99,10 +100,12 @@
 		62F7D7001E59F9C5001AC360 /* PolygonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PolygonClient.m; path = API/PolygonClient.m; sourceTree = "<group>"; };
 		62F7D7021E5AD237001AC360 /* RequestValetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestValetButton.h; path = Views/RequestValetButton.h; sourceTree = "<group>"; };
 		62F7D7031E5AD237001AC360 /* RequestValetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestValetButton.m; path = Views/RequestValetButton.m; sourceTree = "<group>"; };
-		62F7D7281E5EC112001AC360 /* InstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionView.h; sourceTree = "<group>"; };
-		62F7D7291E5EC112001AC360 /* InstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionView.m; sourceTree = "<group>"; };
 		62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstructionPage.h; path = Views/InstructionPage.h; sourceTree = "<group>"; };
 		62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionPage.m; path = Views/InstructionPage.m; sourceTree = "<group>"; };
+		62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetPhoneViewController.h; path = ViewControllers/SetPhoneViewController.h; sourceTree = "<group>"; };
+		62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetPhoneViewController.m; path = ViewControllers/SetPhoneViewController.m; sourceTree = "<group>"; };
+		62F7D7311E5F360B001AC360 /* InstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstructionViewController.h; path = ViewControllers/InstructionViewController.h; sourceTree = "<group>"; };
+		62F7D7321E5F360B001AC360 /* InstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionViewController.m; path = ViewControllers/InstructionViewController.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +218,7 @@
 				621669531E3242EC007292A4 /* RootViewController.m */,
 				621669551E324339007292A4 /* MenuViewController.h */,
 				621669561E324339007292A4 /* MenuViewController.m */,
+				62F7D7341E5F36D7001AC360 /* InstructionVC */,
 				623A67E71E3351AF009A63AC /* FunctionVC */,
 			);
 			name = ViewControllers;
@@ -250,8 +254,6 @@
 				62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */,
 				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
 				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
-				62F7D7281E5EC112001AC360 /* InstructionView.h */,
-				62F7D7291E5EC112001AC360 /* InstructionView.m */,
 				62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */,
 				62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */,
 			);
@@ -267,6 +269,17 @@
 				62F7D7001E59F9C5001AC360 /* PolygonClient.m */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		62F7D7341E5F36D7001AC360 /* InstructionVC */ = {
+			isa = PBXGroup;
+			children = (
+				62F7D7311E5F360B001AC360 /* InstructionViewController.h */,
+				62F7D7321E5F360B001AC360 /* InstructionViewController.m */,
+				62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */,
+				62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */,
+			);
+			name = InstructionVC;
 			sourceTree = "<group>";
 		};
 		64BE710344231A751917F0AA /* Pods */ = {
@@ -578,10 +591,10 @@
 				6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */,
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
-				62F7D72A1E5EC112001AC360 /* InstructionView.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
 				62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,
+				62F7D7331E5F360B001AC360 /* InstructionViewController.m in Sources */,
 				6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */,
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
@@ -591,6 +604,7 @@
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
 				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
+				62F7D7301E5F35B3001AC360 /* SetPhoneViewController.m in Sources */,
 				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 				62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */,
 				623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */,

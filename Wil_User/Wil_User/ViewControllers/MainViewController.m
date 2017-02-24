@@ -22,8 +22,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 
+#import "InstructionViewController.h"
 #import "LibraryAPI.h"
-#import "InstructionView.h"
 #import "SearchResultCell.h"
 #import "RequestValetPopup.h"
 #import "RequestValetButton.h"
@@ -55,8 +55,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 //        NSString *string = @"App_had_launched";
 //        [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"is_first"];
     
-    InstructionView *instructionView = [[InstructionView alloc] initWithFrame:self.view.frame withPanelCount:3];
-    [instructionView showInView:self.navigationController.view];
+    UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
+//    InstructionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionViewController"];
+    [self presentViewController:navVC animated:NO completion:nil];
 //    }
     
     [self setNavigationBar];
