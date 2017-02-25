@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AVOSCloud.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AVOSCloudCrashReporting.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AVOSCloudIM.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>INTULocationManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,7 +67,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>155FD63FB2136A563B0A9FC91988ECB5</key>
+		<key>28AFBC0E511B8F40FE4F8AB64E3F6F22</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>595EA7A914BC29CB1E7D2C4DFBF97A2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>65A4700DDB0DD4176C44B5A707429325</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>794F74FA653FA6BC861C6C55A6C0AFC4</key>
+		<key>82CA472C54474A3DCD2B0B62A702AB79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -88,6 +108,16 @@
 			<true/>
 		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B56D0DF3D39375A04D69F866328E13D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B952A5217EA83678754BC044D9DFAD7E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

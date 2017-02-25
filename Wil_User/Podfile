@@ -17,6 +17,10 @@ target 'Wil_User' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
 
+  pod 'AVOSCloud'              
+  pod 'AVOSCloudIM'            
+  pod 'AVOSCloudCrashReporting'
+
   target 'Wil_UserTests' do
     inherit! :search_paths
     # Pods for testing

@@ -15,4 +15,10 @@
 #define DEVICE_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define DEVICE_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
+#import "LibraryAPI.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "MBProgressHUD+WilShowError.h"
+#import "UIButton+Status.h"
+#import <AVOSCloud/AVOSCloud.h>
+
 #endif /* PrefixHeader_pch */

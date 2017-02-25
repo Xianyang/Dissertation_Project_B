@@ -14,6 +14,25 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AVOSCloud (4.0.1)
+  - AVOSCloudCrashReporting (4.0.1):
+    - AVOSCloud (= 4.0.1)
+    - AVOSCloudCrashReporting/_ARC (= 4.0.1)
+    - AVOSCloudCrashReporting/_NOARC (= 4.0.1)
+  - AVOSCloudCrashReporting/_ARC (4.0.1):
+    - AVOSCloud (= 4.0.1)
+    - AVOSCloudCrashReporting/_NOARC (= 4.0.1)
+  - AVOSCloudCrashReporting/_NOARC (4.0.1):
+    - AVOSCloud (= 4.0.1)
+  - AVOSCloudIM (4.0.1):
+    - AVOSCloud (= 4.0.1)
+    - AVOSCloudIM/_ARC (= 4.0.1)
+    - AVOSCloudIM/_NOARC (= 4.0.1)
+  - AVOSCloudIM/_ARC (4.0.1):
+    - AVOSCloud (= 4.0.1)
+    - AVOSCloudIM/_NOARC (= 4.0.1)
+  - AVOSCloudIM/_NOARC (4.0.1):
+    - AVOSCloud (= 4.0.1)
   - GoogleMaps (2.1.1):
     - GoogleMaps/Maps (= 2.1.1)
   - GoogleMaps/Base (2.1.1)
@@ -34,6 +53,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - AVOSCloud
+  - AVOSCloudCrashReporting
+  - AVOSCloudIM
   - GoogleMaps
   - GooglePlaces
   - INTULocationManager (~> 4.2.0)
@@ -45,6 +67,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AVOSCloud: 521d3639c2619126ec073f617bb5992472b5b2d3
+  AVOSCloudCrashReporting: f828e57e6900bc7d08bee74e85455b1080b61ea0
+  AVOSCloudIM: 46daef41d5258297cffcca23cfde6a9453a538fa
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
@@ -54,6 +79,6 @@ SPEC CHECKSUMS:
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
 
-PODFILE CHECKSUM: b86b5ddddde80181a722f8cb4e189e0c5ea78318
+PODFILE CHECKSUM: fe011d5c80c05f2e6228f044b413a06cd75863c2
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 @import GoogleMaps;
 @import GooglePlaces;
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface AppDelegate ()
 
@@ -21,6 +22,8 @@
     
     [GMSServices provideAPIKey:@"AIzaSyBGDLcY7VysgsEzK0QZnx7DOFBbJhkKsIo"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyBGDLcY7VysgsEzK0QZnx7DOFBbJhkKsIo"];
+    
+    [AVOSCloud setApplicationId:@"LofD16jEuaeoAu0e7fBn7Ug5-gzGzoHsz" clientKey:@"78OBNxyLGXz4iMr2sUcqdhXD"];
     
     return YES;
 }
