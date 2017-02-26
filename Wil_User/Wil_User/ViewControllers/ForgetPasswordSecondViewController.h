@@ -16,6 +16,8 @@
 
 @interface ForgetPasswordSecondViewController : UIViewController
 
+- (void)setPhoneNumber:(NSString *)phone;
+
 @property (assign, nonatomic) id <ForgetPasswordSecondVCDelegate> delegate;
 
 @end

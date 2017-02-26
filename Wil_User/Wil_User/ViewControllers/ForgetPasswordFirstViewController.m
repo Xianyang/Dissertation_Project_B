@@ -7,8 +7,9 @@
 //
 
 #import "ForgetPasswordFirstViewController.h"
+#import "ForgetPasswordSecondViewController.h"
 
-@interface ForgetPasswordFirstViewController () <UITextFieldDelegate>
+@interface ForgetPasswordFirstViewController () <UITextFieldDelegate, ForgetPasswordSecondVCDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
 
@@ -26,7 +27,27 @@
 }
 
 - (void)sendCodeBtnClicked {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self.sendCodeBtn setDisableStatus];
     
+    [AVUser requestPasswordResetWithPhoneNumber:[[[LibraryAPI sharedInstance] phonePrefix] stringByAppendingString:self.phoneNumberTextField.text]
+                                          block:^(BOOL succeeded, NSError * _Nullable error) {
+                                              if (succeeded || error.code == 601) {
+                                                  NSLog(@"sms text sent successfully");
+                                                  
+                                                  ForgetPasswordSecondViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ForgetPasswordSecondViewController"];
+                                                  [vc setPhoneNumber:self.phoneNumberTextField.text];
+                                                  vc.delegate = self;
+                                                  [self.navigationController pushViewController:vc animated:YES];
+                                              } else {
+                                                  [self.sendCodeBtn setEnableStatus];
+                                                  [hud showErrorMessage:error process:@"resetting password"];
+                                              }
+                                          }];
+}
+
+- (void)doneProcessInForgetPasswordSecondVC {
+    [self.delegate doneProcessInForgetPasswordFirstVC];
 }
 
 # pragma mark - Basic Settings

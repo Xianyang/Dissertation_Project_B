@@ -16,7 +16,7 @@
 
 @interface InputCodeViewController : UIViewController
 
-- (void)setPhoneNumber:(NSString *)phone;
+- (void)setPhoneNumber:(NSString *)phone password:(NSString *)password;
 
 @property (assign, nonatomic) id <InputCodeVCDelegate> delegate;
 

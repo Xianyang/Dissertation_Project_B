@@ -69,4 +69,12 @@
     return 30;
 }
 
+- (NSInteger)minLengthForPassword {
+    return 6;
+}
+
+- (NSString *)phonePrefix {
+    return @"";
+}
+
 @end

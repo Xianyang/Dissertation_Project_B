@@ -27,7 +27,6 @@
 		625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97501E62D09000F2C6F5 /* SignInViewController.m */; };
 		625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */; };
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
-		625B975D1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B975C1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.m */; };
 		62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */; };
 		62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */; };
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
@@ -103,8 +102,6 @@
 		625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgetPasswordFirstViewController.m; path = ViewControllers/ForgetPasswordFirstViewController.m; sourceTree = "<group>"; };
 		625B97581E62D67900F2C6F5 /* ForgetPasswordSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgetPasswordSecondViewController.h; path = ViewControllers/ForgetPasswordSecondViewController.h; sourceTree = "<group>"; };
 		625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgetPasswordSecondViewController.m; path = ViewControllers/ForgetPasswordSecondViewController.m; sourceTree = "<group>"; };
-		625B975B1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgetPasswordThirdViewController.h; path = ViewControllers/ForgetPasswordThirdViewController.h; sourceTree = "<group>"; };
-		625B975C1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgetPasswordThirdViewController.m; path = ViewControllers/ForgetPasswordThirdViewController.m; sourceTree = "<group>"; };
 		62F7D6ED1E54063E001AC360 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultCell.h; path = Views/SearchResultCell.h; sourceTree = "<group>"; };
 		62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultCell.m; path = Views/SearchResultCell.m; sourceTree = "<group>"; };
@@ -267,6 +264,32 @@
 			name = FunctionVC;
 			sourceTree = "<group>";
 		};
+		625B975E1E633D0C00F2C6F5 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */,
+				62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */,
+				62F7D7381E615FFC001AC360 /* InputCodeViewController.h */,
+				62F7D7391E615FFC001AC360 /* InputCodeViewController.m */,
+				62F7D73E1E6174BE001AC360 /* InputUserInfoViewController.h */,
+				62F7D73F1E6174BE001AC360 /* InputUserInfoViewController.m */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
+		625B975F1E633D1800F2C6F5 /* SignIn&ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				625B974F1E62D09000F2C6F5 /* SignInViewController.h */,
+				625B97501E62D09000F2C6F5 /* SignInViewController.m */,
+				625B97521E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.h */,
+				625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */,
+				625B97581E62D67900F2C6F5 /* ForgetPasswordSecondViewController.h */,
+				625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */,
+			);
+			name = "SignIn&ResetPassword";
+			sourceTree = "<group>";
+		};
 		62F7D6F11E543BCD001AC360 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,20 +327,8 @@
 			children = (
 				62F7D7311E5F360B001AC360 /* InstructionViewController.h */,
 				62F7D7321E5F360B001AC360 /* InstructionViewController.m */,
-				62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */,
-				62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */,
-				62F7D7381E615FFC001AC360 /* InputCodeViewController.h */,
-				62F7D7391E615FFC001AC360 /* InputCodeViewController.m */,
-				62F7D73E1E6174BE001AC360 /* InputUserInfoViewController.h */,
-				62F7D73F1E6174BE001AC360 /* InputUserInfoViewController.m */,
-				625B974F1E62D09000F2C6F5 /* SignInViewController.h */,
-				625B97501E62D09000F2C6F5 /* SignInViewController.m */,
-				625B97521E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.h */,
-				625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */,
-				625B97581E62D67900F2C6F5 /* ForgetPasswordSecondViewController.h */,
-				625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */,
-				625B975B1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.h */,
-				625B975C1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.m */,
+				625B975E1E633D0C00F2C6F5 /* SignUp */,
+				625B975F1E633D1800F2C6F5 /* SignIn&ResetPassword */,
 			);
 			name = InstructionVC;
 			sourceTree = "<group>";
@@ -646,7 +657,6 @@
 				625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */,
-				625B975D1E62D68400F2C6F5 /* ForgetPasswordThirdViewController.m in Sources */,
 				621669571E324339007292A4 /* MenuViewController.m in Sources */,
 				623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */,
 				62F7D73A1E615FFC001AC360 /* InputCodeViewController.m in Sources */,

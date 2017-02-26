@@ -16,6 +16,8 @@
 
 @interface InputUserInfoViewController : UIViewController
 
+- (void)setPhoneNumber:(NSString *)phone password:(NSString *)password;
+
 @property (assign, nonatomic) id <InputUserInfoVCDelegate> delegate;
 
 @end

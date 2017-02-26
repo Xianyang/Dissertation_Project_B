@@ -9,6 +9,11 @@
 #import "ProfileViewController.h"
 
 @interface ProfileViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mobilePhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UIButton *logOutBtn;
 
 @end
 
@@ -18,6 +23,22 @@
     [super viewDidLoad];
     
     [self setNavigationBar];
+    [self setUserInfo];
+    
+    [self.logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setUserInfo {
+    AVUser *user = [AVUser currentUser];
+    
+    self.mobilePhoneLabel.text = user.mobilePhoneNumber;
+    self.firstNameLabel.text = [user objectForKey:@"first_name"];
+    self.lastNameLabel.text = [user objectForKey:@"last_name"];
+    self.emailLabel.text = user.email;
+}
+
+- (void)logOutBtnClicked {
+    [AVUser logOut];
 }
 
 - (void)setNavigationBar {

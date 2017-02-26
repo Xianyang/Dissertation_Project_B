@@ -9,6 +9,8 @@
 #import "InputUserInfoViewController.h"
 
 @interface InputUserInfoViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) NSString *phone;
+@property (strong, nonatomic) NSString *password;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subInfoLabel;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
@@ -24,6 +26,11 @@
     [super viewDidLoad];
     
     [self basicSettings];
+}
+
+- (void)setPhoneNumber:(NSString *)phone password:(NSString *)password{
+    self.phone = phone;
+    self.password = password;
 }
 
 - (IBAction)cancel:(id)sender {
@@ -43,9 +50,9 @@
     [self.submitBtn setDisableStatus];
     [[AVUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            [hud hideAnimated:YES];
             NSLog(@"save user's info sucessfully");
             
+            [hud hideAnimated:YES];
             [self.firstNameTextField resignFirstResponder];
             [self.lastNameTextField resignFirstResponder];
             [self.emailTextField resignFirstResponder];

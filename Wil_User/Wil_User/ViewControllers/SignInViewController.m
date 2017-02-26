@@ -43,7 +43,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.signInBtn setDisableStatus];
     
-    [AVUser logInWithMobilePhoneNumberInBackground:self.phoneNumberTextField.text
+    [AVUser logInWithMobilePhoneNumberInBackground:[[[LibraryAPI sharedInstance] phonePrefix] stringByAppendingString:self.phoneNumberTextField.text]
                                           password:self.passwordTextField.text
                                              block:^(AVUser * _Nullable user, NSError * _Nullable error) {
                                                  if (user && !error) {
@@ -63,22 +63,27 @@
 
 // set the length limit of textfield to MAXLENGTH
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSInteger maxLength = 0;
+    
     if ([textField isEqual:self.phoneNumberTextField]) {
-        NSUInteger oldLength = [textField.text length];
-        NSUInteger replacementLength = [string length];
-        NSUInteger rangeLength = range.length;
-        
-        NSUInteger newLength = oldLength - rangeLength + replacementLength;
-        
-        BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-        return newLength <= [[LibraryAPI sharedInstance] maxLengthForPhoneNumber] || returnKey;
-    } else {
-        return YES;
+        maxLength = [[LibraryAPI sharedInstance] maxLengthForPhoneNumber];
+    } else if ([textField isEqual:self.passwordTextField]) {
+        maxLength = [[LibraryAPI sharedInstance] maxLengthForPassword];
     }
+    
+    NSUInteger oldLength = [textField.text length];
+    NSUInteger replacementLength = [string length];
+    NSUInteger rangeLength = range.length;
+    
+    NSUInteger newLength = oldLength - rangeLength + replacementLength;
+    
+    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+    return newLength <= maxLength || returnKey;
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    if (self.phoneNumberTextField.text.length < 8 || self.passwordTextField.text.length == 0) {
+    if (self.phoneNumberTextField.text.length < [[LibraryAPI sharedInstance] minLengthForPhoneNumber] ||
+        self.passwordTextField.text.length < [[LibraryAPI sharedInstance] minLengthForPassword]) {
         [self.signInBtn setDisableStatus];
     } else {
         [self.signInBtn setEnableStatus];
@@ -87,9 +92,10 @@
 
 - (void)basicSettings {
     [self.phoneNumberTextField becomeFirstResponder];
-    [self.phoneNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.phoneNumberTextField setDelegate:self];
+    [self.phoneNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
+    [self.passwordTextField setDelegate:self];
     [self.passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     [self.signInBtn addTarget:self

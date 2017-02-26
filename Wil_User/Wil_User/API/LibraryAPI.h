@@ -22,5 +22,7 @@
 - (NSInteger)minLengthForPhoneNumber;
 - (NSInteger)maxLengthForVerificationCode;
 - (NSInteger)maxLengthForPassword;
+- (NSInteger)minLengthForPassword;
+- (NSString *)phonePrefix;
 
 @end

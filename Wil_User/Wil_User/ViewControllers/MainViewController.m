@@ -34,6 +34,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 {
     BOOL _firstLocationUpdate;
     BOOL _isInPolygon;
+    
+    BOOL _isAddObserverForMyLocation;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -50,16 +52,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [super viewDidLoad];
     
     _firstLocationUpdate = NO;
+    _isAddObserverForMyLocation = NO;
     
-//    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"is_first"]) {
-//        NSString *string = @"App_had_launched";
-//        [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"is_first"];
+    if (![AVUser currentUser]) {
     
-    UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
-    InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
-    vc.delegate = self;
-    [self presentViewController:navVC animated:NO completion:nil];
-//    }
+        UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
+        InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
+        vc.delegate = self;
+        [self presentViewController:navVC animated:NO completion:nil];
+    }
     
     [self setNavigationBar];
 }
@@ -73,6 +74,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     [self setMap];
 }
+
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    
+//    [self.mapView removeObserver:self
+//                      forKeyPath:@"myLocation"
+//                         context:NULL];
+//}
 
 #pragma mark - InstructionVCDelegate
 
@@ -100,11 +109,18 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     marker.map = self.mapView;
      */
     
+    self.geocoder = [GMSGeocoder geocoder];
+    
     // Listen to the myLocation property of GMSMapView.
-    [self.mapView addObserver:self
-                   forKeyPath:@"myLocation"
-                      options:NSKeyValueObservingOptionNew
-                      context:NULL];
+    if (!_isAddObserverForMyLocation) {
+        [self.mapView addObserver:self
+                       forKeyPath:@"myLocation"
+                          options:NSKeyValueObservingOptionNew
+                          context:NULL];
+        
+        _isAddObserverForMyLocation = YES;
+    }
+    
     self.mapView.delegate = self;
     _isInPolygon = NO;
     
@@ -287,13 +303,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     return _requestValetButton;
 }
 
-- (GMSGeocoder *)geocoder {
-    if (!_geocoder) {
-        _geocoder = [GMSGeocoder geocoder];
-    }
-    
-    return _geocoder;
-}
+//- (GMSGeocoder *)geocoder {
+//    if (!_geocoder) {
+//        _geocoder = [GMSGeocoder geocoder];
+//    }
+//    
+//    return _geocoder;
+//}
 
 - (void)dealloc {
     [self.mapView removeObserver:self

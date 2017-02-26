@@ -12,6 +12,7 @@
 
 @interface InputCodeViewController () <UITextFieldDelegate, InputUserInfoVCDelegate>
 @property (strong, nonatomic) NSString *phone;
+@property (strong, nonatomic) NSString *password;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subInfoLabel;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
@@ -34,8 +35,9 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)setPhoneNumber:(NSString *)phone {
+- (void)setPhoneNumber:(NSString *)phone password:(NSString *)password{
     self.phone = phone;
+    self.password = password;
 }
 
 - (void)submitCodeBtnClicked {
@@ -51,6 +53,7 @@
                             // push to next vc
                             InputUserInfoViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"InputUserInfoViewController"];
                             vc.delegate = self;
+                            [vc setPhoneNumber:self.phone password:self.password];
                             [self.navigationController pushViewController:vc animated:YES];
                         } else {
                             [self.submitCodeBtn setEnableStatus];
@@ -89,8 +92,8 @@
 
 - (void)basicSettings {
     [self.codeTextField becomeFirstResponder];
-    [self.codeTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.codeTextField setDelegate:self];
+    [self.codeTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     [self.submitCodeBtn.layer setMasksToBounds:YES];
     [self.submitCodeBtn.layer setCornerRadius:self.codeTextField.frame.size.height / 2];
