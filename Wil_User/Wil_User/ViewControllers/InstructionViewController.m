@@ -11,9 +11,11 @@
 
 #import "InstructionViewController.h"
 #import "InstructionPage.h"
+#import "SignInViewController.h"
 #import "SetPhoneViewController.h"
 
-@interface InstructionViewController () <UIScrollViewDelegate>
+
+@interface InstructionViewController () <UIScrollViewDelegate, SetPhoneVCDelegate, SignInVCDelegate>
 {
     NSInteger _pageCount;
 }
@@ -31,53 +33,33 @@
     [super viewDidLoad];
     
     _pageCount = 3;
-    [self setBasicView];
     [self buildScrollViewWithFrame];
     [self buildPageArray];
     [self buildPageControl];
-    
-}
-
-- (void)setBasicView {
-    // 1. add background image
-//    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-//    bgImageView.image = [UIImage imageNamed:@"Instruction_Bg"];
-//    [self.view addSubview:bgImageView];
-    
-    // 2. add title
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 26.0f)];
-//    title.text = @"WIL";
-//    title.textColor = [UIColor whiteColor];
-//    title.textAlignment = NSTextAlignmentCenter;
-//    title.font = [UIFont systemFontOfSize:20.0f];
-//    [self.view addSubview:title];
-    
-    // 3. add sign in button
-//    UIButton *signInBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 71.0f, 33, 50, 16)];
-//    [signInBtn setTitle:@"Sign In" forState:UIControlStateNormal];
-//    [signInBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
-//    [signInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [signInBtn addTarget:self action:@selector(signInBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:signInBtn];
-    
-    // 4. add sign up button
-//    UIButton *signUpBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 60.0f, self.view.frame.size.width, 17.0f)];
-//    [signUpBtn setTitle:@"Continue with Phone" forState:UIControlStateNormal];
-//    [signUpBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
-//    [signUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [signUpBtn addTarget:self action:@selector(signUpBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:signUpBtn];
 }
 
 - (IBAction)signInBtnClicked:(id)sender {
     NSLog(@"user signs in");
+    
+    SignInViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInViewController"];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)signUpBtnClicked:(id)sender {
     NSLog(@"user wants to sign up");
     
     SetPhoneViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SetPhoneViewController"];
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)doneProcessInSignInVC {
+    [self.delegate doneProcessInInstructionVC];
+}
+
+- (void)doneProcessInSetPhoneVC {
+    [self.delegate doneProcessInInstructionVC];
 }
 
 - (void)buildScrollViewWithFrame

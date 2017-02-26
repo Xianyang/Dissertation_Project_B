@@ -6,12 +6,11 @@
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
-#define MAXLENGTH 6
-
 #import "InputCodeViewController.h"
+#import "InputUserInfoViewController.h"
 #import "UIButton+Status.h"
 
-@interface InputCodeViewController () <UITextFieldDelegate>
+@interface InputCodeViewController () <UITextFieldDelegate, InputUserInfoVCDelegate>
 @property (strong, nonatomic) NSString *phone;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subInfoLabel;
@@ -50,12 +49,18 @@
                             NSLog(@"sms code verify successfully");
                             
                             // push to next vc
-                            
+                            InputUserInfoViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"InputUserInfoViewController"];
+                            vc.delegate = self;
+                            [self.navigationController pushViewController:vc animated:YES];
                         } else {
                             [self.submitCodeBtn setEnableStatus];
                             [hud showErrorMessage:error process:@"verifying verification code"];
                         }
                     }];
+}
+
+- (void)doneProcessInInputUserInfoVC {
+    [self.delegate doneProcessInInputCodeVC];
 }
 
 # pragma mark - Basic Settings 
@@ -71,7 +76,7 @@
     
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
     
-    return newLength <= MAXLENGTH || returnKey;
+    return newLength <= [[LibraryAPI sharedInstance] maxLengthForVerificationCode] || returnKey;
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
@@ -86,6 +91,7 @@
     [self.codeTextField becomeFirstResponder];
     [self.codeTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.codeTextField setDelegate:self];
+    
     [self.submitCodeBtn.layer setMasksToBounds:YES];
     [self.submitCodeBtn.layer setCornerRadius:self.codeTextField.frame.size.height / 2];
     [self.submitCodeBtn addTarget:self action:@selector(submitCodeBtnClicked) forControlEvents:UIControlEventTouchUpInside];

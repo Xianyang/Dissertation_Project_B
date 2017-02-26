@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InputUserInfoVCDelegate
+
+- (void)doneProcessInInputUserInfoVC;
+
+@end
+
 @interface InputUserInfoViewController : UIViewController
+
+@property (assign, nonatomic) id <InputUserInfoVCDelegate> delegate;
 
 @end

@@ -53,4 +53,20 @@
     return [self.polygonClient polygonForKowloon];
 }
 
+- (NSInteger)maxLengthForPhoneNumber {
+    return 11;
+}
+
+- (NSInteger)minLengthForPhoneNumber {
+    return 8;
+}
+
+- (NSInteger)maxLengthForVerificationCode {
+    return 6;
+}
+
+- (NSInteger)maxLengthForPassword {
+    return 30;
+}
+
 @end

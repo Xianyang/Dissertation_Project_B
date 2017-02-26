@@ -6,17 +6,16 @@
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
-#define MAXLENGTH 11
-
 #import "SetPhoneViewController.h"
 #import "InputCodeViewController.h"
 
 static NSString const *phonePrefix = @"+86";
 
-@interface SetPhoneViewController () <UITextFieldDelegate>
+@interface SetPhoneViewController () <UITextFieldDelegate, InputCodeVCDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subInfoLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
 
 @end
@@ -43,7 +42,7 @@ static NSString const *phonePrefix = @"+86";
     user.username = [@"Wil_Default_Name_" stringByAppendingString:phone];
 //    user.mobilePhoneNumber = [phonePrefix stringByAppendingString:phone];
     user.mobilePhoneNumber = phone;
-    user.password = @"Wil_Default_Password";
+    user.password = self.passwordTextField.text;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.sendCodeBtn setDisableStatus];
@@ -58,6 +57,7 @@ static NSString const *phonePrefix = @"+86";
                     // go to next vc
                     InputCodeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InputCodeViewController"];
                     [vc setPhoneNumber:phone];
+                    vc.delegate = self;
                     [self.navigationController pushViewController:vc animated:YES];
                     
                     [hud hideAnimated:YES];
@@ -76,6 +76,10 @@ static NSString const *phonePrefix = @"+86";
     }];
 }
 
+- (void)doneProcessInInputCodeVC {
+    [self.delegate doneProcessInSetPhoneVC];
+}
+
 # pragma mark - Basic Settings
 
 // set the length limit of textfield to MAXLENGTH
@@ -88,11 +92,11 @@ static NSString const *phonePrefix = @"+86";
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    return newLength <= MAXLENGTH || returnKey;
+    return newLength <= [[LibraryAPI sharedInstance] maxLengthForPhoneNumber] || returnKey;
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    if (self.phoneNumberTextField.text.length < 8) {
+    if (self.phoneNumberTextField.text.length < [[LibraryAPI sharedInstance] minLengthForPhoneNumber] || self.passwordTextField.text.length == 0) {
         [self.sendCodeBtn setDisableStatus];
     } else {
         [self.sendCodeBtn setEnableStatus];
@@ -101,7 +105,11 @@ static NSString const *phonePrefix = @"+86";
 
 - (void)basicSettings {
     [self.phoneNumberTextField becomeFirstResponder];
+    [self.phoneNumberTextField setDelegate:self];
     [self.phoneNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     [self.sendCodeBtn addTarget:self action:@selector(sendCodeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.sendCodeBtn setDisableStatus];
     [self.sendCodeBtn.layer setMasksToBounds:YES];

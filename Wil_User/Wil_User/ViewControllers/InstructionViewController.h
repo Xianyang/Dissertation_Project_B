@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InstructionVCDelegate
+
+- (void)doneProcessInInstructionVC;
+
+@end
+
 @interface InstructionViewController : UIViewController
+
+@property (assign, nonatomic) id <InstructionVCDelegate> delegate;
 
 @end

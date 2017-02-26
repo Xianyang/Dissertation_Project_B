@@ -18,4 +18,9 @@
 - (GMSPolygon *)polygonForHKIsland;
 - (GMSPolygon *)polygonForKowloon;
 
+- (NSInteger)maxLengthForPhoneNumber;
+- (NSInteger)minLengthForPhoneNumber;
+- (NSInteger)maxLengthForVerificationCode;
+- (NSInteger)maxLengthForPassword;
+
 @end

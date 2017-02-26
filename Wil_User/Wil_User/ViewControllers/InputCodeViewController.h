@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InputCodeVCDelegate
+
+- (void)doneProcessInInputCodeVC;
+
+@end
+
 @interface InputCodeViewController : UIViewController
 
 - (void)setPhoneNumber:(NSString *)phone;
+
+@property (assign, nonatomic) id <InputCodeVCDelegate> delegate;
 
 @end

@@ -30,7 +30,7 @@
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate>
+@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate>
 {
     BOOL _firstLocationUpdate;
     BOOL _isInPolygon;
@@ -56,7 +56,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 //        [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"is_first"];
     
     UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
-//    InstructionViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionViewController"];
+    InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
+    vc.delegate = self;
     [self presentViewController:navVC animated:NO completion:nil];
 //    }
     
@@ -71,6 +72,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [super viewDidAppear:animated];
     
     [self setMap];
+}
+
+#pragma mark - InstructionVCDelegate
+
+- (void)doneProcessInInstructionVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Google Map
