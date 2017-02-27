@@ -12,10 +12,11 @@
 #import "InstructionViewController.h"
 #import "InstructionPage.h"
 #import "SignInViewController.h"
-#import "SetPhoneViewController.h"
+//#import "SetPhoneViewController.h"
+#import "SignUpViewController.h"
 
 
-@interface InstructionViewController () <UIScrollViewDelegate, SetPhoneVCDelegate, SignInVCDelegate>
+@interface InstructionViewController () <UIScrollViewDelegate, SignUpVCDelegate, SignInVCDelegate>
 {
     NSInteger _pageCount;
 }
@@ -41,6 +42,8 @@
 - (IBAction)signInBtnClicked:(id)sender {
     NSLog(@"user signs in");
     
+    
+    
     SignInViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInViewController"];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
@@ -49,7 +52,7 @@
 - (IBAction)signUpBtnClicked:(id)sender {
     NSLog(@"user wants to sign up");
     
-    SetPhoneViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SetPhoneViewController"];
+    SignUpViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -58,7 +61,7 @@
     [self.delegate doneProcessInInstructionVC];
 }
 
-- (void)doneProcessInSetPhoneVC {
+- (void)doneProcessInSignUpVC {
     [self.delegate doneProcessInInstructionVC];
 }
 

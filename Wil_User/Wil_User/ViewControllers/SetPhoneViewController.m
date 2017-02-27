@@ -29,6 +29,13 @@
 - (IBAction)cancel:(id)sender {
     // TODO delete this user
     
+    AVUser *user = [AVUser currentUser];
+    if (user) {
+        [user deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            NSLog(@"*************");
+        }];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -70,7 +77,7 @@
                                                                      // ********** Step 4 - Go to next vc **********
                                                                      
                                                                      InputCodeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InputCodeViewController"];
-                                                                     [vc setPhoneNumber:phone password:self.passwordTextField.text];
+//                                                                     [vc setPhoneNumber:phone password:self.passwordTextField.text];
                                                                      vc.delegate = self;
                                                                      [self.navigationController pushViewController:vc animated:YES];
                                                                      

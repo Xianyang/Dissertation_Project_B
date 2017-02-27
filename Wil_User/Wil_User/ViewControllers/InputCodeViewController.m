@@ -7,12 +7,10 @@
 //
 
 #import "InputCodeViewController.h"
-#import "InputUserInfoViewController.h"
 #import "UIButton+Status.h"
 
-@interface InputCodeViewController () <UITextFieldDelegate, InputUserInfoVCDelegate>
+@interface InputCodeViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) NSString *phone;
-@property (strong, nonatomic) NSString *password;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subInfoLabel;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
@@ -29,15 +27,13 @@
     [self basicSettings];
 }
 
-- (IBAction)cancel:(id)sender {
-    // TODO delete this user
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
+- (IBAction)skip:(id)sender {
+    [self.codeTextField resignFirstResponder];
+    [self.delegate doneProcessInInputCodeVC];
 }
 
-- (void)setPhoneNumber:(NSString *)phone password:(NSString *)password{
+- (void)setPhoneNumber:(NSString *)phone {
     self.phone = phone;
-    self.password = password;
 }
 
 - (void)submitCodeBtnClicked {
@@ -50,20 +46,14 @@
                             [hud hideAnimated:YES];
                             NSLog(@"sms code verify successfully");
                             
-                            // push to next vc
-                            InputUserInfoViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"InputUserInfoViewController"];
-                            vc.delegate = self;
-                            [vc setPhoneNumber:self.phone password:self.password];
-                            [self.navigationController pushViewController:vc animated:YES];
+                            // Go to main view
+                            [self.codeTextField resignFirstResponder];
+                            [self.delegate doneProcessInInputCodeVC];
                         } else {
                             [self.submitCodeBtn setEnableStatus];
                             [hud showErrorMessage:error process:@"verifying verification code"];
                         }
                     }];
-}
-
-- (void)doneProcessInInputUserInfoVC {
-    [self.delegate doneProcessInInputCodeVC];
 }
 
 # pragma mark - Basic Settings 

@@ -27,18 +27,17 @@
 		625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97501E62D09000F2C6F5 /* SignInViewController.m */; };
 		625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */; };
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
+		625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */; };
 		62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */; };
 		62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */; };
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
 		62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7001E59F9C5001AC360 /* PolygonClient.m */; };
 		62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7031E5AD237001AC360 /* RequestValetButton.m */; };
 		62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */; };
-		62F7D7301E5F35B3001AC360 /* SetPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */; };
 		62F7D7331E5F360B001AC360 /* InstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7321E5F360B001AC360 /* InstructionViewController.m */; };
 		62F7D7371E6143D6001AC360 /* UIButton+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7361E6143D6001AC360 /* UIButton+Status.m */; };
 		62F7D73A1E615FFC001AC360 /* InputCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7391E615FFC001AC360 /* InputCodeViewController.m */; };
 		62F7D73D1E616FC3001AC360 /* MBProgressHUD+WilShowError.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D73C1E616FC3001AC360 /* MBProgressHUD+WilShowError.m */; };
-		62F7D7401E6174BE001AC360 /* InputUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D73F1E6174BE001AC360 /* InputUserInfoViewController.m */; };
 		83B3FCD8104F3710A39B8B90 /* libPods-Wil_UserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */; };
 		914453816A0CACCFDF826476 /* libPods-Wil_UserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE309B786297B7427D506C2B /* libPods-Wil_UserTests.a */; };
 		D12E518C32991DD37990C45B /* libPods-Wil_User.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */; };
@@ -102,6 +101,8 @@
 		625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgetPasswordFirstViewController.m; path = ViewControllers/ForgetPasswordFirstViewController.m; sourceTree = "<group>"; };
 		625B97581E62D67900F2C6F5 /* ForgetPasswordSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgetPasswordSecondViewController.h; path = ViewControllers/ForgetPasswordSecondViewController.h; sourceTree = "<group>"; };
 		625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgetPasswordSecondViewController.m; path = ViewControllers/ForgetPasswordSecondViewController.m; sourceTree = "<group>"; };
+		625B97601E63E8FF00F2C6F5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = ViewControllers/SignUpViewController.h; sourceTree = "<group>"; };
+		625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = ViewControllers/SignUpViewController.m; sourceTree = "<group>"; };
 		62F7D6ED1E54063E001AC360 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultCell.h; path = Views/SearchResultCell.h; sourceTree = "<group>"; };
 		62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultCell.m; path = Views/SearchResultCell.m; sourceTree = "<group>"; };
@@ -115,8 +116,6 @@
 		62F7D7031E5AD237001AC360 /* RequestValetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestValetButton.m; path = Views/RequestValetButton.m; sourceTree = "<group>"; };
 		62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstructionPage.h; path = Views/InstructionPage.h; sourceTree = "<group>"; };
 		62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionPage.m; path = Views/InstructionPage.m; sourceTree = "<group>"; };
-		62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetPhoneViewController.h; path = ViewControllers/SetPhoneViewController.h; sourceTree = "<group>"; };
-		62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetPhoneViewController.m; path = ViewControllers/SetPhoneViewController.m; sourceTree = "<group>"; };
 		62F7D7311E5F360B001AC360 /* InstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstructionViewController.h; path = ViewControllers/InstructionViewController.h; sourceTree = "<group>"; };
 		62F7D7321E5F360B001AC360 /* InstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionViewController.m; path = ViewControllers/InstructionViewController.m; sourceTree = "<group>"; };
 		62F7D7351E6143D6001AC360 /* UIButton+Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Status.h"; path = "API/UIButton+Status.h"; sourceTree = "<group>"; };
@@ -125,8 +124,6 @@
 		62F7D7391E615FFC001AC360 /* InputCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InputCodeViewController.m; path = ViewControllers/InputCodeViewController.m; sourceTree = "<group>"; };
 		62F7D73B1E616FC3001AC360 /* MBProgressHUD+WilShowError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+WilShowError.h"; path = "API/MBProgressHUD+WilShowError.h"; sourceTree = "<group>"; };
 		62F7D73C1E616FC3001AC360 /* MBProgressHUD+WilShowError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+WilShowError.m"; path = "API/MBProgressHUD+WilShowError.m"; sourceTree = "<group>"; };
-		62F7D73E1E6174BE001AC360 /* InputUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputUserInfoViewController.h; path = ViewControllers/InputUserInfoViewController.h; sourceTree = "<group>"; };
-		62F7D73F1E6174BE001AC360 /* InputUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InputUserInfoViewController.m; path = ViewControllers/InputUserInfoViewController.m; sourceTree = "<group>"; };
 		6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_User/Pods-Wil_User.debug.xcconfig"; sourceTree = "<group>"; };
 		87EA890B94EC27F04DDEA27E /* libPods-Wil_UserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_UserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FFB09077B3C5FEBD6C39D /* libPods-Wil_User.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_User.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,12 +264,10 @@
 		625B975E1E633D0C00F2C6F5 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				62F7D72E1E5F35B3001AC360 /* SetPhoneViewController.h */,
-				62F7D72F1E5F35B3001AC360 /* SetPhoneViewController.m */,
+				625B97601E63E8FF00F2C6F5 /* SignUpViewController.h */,
+				625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */,
 				62F7D7381E615FFC001AC360 /* InputCodeViewController.h */,
 				62F7D7391E615FFC001AC360 /* InputCodeViewController.m */,
-				62F7D73E1E6174BE001AC360 /* InputUserInfoViewController.h */,
-				62F7D73F1E6174BE001AC360 /* InputUserInfoViewController.m */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -641,7 +636,6 @@
 			files = (
 				6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */,
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
-				62F7D7401E6174BE001AC360 /* InputUserInfoViewController.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
 				62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */,
@@ -662,9 +656,9 @@
 				62F7D73A1E615FFC001AC360 /* InputCodeViewController.m in Sources */,
 				625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */,
 				62F7D7371E6143D6001AC360 /* UIButton+Status.m in Sources */,
-				62F7D7301E5F35B3001AC360 /* SetPhoneViewController.m in Sources */,
 				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 				62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */,
+				625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */,
 				623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
