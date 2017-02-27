@@ -9,10 +9,12 @@
 #import "MenuViewController.h"
 #import "RESideMenu.h"
 #import "SideMenuCell.h"
+#import "MainViewController.h"
+#import "ProfileViewController.h"
 
 static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 
-@interface MenuViewController () <UITableViewDataSource, UITableViewDelegate, RESideMenuDelegate>
+@interface MenuViewController () <UITableViewDataSource, UITableViewDelegate, RESideMenuDelegate, ProfileVCDelegate>
 
 @property (strong, readwrite, nonatomic) UITableView *tableaView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,8 +26,6 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor clearColor];
-    
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -37,6 +37,14 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
     self.tableView.scrollsToTop = NO;
 }
 
+#pragma mark - Profile View Controller Delegate
+
+- (void)userLogout {
+    MainViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
+    [vc animateSignInView];
+    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
+}
+
 #pragma mark -
 #pragma mark UITableView Delegate
 
@@ -44,8 +52,15 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:[MenuViewController nameOfContentVC][indexPath.row]]]
-                                                 animated:YES];
+    if (indexPath.row == 1) {
+        ProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+        vc.delegate = self;
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    } else {
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:[MenuViewController nameOfContentVC][indexPath.row]]]
+                                                     animated:YES];
+    }
+    
     [self.sideMenuViewController hideMenuViewController];
 }
 
@@ -86,26 +101,6 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
     cell.sideCellLabel.text = [MenuViewController cellTitles][indexPath.row];
     cell.sideCellImageView.image = [UIImage imageNamed:[MenuViewController cellImageNames][indexPath.row]];
 }
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//        cell.backgroundColor = [UIColor clearColor];
-//        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-//        cell.textLabel.textColor = [UIColor whiteColor];
-//        cell.textLabel.highlightedTextColor = [UIColor lightGrayColor];
-//        cell.selectedBackgroundView = [[UIView alloc] init];
-//    }
-//    
-//    cell.textLabel.text = [MenuViewController cellTitles][indexPath.row];
-//    cell.imageView.image = [UIImage imageNamed:[MenuViewController cellImageNames][indexPath.row]];
-//    
-//    return cell;
-//}
 
 + (NSArray *)cellTitles {
     return @[@"HOME", @"PROFILE", @"PAYMENT", @"SUBSCRIPTIONS", @"ABOUT", @"CONTACT"];

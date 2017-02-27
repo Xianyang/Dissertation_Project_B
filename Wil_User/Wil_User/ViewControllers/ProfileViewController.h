@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ProfileVCDelegate
+
+- (void)userLogout;
+
+@end
+
 @interface ProfileViewController : UIViewController
+
+@property (assign, nonatomic) id <ProfileVCDelegate> delegate;
 
 @end

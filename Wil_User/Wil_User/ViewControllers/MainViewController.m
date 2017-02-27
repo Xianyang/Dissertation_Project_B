@@ -32,10 +32,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 @interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate>
 {
+    BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
     BOOL _isInPolygon;
     
-    BOOL _isAddObserverForMyLocation;
+    BOOL _isMapSetted;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -52,15 +53,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [super viewDidLoad];
     
     _firstLocationUpdate = NO;
-    _isAddObserverForMyLocation = NO;
+    _isMapSetted = NO;
     
-    if (![AVUser currentUser]) {
-    
-        UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
-        InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
-        vc.delegate = self;
-        [self presentViewController:navVC animated:NO completion:nil];
-    }
+    [self checkCurrentUser];
     
     [self setNavigationBar];
 }
@@ -72,16 +67,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self setMap];
+    if (!_isMapSetted) {
+        [self setMap];
+        _isMapSetted = YES;
+    }
 }
 
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    
-//    [self.mapView removeObserver:self
-//                      forKeyPath:@"myLocation"
-//                         context:NULL];
-//}
+- (void)animateSignInView {
+    _isSignInAnimated = YES;
+}
 
 #pragma mark - InstructionVCDelegate
 
@@ -112,14 +106,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     self.geocoder = [GMSGeocoder geocoder];
     
     // Listen to the myLocation property of GMSMapView.
-    if (!_isAddObserverForMyLocation) {
-        [self.mapView addObserver:self
-                       forKeyPath:@"myLocation"
-                          options:NSKeyValueObservingOptionNew
-                          context:NULL];
-        
-        _isAddObserverForMyLocation = YES;
-    }
+    [self.mapView addObserver:self
+                   forKeyPath:@"myLocation"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
     
     self.mapView.delegate = self;
     _isInPolygon = NO;
@@ -273,6 +263,18 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+#pragma mark - User 
+
+- (void)checkCurrentUser {
+    if (![AVUser currentUser]) {
+        
+        UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
+        InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
+        vc.delegate = self;
+        [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
+    }
 }
 
 

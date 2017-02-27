@@ -39,6 +39,8 @@
 
 - (void)logOutBtnClicked {
     [AVUser logOut];
+    
+    [self.delegate userLogout];
 }
 
 - (void)setNavigationBar {
