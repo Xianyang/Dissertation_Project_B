@@ -11,7 +11,8 @@
 @implementation PolygonClient
 
 - (NSArray *)polygons {
-    return @[[self polygonForHKIsland], [self polygonForKowloon]];
+//    return @[[self polygonForHKIsland], [self polygonForKowloon]];
+    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
 }
 
 - (GMSPolygon *)basicPolygon {
@@ -38,6 +39,25 @@
     polygon.title = @"Kowloon";
     
     return polygon;
+}
+
+- (GMSPolygon *)polygonForHome {
+    GMSPolygon *polygon = [self basicPolygon];
+    polygon.path = [self pathOfHome];
+    polygon.title = @"Home";
+    
+    return polygon;
+}
+
+- (GMSPath *)pathOfHome {
+    GMSMutablePath *path = [GMSMutablePath path];
+    [path addLatitude:22.286838 longitude:114.135466];
+    [path addLatitude:22.285458 longitude:114.135391];
+    [path addLatitude:22.285359 longitude:114.137156];
+    [path addLatitude:22.286803 longitude:114.136952];
+    [path addLatitude:22.286838 longitude:114.135466];
+    
+    return path;
 }
 
 - (GMSPath *)pathOfHKIsland {
