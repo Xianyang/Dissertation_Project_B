@@ -38,9 +38,28 @@
 }
 
 - (void)logOutBtnClicked {
-    [AVUser logOut];
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"Logout wil delete data. You can log in to use our service"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"Log Out"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [AVUser logOut];
+                                                             [self.delegate userLogout];
+                                                         }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [alert addAction:logoutAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
     
-    [self.delegate userLogout];
+    
 }
 
 - (void)setNavigationBar {

@@ -74,7 +74,7 @@
 }
 
 - (NSString *)phonePrefix {
-    return @"";
+    return @"+852";
 }
 
 @end

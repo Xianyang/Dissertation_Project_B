@@ -17,6 +17,7 @@
 #define LEFT_TOP_CORNER_LONGITUDE_HONG_KONG         113.794132
 #define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
+#define FLAG_SIZE                                   60
 
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -40,11 +41,18 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
+@property (strong, nonatomic) UIImageView *flagImageView;
 @property (strong, nonatomic) GMSPlacesClient *placesClient;
-@property (strong, nonnull) GMSGeocoder *geocoder;
+@property (nonatomic, strong, nonnull) GMSGeocoder *geocoder;
 
 @property (strong, nonatomic) NSArray * filterPlaces;
 @property (strong, nonatomic) RequestValetButton *requestValetButton;
+
+// the flag in the center of the map
+@property (strong, nonatomic) UIView *flagRect;
+@property (strong, nonatomic) UIView *flagLine;
+@property (strong, nonatomic) UITextField *flagTextField;
+
 @end
 
 @implementation MainViewController
@@ -86,25 +94,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 #pragma mark - Google Map
 
 - (void)setMap {
-    /*
-    // Create a GMSCameraPosition that tells the map to display the
-    // coordinate -33.86,151.20 at zoom level 6.
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    self.mapView.myLocationEnabled = YES;
-    
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = self.mapView;
-     */
-    
-    self.geocoder = [GMSGeocoder geocoder];
-    
     // Listen to the myLocation property of GMSMapView.
     [self.mapView addObserver:self
                    forKeyPath:@"myLocation"
@@ -138,9 +127,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:16.5];
         
         // add the drop off flag
-        CGFloat flagSize = 50;
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop_off_flag"]];
-        imageView.frame = CGRectMake(self.mapView.frame.size.width / 2 - flagSize / 2, self.mapView.frame.size.height / 2 - flagSize, flagSize, flagSize);
+        imageView.frame = CGRectMake(self.mapView.frame.size.width / 2 - FLAG_SIZE / 2, self.mapView.frame.size.height / 2 - FLAG_SIZE, FLAG_SIZE, FLAG_SIZE);
         [self.mapView addSubview:imageView];
         
         // *** Draw the polygon ***
@@ -231,6 +219,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (IBAction)launchSearch:(id)sender {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;
+    // set the search bounds to Hong Kong
     acController.autocompleteBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(LEFT_TOP_CORNER_LATITUDE_HONG_KONG, LEFT_TOP_CORNER_LONGITUDE_HONG_KONG)
                                                                            coordinate:CLLocationCoordinate2DMake(RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG, RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG)];
     [self presentViewController:acController animated:YES completion:nil];
@@ -268,6 +257,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 #pragma mark - User 
 
 - (void)checkCurrentUser {
+    // if there is no user now, show the Instruction page
     if (![AVUser currentUser]) {
         
         UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
@@ -305,13 +295,40 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     return _requestValetButton;
 }
 
-//- (GMSGeocoder *)geocoder {
-//    if (!_geocoder) {
-//        _geocoder = [GMSGeocoder geocoder];
-//    }
-//    
-//    return _geocoder;
-//}
+- (UIView *)flagRect {
+    if (!_flagRect) {
+        _flagRect = [[UIView alloc] init];
+    }
+    
+    return _flagRect;
+}
+
+- (UIView *)flagLine {
+    if (!_flagLine) {
+        _flagLine = [[UIView alloc] init];
+    }
+    
+    return _flagLine;
+}
+
+- (UITextField *)flagTextField {
+    if (!_flagTextField) {
+        _flagTextField = [[UITextField alloc] init];
+        _flagTextField.textColor = [UIColor whiteColor];
+        _flagTextField.textAlignment = NSTextAlignmentCenter;
+        _flagTextField.font = [UIFont systemFontOfSize:20.0f];
+    }
+    
+    return _flagTextField;
+}
+
+- (GMSGeocoder *)geocoder {
+    if (!_geocoder) {
+        _geocoder = [GMSGeocoder geocoder];
+    }
+    
+    return _geocoder;
+}
 
 - (void)dealloc {
     [self.mapView removeObserver:self
