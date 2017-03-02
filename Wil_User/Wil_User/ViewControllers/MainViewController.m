@@ -11,6 +11,7 @@
 // AIzaSyC-f-MbvinrjO8ZtxLqpFkhbQDONbvuOe0
 // ----------------------------------------------
 
+#define DEFAULT_ZOOM_LEVEL                          15.5
 #define SEARCH_TABLEVIEW_ORIGIN_Y                   140
 #define SEARCH_TABLEVIEW_HEIGHT                     250
 #define LEFT_TOP_CORNER_LATITUDE_HONG_KONG          22.514216
@@ -36,8 +37,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
     BOOL _isInPolygon;
-    
     BOOL _isMapSetted;
+    BOOL _isMyLocationBtnInOriginalPosition;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -52,7 +53,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 @property (strong, nonatomic) UIView *flagRect;
 @property (strong, nonatomic) UIView *flagLine;
 @property (strong, nonatomic) UITextField *flagTextField;
-
+@property (strong, nonatomic) UIButton *flagBtn;
 @end
 
 @implementation MainViewController
@@ -62,6 +63,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     _firstLocationUpdate = NO;
     _isMapSetted = NO;
+    _isMyLocationBtnInOriginalPosition = YES;
     
     [self checkCurrentUser];
     
@@ -101,7 +103,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                       context:NULL];
     
     self.mapView.delegate = self;
-    _isInPolygon = NO;
     
     // add request service button
     [self.mapView addSubview:self.requestValetButton];
@@ -109,89 +110,68 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // enable my location button
     self.mapView.settings.myLocationButton = YES;
     
+    // Draw the polygon
+    for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
+        polygon.map = self.mapView;
+    }
+    
+    // add the flag
+    self.flagRect.frame = CGRectMake(142, -70, 130, 35);
+    self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
+                                     self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
+                                     2, 35);
+    self.flagTextField.frame = self.flagRect.frame;
+    self.flagBtn.frame = self.flagRect.frame;
+    [self.mapView addSubview:self.flagRect];
+    [self.mapView addSubview:self.flagLine];
+    [self.mapView addSubview:self.flagTextField];
+    [self.mapView addSubview:self.flagBtn];
+    
     // Ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
 }
 
+// get the user's location for the first time
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
     // first location update means google map gets the user's location after launching the app
     if (!_firstLocationUpdate) {
-        // If the first location update has not yet been recieved, then jump to that location.
+        // 1. Jump to user's location
         _firstLocationUpdate = YES;
         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:16.5];
+        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         
-        // add the drop off flag
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop_off_flag"]];
-        imageView.frame = CGRectMake(self.mapView.frame.size.width / 2 - FLAG_SIZE / 2, self.mapView.frame.size.height / 2 - FLAG_SIZE, FLAG_SIZE, FLAG_SIZE);
-        [self.mapView addSubview:imageView];
-        
-        // *** Draw the polygon ***
-        for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
-            polygon.map = self.mapView;
+        // 2. Check if the user is in the polygon and add the flag
+        if ([self checkIsPositionInPolygon:location.coordinate]) {
+            _isInPolygon = YES;
+            
+            [self showRequestServiceView];
+        } else {
+            _isInPolygon = NO;
+            
+            [self hideRequestServiceView];
         }
-        
-        // TODO check if the position is in the service area
-//        [self popUpRequestValet];
     }
 }
 
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
-    // check if the position is within polygons
-    for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
-        if (GMSGeometryContainsLocation(position.target, polygon.path, YES)) {
-            if (!_isInPolygon) {
-                // change to service area
-                NSLog(@"YES: you are in %@.", polygon.title);
-                
-                _isInPolygon = YES;
-                
-                // pop up request service button
-                [UIView animateWithDuration:0.1
-                                      delay:0
-                                    options:UIViewAnimationOptionCurveEaseIn
-                                 animations:^{
-                                     self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height - self.requestValetButton.frame.size.height,
-                                                                                self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
-                                 }
-                                 completion:^(BOOL finished) {
-                                     
-                                 }];
-                
-                // TODO change the flag to valet
-                
-            }
-            
-            return;
+    if ([self checkIsPositionInPolygon:position.target]) {
+        if (!_isInPolygon) {
+            NSLog(@"user changes to polygon");
+            _isInPolygon = YES;
+            [self showRequestServiceView];
+        }
+    } else {
+        if (_isInPolygon) {
+            NSLog(@"user gets out of polygon");
+            _isInPolygon = NO;
+            [self hideRequestServiceView];
         }
     }
-    
-    if (_isInPolygon) {
-        // get out of service area
-        NSLog(@"get out of polygon");
-        
-        _isInPolygon = NO;
-        
-        // hide the request service button
-        [UIView animateWithDuration:0.2
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height,
-                                                                        self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
-                         }
-                         completion:^(BOOL finished) {
-                             
-                         }];
-        
-        // TODO change the flag to "go to service area"
-    }
-    
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
@@ -204,10 +184,132 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
-- (void)popUpRequestValet {
-    RequestValetPopup *rvPopup = [[RequestValetPopup alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height - 128, self.mapView.frame.size.width, 128)];
-    rvPopup.backgroundColor = [UIColor redColor];
-    [self.mapView addSubview:rvPopup];
+- (BOOL)checkIsPositionInPolygon:(CLLocationCoordinate2D)coordinate {
+    for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
+        if (GMSGeometryContainsLocation(coordinate, polygon.path, YES)) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (void)showRequestServiceView {
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         // 0. show the view at the bottom
+                         self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height - self.requestValetButton.frame.size.height,
+                                                                    self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                         
+                         // 1. change the rect
+                         self.flagRect.frame = CGRectMake(172, 266, 70, 35);
+                         self.flagRect.backgroundColor = [UIColor blackColor];
+                         
+                         // 2. change the line
+                         self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
+                                                          self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
+                                                          2, 35);
+                         self.flagLine.backgroundColor = self.flagRect.backgroundColor;
+                         
+                         // 3. change the text
+                         self.flagTextField.frame = self.flagRect.frame;
+                         self.flagTextField.text = @"WIL";
+                         self.flagTextField.font = [UIFont systemFontOfSize:15.0f];
+                         
+                         // 4. remove flag button's target
+                         self.flagBtn.frame = self.flagRect.frame;
+                         [self.flagBtn removeTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
+                         
+                         // 5. move my location button
+                         [self moveMyLocationBtn:-64];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+- (void)hideRequestServiceView {
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         // 0. hide the view at the bottom
+                         self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height,
+                                                                    self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                         
+                         // 1. change the rect
+                         self.flagRect.frame = CGRectMake(142, 266, 130, 35);
+                         self.flagRect.backgroundColor = [[LibraryAPI sharedInstance] themeBlueColor];
+                         
+                         // 2. change the line color
+                         self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
+                                                          self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
+                                                          2, 35);
+                         self.flagLine.backgroundColor = self.flagRect.backgroundColor;
+                         
+                         // 3. change the text
+                         self.flagTextField.frame = self.flagRect.frame;
+                         self.flagTextField.text = @"Go To Service Area";
+                         self.flagTextField.font = [UIFont systemFontOfSize:13.0f];
+                         
+                         // 4. add flag button's target
+                         self.flagBtn.frame = self.flagRect.frame;
+                         [self.flagBtn addTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
+                         
+                         // 4. move my location button
+                         [self moveMyLocationBtn:64];
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+- (void)moveToServiceArea {
+    NSLog(@"move to service area");
+    [self.mapView animateToLocation:[[LibraryAPI sharedInstance] serviceLocation]];
+    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
+}
+
+- (void)moveMyLocationBtn:(CGFloat)margin {
+    UIView *btnView = [self myLocationBtn];
+    if (btnView) {
+        CGRect frame = btnView.frame;
+        
+        if (margin < 0 && _isMyLocationBtnInOriginalPosition) {
+            // move up
+            _isMyLocationBtnInOriginalPosition = NO;
+            frame.origin.y += margin;
+        } else if (margin > 0 && !_isMyLocationBtnInOriginalPosition) {
+            // move down
+            _isMyLocationBtnInOriginalPosition = YES;
+            frame.origin.y += margin;
+        }
+        
+        btnView.frame = frame;
+    }
+}
+
+- (UIView *)myLocationBtn {
+    for (UIView *object in self.mapView.subviews) {
+        if([[[object class] description] isEqualToString:@"GMSUISettingsPaddingView"] )
+        {
+            for(UIView *settingView in object.subviews) {
+                if([[[settingView class] description] isEqualToString:@"GMSUISettingsView"] ) {
+                    for(UIView *buttonView in settingView.subviews) {
+                        if([[[buttonView class] description] isEqualToString:@"GMSx_QTMButton"] ) {
+                            return buttonView;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    return nil;
 }
 
 - (void)backToMyPosition {
@@ -230,8 +332,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.mapView animateToLocation:place.coordinate];
-    [self.mapView animateToZoom:16.5];
-//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:16.5];
+    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
+//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL];
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
@@ -298,6 +400,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (UIView *)flagRect {
     if (!_flagRect) {
         _flagRect = [[UIView alloc] init];
+        _flagRect.layer.masksToBounds = YES;
+        _flagRect.layer.cornerRadius = 5;
     }
     
     return _flagRect;
@@ -316,10 +420,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         _flagTextField = [[UITextField alloc] init];
         _flagTextField.textColor = [UIColor whiteColor];
         _flagTextField.textAlignment = NSTextAlignmentCenter;
-        _flagTextField.font = [UIFont systemFontOfSize:20.0f];
     }
     
     return _flagTextField;
+}
+
+- (UIButton *)flagBtn {
+    if (!_flagBtn) {
+        _flagBtn = [[UIButton alloc] init];
+    }
+    
+    return _flagBtn;
 }
 
 - (GMSGeocoder *)geocoder {

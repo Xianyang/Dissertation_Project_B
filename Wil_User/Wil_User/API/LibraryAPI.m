@@ -53,6 +53,11 @@
     return [self.polygonClient polygonForKowloon];
 }
 
+- (CLLocationCoordinate2D)serviceLocation {
+    return [self.polygonClient serviceLocation];
+}
+
+// limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber {
     return 11;
 }
@@ -75,6 +80,15 @@
 
 - (NSString *)phonePrefix {
     return @"+852";
+}
+
+// color
+- (UIColor *)themeBlueColor {
+    return [UIColor colorWithRed:65.0f / 255.0f green:148.0f / 255.0f blue:229.0f / 255.0f alpha:1.0f];
+}
+
+- (UIColor *)themeLightBlueColor {
+    return [UIColor colorWithRed:65.0f / 255.0f green:148.0f / 255.0f blue:229.0f / 255.0f alpha:0.2f];
 }
 
 @end

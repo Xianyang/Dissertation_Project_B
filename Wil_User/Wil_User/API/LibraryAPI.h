@@ -17,12 +17,18 @@
 - (NSArray *)polygons;
 - (GMSPolygon *)polygonForHKIsland;
 - (GMSPolygon *)polygonForKowloon;
+- (CLLocationCoordinate2D)serviceLocation;
 
+// limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber;
 - (NSInteger)minLengthForPhoneNumber;
 - (NSInteger)maxLengthForVerificationCode;
 - (NSInteger)maxLengthForPassword;
 - (NSInteger)minLengthForPassword;
 - (NSString *)phonePrefix;
+
+// color
+- (UIColor *)themeBlueColor;
+- (UIColor *)themeLightBlueColor;
 
 @end

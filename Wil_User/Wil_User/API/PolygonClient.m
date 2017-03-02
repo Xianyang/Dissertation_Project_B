@@ -10,14 +10,19 @@
 
 @implementation PolygonClient
 
+- (CLLocationCoordinate2D)serviceLocation {
+    return CLLocationCoordinate2DMake(22.284689, 114.158152);
+}
+
 - (NSArray *)polygons {
     return @[[self polygonForHKIsland], [self polygonForKowloon]];
+//    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
 }
 
 - (GMSPolygon *)basicPolygon {
     GMSPolygon *polygon = [[GMSPolygon alloc] init];
-    polygon.fillColor = [UIColor colorWithRed:0.25 green:0 blue:0 alpha:0.2f];
-    polygon.strokeColor = [UIColor blackColor];
+    polygon.fillColor = [[LibraryAPI sharedInstance] themeLightBlueColor];
+    polygon.strokeColor = [[LibraryAPI sharedInstance] themeBlueColor];
     polygon.strokeWidth = 1;
     polygon.tappable = YES;
     
@@ -38,6 +43,25 @@
     polygon.title = @"Kowloon";
     
     return polygon;
+}
+
+- (GMSPolygon *)polygonForHome {
+    GMSPolygon *polygon = [self basicPolygon];
+    polygon.path = [self pathOfHome];
+    polygon.title = @"Home";
+    
+    return polygon;
+}
+
+- (GMSPath *)pathOfHome {
+    GMSMutablePath *path = [GMSMutablePath path];
+    [path addLatitude:22.286838 longitude:114.135466];
+    [path addLatitude:22.285458 longitude:114.135391];
+    [path addLatitude:22.285359 longitude:114.137156];
+    [path addLatitude:22.286803 longitude:114.136952];
+    [path addLatitude:22.286838 longitude:114.135466];
+    
+    return path;
 }
 
 - (GMSPath *)pathOfHKIsland {
