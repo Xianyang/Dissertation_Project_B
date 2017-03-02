@@ -9,13 +9,20 @@
 /* Begin PBXBuildFile section */
 		621668D91E31D622007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668D81E31D622007292A4 /* main.m */; };
 		621668DC1E31D622007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DB1E31D622007292A4 /* AppDelegate.m */; };
-		621668DF1E31D622007292A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DE1E31D622007292A4 /* ViewController.m */; };
 		621668E21E31D622007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E01E31D622007292A4 /* Main.storyboard */; };
 		621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 621668E31E31D622007292A4 /* Wil_Valet.xcdatamodeld */; };
 		621668E71E31D622007292A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 621668E61E31D622007292A4 /* Assets.xcassets */; };
 		621668EA1E31D622007292A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E81E31D622007292A4 /* LaunchScreen.storyboard */; };
 		621668F51E31D622007292A4 /* Wil_ValetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668F41E31D622007292A4 /* Wil_ValetTests.m */; };
 		621669001E31D622007292A4 /* Wil_ValetUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668FF1E31D622007292A4 /* Wil_ValetUITests.m */; };
+		6241EC401E6807BA00249DE1 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6241EC3F1E6807BA00249DE1 /* RootViewController.m */; };
+		6241EC431E68081B00249DE1 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6241EC421E68081B00249DE1 /* MenuViewController.m */; };
+		6241EC461E68085800249DE1 /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6241EC451E68085800249DE1 /* SideMenuCell.m */; };
+		6241EC4A1E68086F00249DE1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6241EC491E68086F00249DE1 /* MainViewController.m */; };
+		6241EC4D1E68087700249DE1 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6241EC4C1E68087700249DE1 /* ProfileViewController.m */; };
+		8D9D197616698FDF57DBA513 /* libPods-Wil_Valet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE806811807F0572937AC85C /* libPods-Wil_Valet.a */; };
+		C92CE1CB495DB1FFB593861A /* libPods-Wil_ValetUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */; };
+		E06F68B0E5D3907CBFA6C2CC /* libPods-Wil_ValetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,12 +43,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C1521B0DE968B51B6D75BE9 /* Pods-Wil_ValetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		621668DB1E31D622007292A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		621668DD1E31D622007292A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		621668DE1E31D622007292A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		621668E11E31D622007292A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		621668E41E31D622007292A4 /* Wil_Valet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wil_Valet.xcdatamodel; sourceTree = "<group>"; };
 		621668E61E31D622007292A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +61,22 @@
 		621668FB1E31D622007292A4 /* Wil_ValetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wil_ValetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668FF1E31D622007292A4 /* Wil_ValetUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wil_ValetUITests.m; sourceTree = "<group>"; };
 		621669011E31D622007292A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6241EC3E1E6807BA00249DE1 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ViewControllers/RootViewController.h; sourceTree = "<group>"; };
+		6241EC3F1E6807BA00249DE1 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ViewControllers/RootViewController.m; sourceTree = "<group>"; };
+		6241EC411E68081B00249DE1 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		6241EC421E68081B00249DE1 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		6241EC441E68085800249DE1 /* SideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuCell.h; sourceTree = "<group>"; };
+		6241EC451E68085800249DE1 /* SideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuCell.m; sourceTree = "<group>"; };
+		6241EC481E68086F00249DE1 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ViewControllers/MainViewController.h; sourceTree = "<group>"; };
+		6241EC491E68086F00249DE1 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ViewControllers/MainViewController.m; sourceTree = "<group>"; };
+		6241EC4B1E68087700249DE1 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ViewControllers/ProfileViewController.h; sourceTree = "<group>"; };
+		6241EC4C1E68087700249DE1 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ViewControllers/ProfileViewController.m; sourceTree = "<group>"; };
+		88EB98C62142934F5D5D3048 /* Pods-Wil_Valet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_Valet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet.debug.xcconfig"; sourceTree = "<group>"; };
+		8CD32182077325DAE1B137C5 /* Pods-Wil_ValetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests.release.xcconfig"; sourceTree = "<group>"; };
+		8DB551F7EE205B02C7C70DDC /* Pods-Wil_ValetUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CE806811807F0572937AC85C /* libPods-Wil_Valet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_Valet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6A3ECE63E3FADFD1D8CE059 /* Pods-Wil_ValetUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E945B66D43D7D2FFB5B57181 /* Pods-Wil_Valet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_Valet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D9D197616698FDF57DBA513 /* libPods-Wil_Valet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E06F68B0E5D3907CBFA6C2CC /* libPods-Wil_ValetTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +100,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92CE1CB495DB1FFB593861A /* libPods-Wil_ValetUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E6872ADF5E44DADE2D76BA4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88EB98C62142934F5D5D3048 /* Pods-Wil_Valet.debug.xcconfig */,
+				E945B66D43D7D2FFB5B57181 /* Pods-Wil_Valet.release.xcconfig */,
+				0C1521B0DE968B51B6D75BE9 /* Pods-Wil_ValetTests.debug.xcconfig */,
+				8CD32182077325DAE1B137C5 /* Pods-Wil_ValetTests.release.xcconfig */,
+				D6A3ECE63E3FADFD1D8CE059 /* Pods-Wil_ValetUITests.debug.xcconfig */,
+				8DB551F7EE205B02C7C70DDC /* Pods-Wil_ValetUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2D20CE668FF1237B07C2BE49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE806811807F0572937AC85C /* libPods-Wil_Valet.a */,
+				5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */,
+				5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		621668CB1E31D622007292A4 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +137,8 @@
 				621668F31E31D622007292A4 /* Wil_ValetTests */,
 				621668FE1E31D622007292A4 /* Wil_ValetUITests */,
 				621668D51E31D622007292A4 /* Products */,
+				0E6872ADF5E44DADE2D76BA4 /* Pods */,
+				2D20CE668FF1237B07C2BE49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,8 +157,8 @@
 			children = (
 				621668DA1E31D622007292A4 /* AppDelegate.h */,
 				621668DB1E31D622007292A4 /* AppDelegate.m */,
-				621668DD1E31D622007292A4 /* ViewController.h */,
-				621668DE1E31D622007292A4 /* ViewController.m */,
+				6241EC471E68085D00249DE1 /* Views */,
+				6241EC3D1E68079100249DE1 /* ViewContollers */,
 				621668E01E31D622007292A4 /* Main.storyboard */,
 				621668E61E31D622007292A4 /* Assets.xcassets */,
 				621668E81E31D622007292A4 /* LaunchScreen.storyboard */,
@@ -143,6 +195,38 @@
 			path = Wil_ValetUITests;
 			sourceTree = "<group>";
 		};
+		6241EC3D1E68079100249DE1 /* ViewContollers */ = {
+			isa = PBXGroup;
+			children = (
+				6241EC3E1E6807BA00249DE1 /* RootViewController.h */,
+				6241EC3F1E6807BA00249DE1 /* RootViewController.m */,
+				6241EC411E68081B00249DE1 /* MenuViewController.h */,
+				6241EC421E68081B00249DE1 /* MenuViewController.m */,
+				6241EC4E1E68087D00249DE1 /* FunctionVC */,
+			);
+			name = ViewContollers;
+			sourceTree = "<group>";
+		};
+		6241EC471E68085D00249DE1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6241EC441E68085800249DE1 /* SideMenuCell.h */,
+				6241EC451E68085800249DE1 /* SideMenuCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6241EC4E1E68087D00249DE1 /* FunctionVC */ = {
+			isa = PBXGroup;
+			children = (
+				6241EC481E68086F00249DE1 /* MainViewController.h */,
+				6241EC491E68086F00249DE1 /* MainViewController.m */,
+				6241EC4B1E68087700249DE1 /* ProfileViewController.h */,
+				6241EC4C1E68087700249DE1 /* ProfileViewController.m */,
+			);
+			name = FunctionVC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +234,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 621669041E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_Valet" */;
 			buildPhases = (
+				4D26FB99D5D343BDAEACC366 /* [CP] Check Pods Manifest.lock */,
 				621668D01E31D622007292A4 /* Sources */,
 				621668D11E31D622007292A4 /* Frameworks */,
 				621668D21E31D622007292A4 /* Resources */,
+				F0FE2CAD74BF827A981E6CE6 /* [CP] Embed Pods Frameworks */,
+				088B32F198B983C32A296A41 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +254,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 621669071E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetTests" */;
 			buildPhases = (
+				F74D2D140CF8C296E1EEB6AF /* [CP] Check Pods Manifest.lock */,
 				621668EC1E31D622007292A4 /* Sources */,
 				621668ED1E31D622007292A4 /* Frameworks */,
 				621668EE1E31D622007292A4 /* Resources */,
+				7DC520B6ED2A4958C0559FAE /* [CP] Embed Pods Frameworks */,
+				52B3146E57A6594DCD33F6D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,9 +275,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6216690A1E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetUITests" */;
 			buildPhases = (
+				5BF6ED7442ED0A295BEA43DC /* [CP] Check Pods Manifest.lock */,
 				621668F71E31D622007292A4 /* Sources */,
 				621668F81E31D622007292A4 /* Frameworks */,
 				621668F91E31D622007292A4 /* Resources */,
+				16104215EEB2AF05E1573257 /* [CP] Embed Pods Frameworks */,
+				AD58AA8A24F651585A1AFCF1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,15 +367,157 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		088B32F198B983C32A296A41 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		16104215EEB2AF05E1573257 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D26FB99D5D343BDAEACC366 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		52B3146E57A6594DCD33F6D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BF6ED7442ED0A295BEA43DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7DC520B6ED2A4958C0559FAE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD58AA8A24F651585A1AFCF1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0FE2CAD74BF827A981E6CE6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F74D2D140CF8C296E1EEB6AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		621668D01E31D622007292A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				621668DF1E31D622007292A4 /* ViewController.m in Sources */,
 				621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */,
 				621668DC1E31D622007292A4 /* AppDelegate.m in Sources */,
+				6241EC4D1E68087700249DE1 /* ProfileViewController.m in Sources */,
+				6241EC401E6807BA00249DE1 /* RootViewController.m in Sources */,
 				621668D91E31D622007292A4 /* main.m in Sources */,
+				6241EC4A1E68086F00249DE1 /* MainViewController.m in Sources */,
+				6241EC431E68081B00249DE1 /* MenuViewController.m in Sources */,
+				6241EC461E68085800249DE1 /* SideMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +662,7 @@
 		};
 		621669051E31D622007292A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88EB98C62142934F5D5D3048 /* Pods-Wil_Valet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K5J44K984X;
@@ -439,6 +675,7 @@
 		};
 		621669061E31D622007292A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E945B66D43D7D2FFB5B57181 /* Pods-Wil_Valet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K5J44K984X;
@@ -451,6 +688,7 @@
 		};
 		621669081E31D622007292A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C1521B0DE968B51B6D75BE9 /* Pods-Wil_ValetTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = K5J44K984X;
@@ -464,6 +702,7 @@
 		};
 		621669091E31D622007292A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CD32182077325DAE1B137C5 /* Pods-Wil_ValetTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = K5J44K984X;
@@ -477,6 +716,7 @@
 		};
 		6216690B1E31D622007292A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6A3ECE63E3FADFD1D8CE059 /* Pods-Wil_ValetUITests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = K5J44K984X;
 				INFOPLIST_FILE = Wil_ValetUITests/Info.plist;
@@ -489,6 +729,7 @@
 		};
 		6216690C1E31D622007292A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DB551F7EE205B02C7C70DDC /* Pods-Wil_ValetUITests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = K5J44K984X;
 				INFOPLIST_FILE = Wil_ValetUITests/Info.plist;
@@ -518,6 +759,7 @@
 				621669061E31D622007292A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		621669071E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +768,7 @@
 				621669091E31D622007292A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6216690A1E31D622007292A4 /* Build configuration list for PBXNativeTarget "Wil_ValetUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +777,7 @@
 				6216690C1E31D622007292A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

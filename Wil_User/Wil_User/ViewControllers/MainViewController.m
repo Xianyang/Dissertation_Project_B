@@ -11,6 +11,7 @@
 // AIzaSyC-f-MbvinrjO8ZtxLqpFkhbQDONbvuOe0
 // ----------------------------------------------
 
+#define DEFAULT_ZOOM_LEVEL                          15.5
 #define SEARCH_TABLEVIEW_ORIGIN_Y                   140
 #define SEARCH_TABLEVIEW_HEIGHT                     250
 #define LEFT_TOP_CORNER_LATITUDE_HONG_KONG          22.514216
@@ -52,7 +53,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 @property (strong, nonatomic) UIView *flagRect;
 @property (strong, nonatomic) UIView *flagLine;
 @property (strong, nonatomic) UITextField *flagTextField;
-
+@property (strong, nonatomic) UIButton *flagBtn;
 @end
 
 @implementation MainViewController
@@ -120,9 +121,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                      self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
                                      2, 35);
     self.flagTextField.frame = self.flagRect.frame;
+    self.flagBtn.frame = self.flagRect.frame;
     [self.mapView addSubview:self.flagRect];
     [self.mapView addSubview:self.flagLine];
     [self.mapView addSubview:self.flagTextField];
+    [self.mapView addSubview:self.flagBtn];
     
     // Ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -140,7 +143,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         // 1. Jump to user's location
         _firstLocationUpdate = YES;
         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:16.5];
+        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         
         // 2. Check if the user is in the polygon and add the flag
         if ([self checkIsPositionInPolygon:location.coordinate]) {
@@ -215,7 +218,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          self.flagTextField.text = @"WIL";
                          self.flagTextField.font = [UIFont systemFontOfSize:15.0f];
                          
-                         // 4. move my location button
+                         // 4. remove flag button's target
+                         self.flagBtn.frame = self.flagRect.frame;
+                         [self.flagBtn removeTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
+                         
+                         // 5. move my location button
                          [self moveMyLocationBtn:-64];
                      }
                      completion:^(BOOL finished) {
@@ -234,7 +241,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          
                          // 1. change the rect
                          self.flagRect.frame = CGRectMake(142, 266, 130, 35);
-                         self.flagRect.backgroundColor = [UIColor colorWithRed:76.0f / 255.0f green:124.0f / 255.0f blue:194.0f / 255.0f alpha:1.0f];
+                         self.flagRect.backgroundColor = [[LibraryAPI sharedInstance] themeBlueColor];
                          
                          // 2. change the line color
                          self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
@@ -247,6 +254,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          self.flagTextField.text = @"Go To Service Area";
                          self.flagTextField.font = [UIFont systemFontOfSize:13.0f];
                          
+                         // 4. add flag button's target
+                         self.flagBtn.frame = self.flagRect.frame;
+                         [self.flagBtn addTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
+                         
                          // 4. move my location button
                          [self moveMyLocationBtn:64];
                          
@@ -254,6 +265,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      completion:^(BOOL finished) {
                          
                      }];
+}
+
+- (void)moveToServiceArea {
+    NSLog(@"move to service area");
+    [self.mapView animateToLocation:[[LibraryAPI sharedInstance] serviceLocation]];
+    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
 }
 
 - (void)moveMyLocationBtn:(CGFloat)margin {
@@ -315,8 +332,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.mapView animateToLocation:place.coordinate];
-    [self.mapView animateToZoom:16.5];
-//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:16.5];
+    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
+//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL];
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
@@ -406,6 +423,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _flagTextField;
+}
+
+- (UIButton *)flagBtn {
+    if (!_flagBtn) {
+        _flagBtn = [[UIButton alloc] init];
+    }
+    
+    return _flagBtn;
 }
 
 - (GMSGeocoder *)geocoder {

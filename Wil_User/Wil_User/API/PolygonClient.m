@@ -10,15 +10,19 @@
 
 @implementation PolygonClient
 
+- (CLLocationCoordinate2D)serviceLocation {
+    return CLLocationCoordinate2DMake(22.284689, 114.158152);
+}
+
 - (NSArray *)polygons {
-//    return @[[self polygonForHKIsland], [self polygonForKowloon]];
-    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
+    return @[[self polygonForHKIsland], [self polygonForKowloon]];
+//    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
 }
 
 - (GMSPolygon *)basicPolygon {
     GMSPolygon *polygon = [[GMSPolygon alloc] init];
-    polygon.fillColor = [UIColor colorWithRed:0.25 green:0 blue:0 alpha:0.2f];
-    polygon.strokeColor = [UIColor blackColor];
+    polygon.fillColor = [[LibraryAPI sharedInstance] themeLightBlueColor];
+    polygon.strokeColor = [[LibraryAPI sharedInstance] themeBlueColor];
     polygon.strokeWidth = 1;
     polygon.tappable = YES;
     

@@ -15,5 +15,6 @@
 - (GMSPolygon *)polygonForHKIsland;
 - (GMSPolygon *)polygonForKowloon;
 
+- (CLLocationCoordinate2D)serviceLocation;
 
 @end

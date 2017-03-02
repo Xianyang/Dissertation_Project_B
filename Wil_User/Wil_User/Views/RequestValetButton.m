@@ -15,7 +15,7 @@
     
     if (self) {
         [self setTitle:@"Park Here" forState:UIControlStateNormal];
-        [self setBackgroundColor:[UIColor colorWithRed:76.0f / 255.0f green:124.0f / 255.0f blue:194.0f / 255.0f alpha:1.0f]];
+        [self setBackgroundColor:[[LibraryAPI sharedInstance] themeBlueColor]];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     }
@@ -24,7 +24,7 @@
 }
 
 - (void)setLocation:(NSString *)location {
-    [self setTitle:[NSString stringWithFormat:@"Park at %@", location] forState:UIControlStateNormal];
+    [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
 }
 
 /*
