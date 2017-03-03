@@ -7,8 +7,11 @@
 //
 
 #import "MainViewController.h"
+#import "SignInViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController () <SignInVCDelegate> {
+    BOOL _isSignInAnimated;
+}
 
 @end
 
@@ -17,11 +20,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _isSignInAnimated = NO;
+    
     [self setNavigationBar];
+    
+    [self checkCurrentUser];
+    
+    UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInVCNav"];
+    SignInViewController *vc = [navVC.viewControllers objectAtIndex:0];
+    vc.delegate = self;
+    [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
 }
 
 - (void)animateSignInView {
-    
+    _isSignInAnimated = YES;
+}
+
+#pragma mark - Sign in view controller delegate
+
+- (void)doneProcessInSignInVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - User
+
+- (void)checkCurrentUser {
+    // if there is no user now, show the Instruction page
+    if (![AVUser currentUser]) {
+        UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInVCNav"];
+        SignInViewController *vc = [navVC.viewControllers objectAtIndex:0];
+        vc.delegate = self;
+        [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
+    }
 }
 
 #pragma mark - Some Settings

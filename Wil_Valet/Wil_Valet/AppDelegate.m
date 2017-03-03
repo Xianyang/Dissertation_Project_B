@@ -21,6 +21,8 @@
     [GMSServices provideAPIKey:@"AIzaSyDtHKe-FeiUgYf3SMrz6ZLEPYKUTtwUK_I"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyDtHKe-FeiUgYf3SMrz6ZLEPYKUTtwUK_I"];
     
+    [AVOSCloud setApplicationId:@"vayB5LU7DOkUMkam7pUvMVDl-gzGzoHsz" clientKey:@"hn5bbWyOSTK9RJOwkTPLWYX2"];
+    
     return YES;
 }
 

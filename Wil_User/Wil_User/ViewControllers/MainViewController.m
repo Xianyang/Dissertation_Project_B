@@ -361,7 +361,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)checkCurrentUser {
     // if there is no user now, show the Instruction page
     if (![AVUser currentUser]) {
-        
         UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"InstructionNav"];
         InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
         vc.delegate = self;

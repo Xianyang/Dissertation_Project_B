@@ -1,0 +1,22 @@
+//
+//  PrefixHeader.pch
+//  Wil_Valet
+//
+//  Created by xianyang on 03/03/2017.
+//  Copyright © 2017 xianyang. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//#import "LibraryAPI.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "MBProgressHUD+WilShowError.h"
+#import "UIButton+Status.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "LibraryAPI.h"
+
+#endif /* PrefixHeader_pch */
