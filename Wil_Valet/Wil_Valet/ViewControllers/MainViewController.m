@@ -16,11 +16,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setNavigationBar];
 }
 
 - (void)animateSignInView {
     
+}
+
+#pragma mark - Some Settings
+
+- (void)setNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"black"]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    NSDictionary * dict=[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    //    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gill Sans-UltraBold" size:18], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:dict];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    //    UIBarButtonItem *backButton =
+    //    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
+    //                                     style:UIBarButtonItemStylePlain
+    //                                    target:nil
+    //                                    action:nil];
+    //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -18,6 +18,9 @@
     [super viewDidLoad];
     
     [self setNavigationBar];
+    
+    AVQuery *query = [AVQuery queryWithClassName:@"aa"];
+    
 }
 
 - (void)setNavigationBar {

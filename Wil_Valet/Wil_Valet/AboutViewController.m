@@ -1,18 +1,18 @@
 //
-//  ProfileViewController.m
-//  Wil_Valet
+//  AboutViewController.m
+//  Wil_User
 //
-//  Created by xianyang on 02/03/2017.
+//  Created by xianyang on 21/01/2017.
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
-#import "ProfileViewController.h"
+#import "AboutViewController.h"
 
-@interface ProfileViewController ()
+@interface AboutViewController ()
 
 @end
 
-@implementation ProfileViewController
+@implementation AboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,7 +24,6 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"black"]
                                                   forBarMetrics:UIBarMetricsDefault];
     NSDictionary * dict=[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    //    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gill Sans-UltraBold" size:18], NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:dict];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
@@ -37,11 +36,11 @@
     //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation
