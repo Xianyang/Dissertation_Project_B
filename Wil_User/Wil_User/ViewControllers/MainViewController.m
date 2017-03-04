@@ -18,7 +18,9 @@
 #define LEFT_TOP_CORNER_LONGITUDE_HONG_KONG         113.794132
 #define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
-#define FLAG_SIZE                                   60
+#define FLAG_RECT1_WIDTH                            70
+#define FLAG_RECT2_WIDTH                            130
+#define FLAG_RECT_HEIGHT                            35
 
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -204,13 +206,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                                     self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
                          
                          // 1. change the rect
-                         self.flagRect.frame = CGRectMake(172, 266, 70, 35);
+                         self.flagRect.frame = CGRectMake((DEVICE_WIDTH - FLAG_RECT1_WIDTH) / 2, (DEVICE_HEIGHT - 64) / 2 - FLAG_RECT_HEIGHT * 2,
+                                                          FLAG_RECT1_WIDTH, FLAG_RECT_HEIGHT);
                          self.flagRect.backgroundColor = [UIColor blackColor];
                          
                          // 2. change the line
                          self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
                                                           self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
-                                                          2, 35);
+                                                          2, FLAG_RECT_HEIGHT);
                          self.flagLine.backgroundColor = self.flagRect.backgroundColor;
                          
                          // 3. change the text
@@ -240,13 +243,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                                     self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
                          
                          // 1. change the rect
-                         self.flagRect.frame = CGRectMake(142, 266, 130, 35);
+                         self.flagRect.frame = CGRectMake((DEVICE_WIDTH - FLAG_RECT2_WIDTH) / 2, (DEVICE_HEIGHT - 64) / 2 - FLAG_RECT_HEIGHT * 2,
+                                                          FLAG_RECT2_WIDTH, FLAG_RECT_HEIGHT);
                          self.flagRect.backgroundColor = [[LibraryAPI sharedInstance] themeBlueColor];
                          
                          // 2. change the line color
                          self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
                                                           self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
-                                                          2, 35);
+                                                          2, FLAG_RECT_HEIGHT);
                          self.flagLine.backgroundColor = self.flagRect.backgroundColor;
                          
                          // 3. change the text

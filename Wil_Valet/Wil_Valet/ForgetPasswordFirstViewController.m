@@ -22,8 +22,9 @@
     
     [self basicSettings];
 }
+
 - (IBAction)cancel:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)sendCodeBtnClicked {
@@ -32,7 +33,7 @@
     
     [AVUser requestPasswordResetWithPhoneNumber:[[[LibraryAPI sharedInstance] phonePrefix] stringByAppendingString:self.phoneNumberTextField.text]
                                           block:^(BOOL succeeded, NSError * _Nullable error) {
-                                              if (succeeded || error.code == 601) {
+                                              if (succeeded) {
                                                   NSLog(@"sms text sent successfully");
                                                   
                                                   ForgetPasswordSecondViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ForgetPasswordSecondViewController"];

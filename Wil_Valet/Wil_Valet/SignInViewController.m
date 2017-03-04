@@ -24,50 +24,27 @@
     
     [self basicSettings];
     
-    [AVUser logOut];
-    
-    AVUser *user = [AVUser user];
-    user.username = @"admin_valet";
-    user.mobilePhoneNumber = @"+85251709669";
-    user.password = @"123456";
-    
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"sign up!");
-            [AVUser requestMobilePhoneVerify:user.mobilePhoneNumber
-                                   withBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                                       if (succeeded) {
-                                           NSLog(@"lalal");
-                                       } else {
-                                           NSLog(@"???");
-                                       }
-                                   }];
-        } else {
-            NSLog(@"error");
-        }
-
-    }];
-    
-//    AVUser *user = [AVUser currentUser];
-//    [AVUser requestMobilePhoneVerify:[[AVUser currentUser] mobilePhoneNumber]
-//                           withBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//                               if (succeeded) {
-//                                   NSLog(@"lalal");
-//                               } else {
-//                                   NSLog(@"???");
-//                               }
-//                           }];
-}
-
-- (IBAction)signUp:(id)sender {
-    [AVUser verifyMobilePhone:self.phoneNumberTextField.text
-                    withBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                        if (succeeded) {
-                            NSLog(@"good");
-                        } else {
-                            NSLog(@"error");
-                        }
-    }];
+//    AVUser *user = [AVUser user];
+//    user.username = @"admin_valet";
+//    user.mobilePhoneNumber = @"+85251709669";
+//    user.password = @"123456";
+//    
+//    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//            NSLog(@"sign up!");
+//            [AVUser requestMobilePhoneVerify:user.mobilePhoneNumber
+//                                   withBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//                                       if (succeeded) {
+//                                           NSLog(@"lalal");
+//                                       } else {
+//                                           NSLog(@"???");
+//                                       }
+//                                   }];
+//        } else {
+//            NSLog(@"error");
+//        }
+//
+//    }];
 }
 
 - (void)forgetPasswordBtnClicked {

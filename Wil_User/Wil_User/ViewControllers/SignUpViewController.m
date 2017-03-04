@@ -73,17 +73,26 @@
                                                                      
                                                                      // ********** Step 4 - Request a verification code for this user **********
                                                                      
-                                                                     [AVUser requestMobilePhoneVerify:user.mobilePhoneNumber withBlock:^(BOOL succeeded, NSError *error) {
-                                                                         
-                                                                         // ********** Step 5 - Go to next vc IN ANY CASE **********
-                                                                         
-                                                                         InputCodeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InputCodeViewController"];
-                                                                         [vc setPhoneNumber:phone];
-                                                                         vc.delegate = self;
-                                                                         [self.navigationController pushViewController:vc animated:YES];
-                                                                         
-                                                                         [hud hideAnimated:YES];
-                                                                     }];
+//                                                                     [AVUser requestMobilePhoneVerify:user.mobilePhoneNumber withBlock:^(BOOL succeeded, NSError *error) {
+//                                                                         
+//                                                                         // ********** Step 5 - Go to next vc IN ANY CASE **********
+//                                                                         
+//                                                                         InputCodeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InputCodeViewController"];
+//                                                                         [vc setPhoneNumber:phone];
+//                                                                         vc.delegate = self;
+//                                                                         [self.navigationController pushViewController:vc animated:YES];
+//                                                                         
+//                                                                         [hud hideAnimated:YES];
+//                                                                     }];
+                                                                     
+                                                                     // no need to request sms code
+                                                                     
+                                                                     InputCodeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"InputCodeViewController"];
+                                                                     [vc setPhoneNumber:phone];
+                                                                     vc.delegate = self;
+                                                                     [self.navigationController pushViewController:vc animated:YES];
+                                                                     
+                                                                     [hud hideAnimated:YES];
                                                                  } else {
                                                                      // there should no error here
                                                                      [hud showErrorMessage:error process:@"saving user's name"];

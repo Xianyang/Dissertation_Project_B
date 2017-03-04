@@ -9,6 +9,12 @@
 #import "ProfileViewController.h"
 
 @interface ProfileViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mobilePhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *logOutBtn;
+
 
 @end
 
@@ -16,8 +22,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setUserInfo];
     [self setNavigationBar];
+    
+    [self.logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setUserInfo {
+    AVUser *user = [AVUser currentUser];
+    
+    self.mobilePhoneLabel.text = user.mobilePhoneNumber;
+    self.firstNameLabel.text = [user objectForKey:@"first_name"];
+    self.lastNameLabel.text = [user objectForKey:@"last_name"];
+    self.userNameLabel.text = user.username;
+}
+
+- (void)logOutBtnClicked {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"Logout wil delete data. You can log in to use our service"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"Log Out"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [AVUser logOut];
+                                                             [self.delegate userLogout];
+                                                         }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [alert addAction:logoutAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
+    
+    
 }
 
 - (void)setNavigationBar {

@@ -20,26 +20,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _isSignInAnimated = NO;
-    
     [self setNavigationBar];
-    
     [self checkCurrentUser];
-    
-    UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInVCNav"];
-    SignInViewController *vc = [navVC.viewControllers objectAtIndex:0];
-    vc.delegate = self;
-    [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
+    [self requestLocationService];
 }
 
-- (void)animateSignInView {
-    _isSignInAnimated = YES;
+- (void)requestLocationService {
+    
+}
+
+- (void)getCurrentOrders {
+    
 }
 
 #pragma mark - Sign in view controller delegate
 
 - (void)doneProcessInSignInVC {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self getCurrentOrders];
 }
 
 #pragma mark - User
@@ -51,6 +49,9 @@
         SignInViewController *vc = [navVC.viewControllers objectAtIndex:0];
         vc.delegate = self;
         [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
+    } else {
+        // current user is not nil
+        [self getCurrentOrders];
     }
 }
 
@@ -73,19 +74,13 @@
     //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
+- (void)animateSignInView {
+    _isSignInAnimated = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
