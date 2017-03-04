@@ -9,6 +9,12 @@
 #import "ProfileViewController.h"
 
 @interface ProfileViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mobilePhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *logOutBtn;
+
 
 @end
 
@@ -16,13 +22,68 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setUserInfo];
+    [self setNavigationBar];
+    
+    [self.logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setUserInfo {
+    AVUser *user = [AVUser currentUser];
+    
+    self.mobilePhoneLabel.text = user.mobilePhoneNumber;
+    self.firstNameLabel.text = [user objectForKey:@"first_name"];
+    self.lastNameLabel.text = [user objectForKey:@"last_name"];
+    self.userNameLabel.text = user.username;
+}
+
+- (void)logOutBtnClicked {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"Logout wil delete data. You can log in to use our service"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"Log Out"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [AVUser logOut];
+                                                             [self.delegate userLogout];
+                                                         }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [alert addAction:logoutAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
+    
+    
+}
+
+- (void)setNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"black"]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    NSDictionary * dict=[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    //    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gill Sans-UltraBold" size:18], NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:dict];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    //    UIBarButtonItem *backButton =
+    //    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
+    //                                     style:UIBarButtonItemStylePlain
+    //                                    target:nil
+    //                                    action:nil];
+    //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

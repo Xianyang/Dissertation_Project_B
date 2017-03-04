@@ -12,7 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mobilePhoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *logOutBtn;
 
 @end
@@ -34,7 +34,7 @@
     self.mobilePhoneLabel.text = user.mobilePhoneNumber;
     self.firstNameLabel.text = [user objectForKey:@"first_name"];
     self.lastNameLabel.text = [user objectForKey:@"last_name"];
-    self.emailLabel.text = user.email;
+    self.userNameLabel.text = user.username;
 }
 
 - (void)logOutBtnClicked {

@@ -8,6 +8,6 @@
 
 #import <RESideMenu/RESideMenu.h>
 
-@interface RootViewController : RESideMenu
+@interface RootViewController : RESideMenu <RESideMenuDelegate>
 
 @end
