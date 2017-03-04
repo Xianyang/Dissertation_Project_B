@@ -74,4 +74,18 @@
     return [UIColor colorWithRed:65.0f / 255.0f green:148.0f / 255.0f blue:229.0f / 255.0f alpha:0.2f];
 }
 
+// Location
+- (NSString *)valetLocationObjectID {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"valet_location_object_id"];
+}
+
+- (void)saveValetLocationObjectID:(NSString *)objectID {
+    if ([self valetLocationObjectID] && ![[self valetLocationObjectID] isEqualToString:@""]) {
+        NSLog(@"fail to save valet location object id. ID already exists");
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:objectID forKey:@"valet_location_object_id"];
+        NSLog(@"save valet location object id successfully");
+    }
+}
+
 @end

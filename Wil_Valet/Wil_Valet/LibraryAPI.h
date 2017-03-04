@@ -26,4 +26,8 @@
 - (UIColor *)themeBlueColor;
 - (UIColor *)themeLightBlueColor;
 
+// Location
+- (NSString *)valetLocationObjectID;
+- (void)saveValetLocationObjectID:(NSString *)objectID;
+
 @end
