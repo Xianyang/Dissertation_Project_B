@@ -24,6 +24,8 @@
 		623A67E31E335199009A63AC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E21E335199009A63AC /* AboutViewController.m */; };
 		623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E51E3351A0009A63AC /* ContactViewController.m */; };
 		623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E91E33633F009A63AC /* SideMenuCell.m */; };
+		624E60C51E753A8C006B516E /* ValetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60C41E753A8C006B516E /* ValetLocation.m */; };
+		624E60C91E756CF9006B516E /* ValetMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60C81E756CF9006B516E /* ValetMarker.m */; };
 		625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97501E62D09000F2C6F5 /* SignInViewController.m */; };
 		625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */; };
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
@@ -95,6 +97,10 @@
 		623A67E51E3351A0009A63AC /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ViewControllers/ContactViewController.m; sourceTree = "<group>"; };
 		623A67E81E33633F009A63AC /* SideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuCell.h; path = Views/SideMenuCell.h; sourceTree = "<group>"; };
 		623A67E91E33633F009A63AC /* SideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuCell.m; path = Views/SideMenuCell.m; sourceTree = "<group>"; };
+		624E60C31E753A8C006B516E /* ValetLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValetLocation.h; sourceTree = "<group>"; };
+		624E60C41E753A8C006B516E /* ValetLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValetLocation.m; sourceTree = "<group>"; };
+		624E60C71E756CF9006B516E /* ValetMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValetMarker.h; path = ViewControllers/Model/ValetMarker.h; sourceTree = "<group>"; };
+		624E60C81E756CF9006B516E /* ValetMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValetMarker.m; path = ViewControllers/Model/ValetMarker.m; sourceTree = "<group>"; };
 		625B974F1E62D09000F2C6F5 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignInViewController.h; path = ViewControllers/SignInViewController.h; sourceTree = "<group>"; };
 		625B97501E62D09000F2C6F5 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignInViewController.m; path = ViewControllers/SignInViewController.m; sourceTree = "<group>"; };
 		625B97521E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgetPasswordFirstViewController.h; path = ViewControllers/ForgetPasswordFirstViewController.h; sourceTree = "<group>"; };
@@ -189,6 +195,7 @@
 			children = (
 				6216691C1E31D65B007292A4 /* AppDelegate.h */,
 				6216691D1E31D65B007292A4 /* AppDelegate.m */,
+				624E60C61E753A8F006B516E /* Model */,
 				62F7D6FB1E59A75F001AC360 /* API */,
 				6216695E1E324517007292A4 /* ViewControllers */,
 				62F7D6F11E543BCD001AC360 /* Views */,
@@ -259,6 +266,17 @@
 				623A67E51E3351A0009A63AC /* ContactViewController.m */,
 			);
 			name = FunctionVC;
+			sourceTree = "<group>";
+		};
+		624E60C61E753A8F006B516E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				624E60C31E753A8C006B516E /* ValetLocation.h */,
+				624E60C41E753A8C006B516E /* ValetLocation.m */,
+				624E60C71E756CF9006B516E /* ValetMarker.h */,
+				624E60C81E756CF9006B516E /* ValetMarker.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		625B975E1E633D0C00F2C6F5 /* SignUp */ = {
@@ -634,11 +652,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				624E60C51E753A8C006B516E /* ValetLocation.m in Sources */,
 				6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */,
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
 				62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */,
+				624E60C91E756CF9006B516E /* ValetMarker.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,
 				62F7D7331E5F360B001AC360 /* InstructionViewController.m in Sources */,
 				6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */,

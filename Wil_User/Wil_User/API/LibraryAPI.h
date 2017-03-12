@@ -19,6 +19,9 @@
 - (GMSPolygon *)polygonForKowloon;
 - (CLLocationCoordinate2D)serviceLocation;
 
+// valets' locations
+- (void)getValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock;
+
 // limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber;
 - (NSInteger)minLengthForPhoneNumber;

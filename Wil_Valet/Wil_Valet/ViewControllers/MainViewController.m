@@ -32,10 +32,6 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     [[LibraryAPI sharedInstance] saveValetLocationObjectID:@""];
 }
 
-
-
-
-
 - (void)getCurrentOrders {
     
 }
@@ -113,6 +109,7 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     self.locationManager.distanceFilter = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
 #pragma mark - Sign in view controller delegate

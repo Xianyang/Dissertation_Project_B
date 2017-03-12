@@ -25,12 +25,13 @@
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
-
 #import "InstructionViewController.h"
+#import "ValetLocation.h"
 #import "LibraryAPI.h"
 #import "SearchResultCell.h"
 #import "RequestValetPopup.h"
 #import "RequestValetButton.h"
+#import "ValetMarker.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
@@ -41,6 +42,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     BOOL _isInPolygon;
     BOOL _isMapSetted;
     BOOL _isMyLocationBtnInOriginalPosition;
+    BOOL _isGettingValetsLocations;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -56,6 +58,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 @property (strong, nonatomic) UIView *flagLine;
 @property (strong, nonatomic) UITextField *flagTextField;
 @property (strong, nonatomic) UIButton *flagBtn;
+
+// the timer for update valets' locations
+@property (strong, nonatomic) NSTimer *valetLocationTimer;
+
+// the array for valet markers
+@property (strong, nonatomic) NSMutableArray *valetMarkers;
 @end
 
 @implementation MainViewController
@@ -79,10 +87,19 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    // fetch valets' location from server
+    [self.valetLocationTimer setFireDate:[NSDate date]];
+    
     if (!_isMapSetted) {
         [self setMap];
         _isMapSetted = YES;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.valetLocationTimer setFireDate:[NSDate distantFuture]];
 }
 
 - (void)animateSignInView {
@@ -129,10 +146,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView addSubview:self.flagTextField];
     [self.mapView addSubview:self.flagBtn];
     
-    // Ask for My Location data after the map has already been added to the UI.
+    // ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
+    
 }
 
 // get the user's location for the first time
@@ -320,6 +338,81 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToLocation:self.mapView.myLocation.coordinate];
 }
 
+#pragma mark - Valet Marker
+
+- (void)fetchValetsLocation {
+    NSLog(@"try to get valets' locations");
+    if (!_isGettingValetsLocations) {
+        _isGettingValetsLocations = YES;
+        
+        [[LibraryAPI sharedInstance] getValetsLocationsSuccessful:^(NSArray *array) {
+            // add marker to the map
+            [self moveValetMarkers:array];
+        }
+                                                             fail:^(NSError *error) {
+                                                                 [self removeAllValetMarker];
+                                                             }];
+    }
+}
+
+- (void)moveValetMarkers:(NSArray *)valetLocations {
+    // 0. check if there is any valets
+    if (valetLocations.count == 0) {
+        [self removeAllValetMarker];
+        return;
+    }
+    
+    // 1. set isUpdate of every marker to NO
+    for (ValetMarker *valetMarker in self.valetMarkers) {
+        valetMarker.isUpdate = NO;
+    }
+    
+    // 2. set new locations
+    for (ValetLocation *valetLocation in valetLocations) {
+        ValetMarker *valetMarker = [self findValetMarker:valetLocation];
+        
+        if (valetMarker) {
+            valetMarker.position = CLLocationCoordinate2DMake(valetLocation.valet_location.latitude, valetLocation.valet_location.longitude);
+            valetMarker.isUpdate = YES;
+        } else {
+            ValetMarker *valetMarker = [[ValetMarker alloc] initWithValetObjectID:valetLocation.valet_object_ID AVGeoPoint:valetLocation.valet_location mapView:self.mapView];
+            [self.valetMarkers addObject:valetMarker];
+        }
+    }
+    
+    // 3. remove marker that did not update
+    NSMutableArray *tempCopy = [self.valetMarkers mutableCopy];
+    for (ValetMarker *valetMarker in self.valetMarkers) {
+        if (valetMarker.isUpdate == NO) {
+            valetMarker.map = nil;
+            [tempCopy removeObject:valetMarker];
+        }
+    }
+    self.valetMarkers = tempCopy;
+    
+    // 4. finish
+    _isGettingValetsLocations = NO;
+}
+
+- (ValetMarker *)findValetMarker:(ValetLocation *)valetLocation {
+    for (ValetMarker *valetMarker in self.valetMarkers) {
+        if ([valetMarker.valetObjectID isEqualToString:valetLocation.valet_object_ID]) {
+            return valetMarker;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)removeAllValetMarker {
+    for (ValetMarker *valetMarker in self.valetMarkers) {
+        valetMarker.map = nil;
+    }
+    
+    [self.valetMarkers removeAllObjects];
+    _isGettingValetsLocations = NO;
+}
+
 # pragma mark - Search for a place
 
 - (IBAction)launchSearch:(id)sender {
@@ -442,6 +535,26 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _geocoder;
+}
+
+- (NSTimer *)valetLocationTimer {
+    if (!_valetLocationTimer) {
+        _valetLocationTimer = [NSTimer scheduledTimerWithTimeInterval:5
+                                                               target:self
+                                                             selector:@selector(fetchValetsLocation)
+                                                             userInfo:nil
+                                                              repeats:YES];
+    }
+    
+    return _valetLocationTimer;
+}
+
+- (NSMutableArray *)valetMarkers {
+    if (!_valetMarkers) {
+        _valetMarkers = [[NSMutableArray alloc] init];
+    }
+    
+    return _valetMarkers;
 }
 
 - (void)dealloc {

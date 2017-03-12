@@ -8,6 +8,7 @@
 
 #import "LibraryAPI.h"
 #import "PolygonClient.h"
+#import "ValetLocation.h"
 
 @interface LibraryAPI()
 @property (strong, nonatomic) PolygonClient *polygonClient;
@@ -55,6 +56,32 @@
 
 - (CLLocationCoordinate2D)serviceLocation {
     return [self.polygonClient serviceLocation];
+}
+
+// valets' locations
+
+- (void)getValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
+    NSMutableArray *locations = [NSMutableArray array];
+    
+    AVQuery *query = [AVQuery queryWithClassName:[ValetLocation parseClassName]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects && objects.count > 0 && !error) {
+            // create ValetLocation object
+            for (AVObject *object in objects) {
+                NSInteger timerinterval = [[NSDate date] timeIntervalSinceDate:object.updatedAt];
+                NSLog(@"time interval %d", timerinterval);
+                
+                if ([[NSDate date] timeIntervalSinceDate:object.updatedAt] <= 30) {
+                    ValetLocation *valetLocation = [[ValetLocation alloc] initWithAVObject:object];
+                    [locations addObject:valetLocation];
+                }
+            }
+            
+            successBlock(locations);
+        } else {
+            failBlock(error);
+        }
+    }];
 }
 
 // limit for user's registration
