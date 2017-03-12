@@ -8,6 +8,8 @@
 
 #import "LibraryAPI.h"
 
+static NSString * const LocationObjectName = @"valet_location_object_id";
+
 @interface LibraryAPI()
 
 @end
@@ -76,14 +78,14 @@
 
 // Location
 - (NSString *)valetLocationObjectID {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"valet_location_object_id"];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@""];
 }
 
 - (void)saveValetLocationObjectID:(NSString *)objectID {
-    if ([self valetLocationObjectID] && ![[self valetLocationObjectID] isEqualToString:@""]) {
+    if ([self valetLocationObjectID] && ![[self valetLocationObjectID] isEqualToString:LocationObjectName]) {
         NSLog(@"fail to save valet location object id. ID already exists");
     } else {
-        [[NSUserDefaults standardUserDefaults] setObject:objectID forKey:@"valet_location_object_id"];
+        [[NSUserDefaults standardUserDefaults] setObject:objectID forKey:LocationObjectName];
         NSLog(@"save valet location object id successfully");
     }
 }

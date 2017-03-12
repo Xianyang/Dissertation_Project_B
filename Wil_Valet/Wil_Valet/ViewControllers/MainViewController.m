@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "SignInViewController.h"
+#import "ValetLocation.h"
 
 static NSString * const ValetLocationClassName = @"Valet_Location";
 
@@ -17,7 +18,7 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (strong, nonatomic) AVObject *locationObject;
+@property (strong, nonatomic) ValetLocation *valetLocation;
 
 @end
 
@@ -28,6 +29,7 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     
     [self setNavigationBar];
     [self checkCurrentUser];
+    [[LibraryAPI sharedInstance] saveValetLocationObjectID:@""];
 }
 
 
@@ -47,36 +49,36 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
         self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", location.coordinate.latitude, location.coordinate.longitude];
         AVGeoPoint *geoPoint = [AVGeoPoint geoPointWithLocation:location];
         
-        // TODO update location to server
-        if (self.locationObject.objectId == nil) {
+        if (self.valetLocation.objectId == nil) {
             // 1. query from the server
             AVUser *valet = [AVUser currentUser];
             
             AVQuery *query = [AVQuery queryWithClassName:ValetLocationClassName];
-            [query whereKey:@"valetPhoneNumer" equalTo:valet.mobilePhoneNumber];
+            [query whereKey:@"valet_object_ID" equalTo:valet.objectId];
             [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                 if (objects.count == 1 && !error) {
-                    self.locationObject = objects[0];
+                    self.valetLocation = objects[0];
                     
                     // 2. update location
                     
-                    [self.locationObject setObject:geoPoint forKey:@"location"];
-                    [self.locationObject saveInBackground];
+                    self.valetLocation.valet_location = geoPoint;
+                    [self.valetLocation saveInBackground];
                     
                     // 3. save the objectID
-                    [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.locationObject.objectId];
+                    [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.valetLocation.objectId];
                 } else {
                     // 2. create this ValetLocation object
-                    [self.locationObject setObject:geoPoint forKey:@"location"];
-                    [self.locationObject setObject:[valet objectForKey:@"first_name"] forKey:@"valet_first_name"];
-                    [self.locationObject setObject:[valet objectForKey:@"last_name"] forKey:@"valet_last_name"];
-                    [self.locationObject setObject:valet.mobilePhoneNumber forKey:@"valet_mobile_phone_number"];
-                    [self.locationObject setObject:valet.username forKey:@"valet_user_name"];
+                    self.valetLocation.valet_location = geoPoint;
+                    self.valetLocation.valet_object_ID = valet.objectId;
+                    self.valetLocation.valet_first_name = [valet objectForKey:@"first_name"];
+                    self.valetLocation.valet_last_name = [valet objectForKey:@"last_name"];
+                    self.valetLocation.valet_mobile_phone_numer = valet.mobilePhoneNumber;
+                    self.valetLocation.valet_user_name = valet.username;
                     
-                    [self.locationObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    [self.valetLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                         if (succeeded) {
                             // 3. save the objectID
-                            [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.locationObject.objectId];
+                            [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.valetLocation.objectId];
                         } else {
                             
                         }
@@ -84,8 +86,8 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
                 }
             }];
         } else {
-            [self.locationObject setObject:geoPoint forKey:@"location"];
-            [self.locationObject saveInBackground];
+            self.valetLocation.valet_location = geoPoint;
+            [self.valetLocation saveInBackground];
         }
     }
 }
@@ -169,17 +171,17 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     return _locationManager;
 }
 
-- (AVObject *)locationObject {
-    if (!_locationObject) {
+- (ValetLocation *)valetLocation {
+    if (!_valetLocation) {
         NSString *valetLocationObjectID = [[LibraryAPI sharedInstance] valetLocationObjectID];
         if (valetLocationObjectID && ![valetLocationObjectID isEqualToString:@""]) {
-            _locationObject = [AVObject objectWithClassName:ValetLocationClassName objectId:valetLocationObjectID];
+            _valetLocation = [ValetLocation objectWithObjectId:valetLocationObjectID];
         } else {
-            _locationObject = [AVObject objectWithClassName:ValetLocationClassName];
+            _valetLocation = [ValetLocation object];
         }
     }
     
-    return _locationObject;
+    return _valetLocation;
 }
 
 - (void)didReceiveMemoryWarning {
