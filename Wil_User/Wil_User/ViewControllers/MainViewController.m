@@ -28,8 +28,6 @@
 #import "InstructionViewController.h"
 #import "ValetLocation.h"
 #import "LibraryAPI.h"
-#import "SearchResultCell.h"
-#import "RequestValetPopup.h"
 #import "RequestValetButton.h"
 #import "ValetMarker.h"
 

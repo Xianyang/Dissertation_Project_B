@@ -31,8 +31,6 @@
 		625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */; };
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
 		625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */; };
-		62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */; };
-		62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */; };
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
 		62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7001E59F9C5001AC360 /* PolygonClient.m */; };
 		62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D7031E5AD237001AC360 /* RequestValetButton.m */; };
@@ -113,10 +111,6 @@
 		625B97601E63E8FF00F2C6F5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = ViewControllers/SignUpViewController.h; sourceTree = "<group>"; };
 		625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = ViewControllers/SignUpViewController.m; sourceTree = "<group>"; };
 		62F7D6ED1E54063E001AC360 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultCell.h; path = Views/SearchResultCell.h; sourceTree = "<group>"; };
-		62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultCell.m; path = Views/SearchResultCell.m; sourceTree = "<group>"; };
-		62F7D6F51E5954D5001AC360 /* RequestValetPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestValetPopup.h; path = Views/RequestValetPopup.h; sourceTree = "<group>"; };
-		62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestValetPopup.m; path = Views/RequestValetPopup.m; sourceTree = "<group>"; };
 		62F7D6F81E59A75B001AC360 /* LibraryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryAPI.h; path = API/LibraryAPI.h; sourceTree = "<group>"; };
 		62F7D6F91E59A75B001AC360 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryAPI.m; path = API/LibraryAPI.m; sourceTree = "<group>"; };
 		62F7D6FF1E59F9C5001AC360 /* PolygonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolygonClient.h; path = API/PolygonClient.h; sourceTree = "<group>"; };
@@ -282,6 +276,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		624E60CD1E76A837006B516E /* OnMap */ = {
+			isa = PBXGroup;
+			children = (
+				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
+				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
+			);
+			name = OnMap;
+			sourceTree = "<group>";
+		};
 		625B975E1E633D0C00F2C6F5 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,14 +312,9 @@
 		62F7D6F11E543BCD001AC360 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				624E60CD1E76A837006B516E /* OnMap */,
 				623A67E81E33633F009A63AC /* SideMenuCell.h */,
 				623A67E91E33633F009A63AC /* SideMenuCell.m */,
-				62F7D6EE1E543B7D001AC360 /* SearchResultCell.h */,
-				62F7D6EF1E543B7E001AC360 /* SearchResultCell.m */,
-				62F7D6F51E5954D5001AC360 /* RequestValetPopup.h */,
-				62F7D6F61E5954D5001AC360 /* RequestValetPopup.m */,
-				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
-				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
 				62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */,
 				62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */,
 			);
@@ -662,7 +660,6 @@
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
-				62F7D6F71E5954D5001AC360 /* RequestValetPopup.m in Sources */,
 				624E60CC1E7656EA006B516E /* ValetLocationClient.m in Sources */,
 				624E60C91E756CF9006B516E /* ValetMarker.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,
@@ -670,7 +667,6 @@
 				6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */,
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
-				62F7D6F01E543B7E001AC360 /* SearchResultCell.m in Sources */,
 				62F7D73D1E616FC3001AC360 /* MBProgressHUD+WilShowError.m in Sources */,
 				62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */,
 				62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */,
