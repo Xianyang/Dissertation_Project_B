@@ -16,11 +16,14 @@
 @interface LibraryAPI : NSObject
 
 typedef enum {
+    // undefine
+    kUserOrderStatusUndefine = 0,
+    
     // no order
-    kUserOrderStatusNone = 0,
+    kUserOrderStatusNone,
     
     // user is dropping off its vehicle
-    kUserOrderStatusDroppingOff,
+    kUserOrderStatusUserDroppingOff,
     
     // valet is parking user's vehicle
     kUserOrderStatusParking,

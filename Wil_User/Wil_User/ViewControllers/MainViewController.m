@@ -78,6 +78,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _firstLocationUpdate = NO;
     _isMapSetted = NO;
     _isMyLocationBtnInOriginalPosition = YES;
+    _userOrderStatus = kUserOrderStatusUndefine;
     
     [self checkCurrentUser];
     [self setNavigationBar];
@@ -95,19 +96,38 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // fetch valets' location from server
     [self.valetLocationTimer setFireDate:[NSDate date]];
     
-    if (!_isMapSetted && [AVUser currentUser]) {
+    if (!_isMapSetted) {
+        [self setMap];
+        _isMapSetted = YES;
+    }
+    
+    if ([AVUser currentUser]) {
         // check if user has an unfinished order
         [[LibraryAPI sharedInstance] checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
-            // TODO show this order to user
             _userOrderStatus = orderObject.order_status;
+            
+            if (_userOrderStatus == kUserOrderStatusUserDroppingOff) {
+                // TODO show valet info
+            } else if (_userOrderStatus == kUserOrderStatusParking) {
+                // TODO show user's vehicle
+            } else if (_userOrderStatus == kUserOrderStatusParked ) {
+                // TODO
+            } else if (_userOrderStatus == kUserOrderStatusRequestingBack) {
+                // TODO
+            }
         }
                                                            noOrder:^{
                                                                _userOrderStatus = kUserOrderStatusNone;
-                                                               [self setMap];
-                                                               _isMapSetted = YES;
+                                                               // check if map gets user's location
+                                                               if (self.mapView.myLocation) {
+                                                                   [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
+                                                               } else {
+                                                                   [self setMapToUserOrderStatusNone:self.mapView.camera.target];
+                                                               }
                                                            }
                                                               fail:^{
                                                                   // TODO ask user to load view again
+                                                                  NSLog(@"error");
                                                               }];
     }
 }
@@ -155,7 +175,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
-    
 }
 
 // get the user's location for the first time
@@ -171,33 +190,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         
         // 2. Check if the user is in the polygon and add the flag
-        if ([self checkIsPositionInPolygon:location.coordinate]) {
-            _isInPolygon = YES;
-            
-            [self showRequestServiceView];
-        } else {
-            _isInPolygon = NO;
-            
-            [self hideRequestServiceView];
+        if (_userOrderStatus == kUserOrderStatusNone) {
+            [self setMapToUserOrderStatusNone:location.coordinate];
         }
     }
 }
 
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
     if (_userOrderStatus == kUserOrderStatusNone) {
-        if ([self checkIsPositionInPolygon:position.target]) {
-            if (!_isInPolygon) {
-                NSLog(@"user changes to polygon");
-                _isInPolygon = YES;
-                [self showRequestServiceView];
-            }
-        } else {
-            if (_isInPolygon) {
-                NSLog(@"user gets out of polygon");
-                _isInPolygon = NO;
-                [self hideRequestServiceView];
-            }
-        }
+        [self updateRequestServiceView:position.target];
     }
 }
 
@@ -208,6 +209,25 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                               completionHandler:^(GMSReverseGeocodeResponse * response, NSError * error) {
                                   [self.requestValetButton setLocation:response.results[0].lines[0]];
                               }];
+    }
+}
+
+#pragma mark - Order Status
+
+// kUserOrderStatusNone
+- (void)setMapToUserOrderStatusNone:(CLLocationCoordinate2D)coordinate {
+    [self updateRequestServiceView:coordinate];
+}
+
+- (void)updateRequestServiceView:(CLLocationCoordinate2D)coordinate {
+    if ([self checkIsPositionInPolygon:coordinate]) {
+        _isInPolygon = YES;
+        
+        [self showRequestServiceView];
+    } else {
+        _isInPolygon = NO;
+        
+        [self hideRequestServiceView];
     }
 }
 
@@ -222,6 +242,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)showRequestServiceView {
+    if ([[self.mapFlag text] isEqualToString:@"WIL"]) {
+        return;
+    }
+    
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -241,6 +265,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)hideRequestServiceView {
+    if (![[self.mapFlag text] isEqualToString:@"WIL"]) {
+        return;
+    }
+    
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -265,8 +293,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToLocation:[[LibraryAPI sharedInstance] serviceLocation]];
     [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
 }
-
-
 
 - (void)moveMyLocationBtn:(CGFloat)margin {
     UIView *btnView = [self myLocationBtn];
@@ -337,7 +363,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                                     success:^(OrderObject *orderObject) {
                                                                         NSLog(@"meet your valet");
                                                                         [hud hideAnimated:YES];
-                                                                        _userOrderStatus = kUserOrderStatusDroppingOff;
+                                                                        _userOrderStatus = orderObject.order_status;
                                                                         
                                                                         [UIView animateWithDuration:0.2
                                                                                               delay:0

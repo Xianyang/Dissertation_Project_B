@@ -21,7 +21,7 @@
     orderObject.start_at = [NSDate date];
     orderObject.park_address = parkAddress;
     orderObject.park_location = parkLocation;
-    orderObject.order_status = kUserOrderStatusDroppingOff;
+    orderObject.order_status = kUserOrderStatusUserDroppingOff;
     
     [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {

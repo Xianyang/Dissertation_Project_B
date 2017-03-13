@@ -22,4 +22,6 @@
 - (void)showGoToServiceArea;
 - (void)hideInMapView:(GMSMapView *)mapView;
 
+- (NSString *)text;
+
 @end

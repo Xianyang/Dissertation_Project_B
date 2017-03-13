@@ -100,6 +100,10 @@
     [self.flagBtn addTarget:self action:@selector(flagBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (NSString *)text {
+    return self.flagLabel.text;
+}
+
 - (void)hideInMapView:(GMSMapView *)mapView {
     self.frame = CGRectMake(self.frame.origin.x, 0 - self.frame.size.height, self.frame.size.width, self.frame.size.height);
 }
