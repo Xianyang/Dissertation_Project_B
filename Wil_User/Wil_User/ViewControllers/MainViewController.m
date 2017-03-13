@@ -338,6 +338,36 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToLocation:self.mapView.myLocation.coordinate];
 }
 
+#pragma mark - Request Valet
+
+- (void)requestValetBtnClicked {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // 1. check if there is any valet
+    if (![[LibraryAPI sharedInstance] valetLocations] || [[[LibraryAPI sharedInstance] valetLocations] count] == 0) {
+        [hud showMessage:@"try later"];
+        return;
+    }
+    
+    // 2. find the nearest valet
+    ValetLocation *nearestValetLocation = [[LibraryAPI sharedInstance] nearestValetLocation:self.mapView.camera.target];
+    if (nearestValetLocation) {
+        [nearestValetLocation fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+            if (!error) {
+                // 3. assign this valet to user
+                
+            } else {
+                [hud showMessage:@"try later"];
+            }
+        }];
+    } else {
+        [hud showMessage:@"try later"];
+        return;
+    }
+    
+    NSLog(@"asdf");
+}
+
 #pragma mark - Valet Marker
 
 - (void)fetchValetsLocation {
@@ -345,13 +375,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     if (!_isGettingValetsLocations) {
         _isGettingValetsLocations = YES;
         
-        [[LibraryAPI sharedInstance] getValetsLocationsSuccessful:^(NSArray *array) {
+        [[LibraryAPI sharedInstance] fetchValetsLocationsSuccessful:^(NSArray *array) {
             // add marker to the map
             [self moveValetMarkers:array];
         }
-                                                             fail:^(NSError *error) {
-                                                                 [self removeAllValetMarker];
-                                                             }];
+                                                               fail:^(NSError *error) {
+                                                                   [self removeAllValetMarker];
+                                                               }];
     }
 }
 
@@ -468,6 +498,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 #pragma mark - Some Settings
 
+- (void)showHudWithMessage:(NSString *)message {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud showMessage:message];
+}
+
 - (void)setNavigationBar {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"black"]
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -488,6 +523,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (RequestValetButton *)requestValetButton {
     if (!_requestValetButton) {
         _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, 64.0f)];
+        [_requestValetButton addTarget:self action:@selector(requestValetBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _requestValetButton;

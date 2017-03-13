@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signInBtn;
 @property (weak, nonatomic) IBOutlet UIButton *forgetPasswordBtn;
+@property (weak, nonatomic) IBOutlet UIButton *signUpBtn;
 
 @end
 
@@ -24,20 +25,20 @@
     
     [self basicSettings];
     
+    [self.signUpBtn setHidden:YES];
 //    AVUser *user = [AVUser user];
-//    user.username = @"admin_valet";
-//    user.mobilePhoneNumber = @"+85251709669";
-//    user.password = @"123456";
+//    user.username = @"valet_wangyili";
+//    [user setObject:@"Wang" forKey:@"last_name"];
+//    [user setObject:@"Yili" forKey:@"first_name"];
+//    user.mobilePhoneNumber = @"+85254999306";
+//    user.password = @"qqqqqq";
 //    
 //    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
 //        if (succeeded) {
-//            NSLog(@"sign up!");
 //            [AVUser requestMobilePhoneVerify:user.mobilePhoneNumber
 //                                   withBlock:^(BOOL succeeded, NSError * _Nullable error) {
 //                                       if (succeeded) {
-//                                           NSLog(@"lalal");
-//                                       } else {
-//                                           NSLog(@"???");
+//                                           NSLog(@"verification code sent");
 //                                       }
 //                                   }];
 //        } else {
@@ -45,6 +46,19 @@
 //        }
 //
 //    }];
+//    
+//    [self.signUpBtn addTarget:self action:@selector(signUpBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)signUpBtnClicked {
+    [AVUser verifyMobilePhone:self.phoneNumberTextField.text
+                    withBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        if (succeeded) {
+                            NSLog(@"sign up finished");
+                        } else {
+                            NSLog(@"sign up failed");
+                        }
+                    }];
 }
 
 - (void)forgetPasswordBtnClicked {

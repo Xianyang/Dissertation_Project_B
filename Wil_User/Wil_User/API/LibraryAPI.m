@@ -8,10 +8,12 @@
 
 #import "LibraryAPI.h"
 #import "PolygonClient.h"
-#import "ValetLocation.h"
+#import "ValetLocationClient.h"
 
 @interface LibraryAPI()
 @property (strong, nonatomic) PolygonClient *polygonClient;
+@property (strong, nonatomic) ValetLocationClient *valetLocationClient;
+
 @end
 
 @implementation LibraryAPI
@@ -37,6 +39,7 @@
     if (self = [super init])
     {
         self.polygonClient = [[PolygonClient alloc] init];
+        self.valetLocationClient = [[ValetLocationClient alloc] init];
     }
     
     return self;
@@ -60,28 +63,21 @@
 
 // valets' locations
 
-- (void)getValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
-    NSMutableArray *locations = [NSMutableArray array];
-    
-    AVQuery *query = [AVQuery queryWithClassName:[ValetLocation parseClassName]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (objects && objects.count > 0 && !error) {
-            // create ValetLocation object
-            for (AVObject *object in objects) {
-                NSInteger timerinterval = [[NSDate date] timeIntervalSinceDate:object.updatedAt];
-                NSLog(@"time interval %d", timerinterval);
-                
-                if ([[NSDate date] timeIntervalSinceDate:object.updatedAt] <= 30) {
-                    ValetLocation *valetLocation = [[ValetLocation alloc] initWithAVObject:object];
-                    [locations addObject:valetLocation];
-                }
-            }
-            
-            successBlock(locations);
-        } else {
-            failBlock(error);
-        }
-    }];
+- (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.valetLocationClient fetchValetsLocationsSuccessful:^(NSArray *array) {
+        successBlock(array);
+    }
+                                                        fail:^(NSError *error) {
+                                                            failBlock(error);
+                                                        }];
+}
+
+- (NSArray *)valetLocations {
+    return [self.valetLocationClient valetLocations];
+}
+
+- (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate {
+    return [self.valetLocationClient nearestValetLocation:coordinate];
 }
 
 // limit for user's registration

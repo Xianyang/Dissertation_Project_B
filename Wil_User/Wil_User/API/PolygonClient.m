@@ -15,8 +15,8 @@
 }
 
 - (NSArray *)polygons {
-    return @[[self polygonForHKIsland], [self polygonForKowloon]];
-//    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
+//    return @[[self polygonForHKIsland], [self polygonForKowloon]];
+    return @[[self polygonForHKIsland], [self polygonForKowloon], [self polygonForHome]];
 }
 
 - (GMSPolygon *)basicPolygon {

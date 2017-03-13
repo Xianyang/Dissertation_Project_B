@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "ValetLocation.h"
 
 @interface LibraryAPI : NSObject
 
@@ -20,7 +21,9 @@
 - (CLLocationCoordinate2D)serviceLocation;
 
 // valets' locations
-- (void)getValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock;
+- (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock;
+- (NSArray *)valetLocations;
+- (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate;
 
 // limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber;
