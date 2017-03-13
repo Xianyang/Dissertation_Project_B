@@ -13,4 +13,7 @@
 - (id)initWithFrame:(CGRect)frame;
 - (void)setLocation:(NSString *)location;
 
+- (void)showInMapView:(GMSMapView *)mapView;
+- (void)hideInMapView:(GMSMapView *)mapView;
+
 @end

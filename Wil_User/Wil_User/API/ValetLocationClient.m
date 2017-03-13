@@ -26,11 +26,10 @@
                 NSInteger timerinterval = [[NSDate date] timeIntervalSinceDate:object.updatedAt];
                 NSLog(@"time interval %ld", (long)timerinterval);
                 
-                ValetLocation *valetLocation = [ValetLocation objectWithObjectId:object.objectId];
-                [valetLocation transferProperty:object];
+                ValetLocation *valetLocation = (ValetLocation *)object;
                 
                 // filter valet locations based on 1. update time 2. is serving status
-                if ([[NSDate date] timeIntervalSinceDate:object.updatedAt] <= 30000 && ![valetLocation.valet_is_serving boolValue]) {
+                if ([[NSDate date] timeIntervalSinceDate:valetLocation.updatedAt] <= 30000 && ![valetLocation.valet_is_serving boolValue]) {
                     [locations addObject:valetLocation];
                 }
             }

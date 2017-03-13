@@ -27,6 +27,14 @@
     [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
 }
 
+- (void)showInMapView:(GMSMapView *)mapView {
+    self.frame = CGRectMake(0, mapView.frame.size.height - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+}
+
+- (void)hideInMapView:(GMSMapView *)mapView {
+    self.frame = CGRectMake(0, mapView.frame.size.height, self.frame.size.width, self.frame.size.height);
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -20,7 +20,7 @@
 //
 //- (id)initWithAVObject:(AVObject *)object;
 
-- (void)transferProperty:(AVObject *)object;
+//- (void)transferProperty:(AVObject *)object;
 
 @property (nonatomic, copy) NSString *valet_object_ID;
 @property (nonatomic, copy) NSString *valet_user_name;

@@ -10,6 +10,9 @@
 @import GoogleMaps;
 @import GooglePlaces;
 #import <AVOSCloud/AVOSCloud.h>
+#import "ValetLocation.h"
+#import "UserLocation.h"
+#import "OrderObject.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +26,9 @@
     [GMSServices provideAPIKey:@"AIzaSyBGDLcY7VysgsEzK0QZnx7DOFBbJhkKsIo"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyBGDLcY7VysgsEzK0QZnx7DOFBbJhkKsIo"];
     
+    [ValetLocation registerSubclass];
+    [OrderObject registerSubclass];
+    [UserLocation registerSubclass];
     [AVOSCloud setApplicationId:@"LofD16jEuaeoAu0e7fBn7Ug5-gzGzoHsz" clientKey:@"78OBNxyLGXz4iMr2sUcqdhXD"];
     
     return YES;

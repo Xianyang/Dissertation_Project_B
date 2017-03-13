@@ -10,11 +10,34 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 #import "ValetLocation.h"
+#import "UserLocation.h"
+#import "OrderObject.h"
 
 @interface LibraryAPI : NSObject
 
+typedef enum {
+    // no order
+    kUserOrderStatusNone = 0,
+    
+    // user is dropping off its vehicle
+    kUserOrderStatusDroppingOff,
+    
+    // valet is parking user's vehicle
+    kUserOrderStatusParking,
+    
+    // valet already parked user's vehicle
+    kUserOrderStatusParked,
+    
+    // user is requesting its vehicle
+    kUserOrderStatusRequesting,
+    
+    // the order is finished
+    kUserOrderStatusFinished
+} UserOrderStatus;
+
 + (LibraryAPI *)sharedInstance;
 
+// polygon
 - (NSArray *)polygons;
 - (GMSPolygon *)polygonForHKIsland;
 - (GMSPolygon *)polygonForKowloon;
@@ -24,6 +47,13 @@
 - (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock;
 - (NSArray *)valetLocations;
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate;
+
+// order
+- (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                           parkAddress:(NSString *)parkAddress
+                          parkLocation:(AVGeoPoint *)parkLocation
+                               success:(void (^)(OrderObject *orderObject))successBlock
+                                  fail:(void (^)(NSError *error))failBlock;
 
 // limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber;

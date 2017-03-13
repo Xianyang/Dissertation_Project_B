@@ -18,9 +18,9 @@
 #define LEFT_TOP_CORNER_LONGITUDE_HONG_KONG         113.794132
 #define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
-#define FLAG_RECT1_WIDTH                            70
-#define FLAG_RECT2_WIDTH                            130
-#define FLAG_RECT_HEIGHT                            35
+
+#define REQUEST_VALET_BTN_HEIGHT                    64
+#define MAP_VALET_INFO_VIEW_HEIGHT                  257
 
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -30,10 +30,14 @@
 #import "LibraryAPI.h"
 #import "RequestValetButton.h"
 #import "ValetMarker.h"
+#import "MapFlag.h"
+#import "MapValetInfoView.h"
+#import "OrderObject.h"
+#import "UserLocation.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate>
+@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate>
 {
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
@@ -41,21 +45,23 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     BOOL _isMapSetted;
     BOOL _isMyLocationBtnInOriginalPosition;
     BOOL _isGettingValetsLocations;
+    
+    UserOrderStatus _userOrderStatus;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
-@property (strong, nonatomic) UIImageView *flagImageView;
 @property (strong, nonatomic) GMSPlacesClient *placesClient;
 @property (nonatomic, strong, nonnull) GMSGeocoder *geocoder;
-
 @property (strong, nonatomic) NSArray * filterPlaces;
+
+// the button in the bottom of the map
 @property (strong, nonatomic) RequestValetButton *requestValetButton;
 
 // the flag in the center of the map
-@property (strong, nonatomic) UIView *flagRect;
-@property (strong, nonatomic) UIView *flagLine;
-@property (strong, nonatomic) UITextField *flagTextField;
-@property (strong, nonatomic) UIButton *flagBtn;
+@property (strong, nonatomic) MapFlag *mapFlag;
+
+// the info view for valet
+@property (strong, nonatomic) MapValetInfoView *mapValetInfoView;
 
 // the timer for update valets' locations
 @property (strong, nonatomic) NSTimer *valetLocationTimer;
@@ -74,12 +80,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isMyLocationBtnInOriginalPosition = YES;
     
     [self checkCurrentUser];
-    
     [self setNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // TODO check user's order status
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -97,6 +104,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    // stop fetch valets' location from server
     [self.valetLocationTimer setFireDate:[NSDate distantFuture]];
 }
 
@@ -104,13 +112,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isSignInAnimated = YES;
 }
 
-#pragma mark - InstructionVCDelegate
-
-- (void)doneProcessInInstructionVC {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Google Map
+#pragma mark - Google Map Delegate
 
 - (void)setMap {
     // Listen to the myLocation property of GMSMapView.
@@ -121,9 +123,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     self.mapView.delegate = self;
     
-    // add request service button
-    [self.mapView addSubview:self.requestValetButton];
-    
     // enable my location button
     self.mapView.settings.myLocationButton = YES;
     
@@ -132,17 +131,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         polygon.map = self.mapView;
     }
     
+    // add request service button
+    [self.mapView addSubview:self.requestValetButton];
+    
     // add the flag
-    self.flagRect.frame = CGRectMake(142, -70, 130, 35);
-    self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
-                                     self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
-                                     2, 35);
-    self.flagTextField.frame = self.flagRect.frame;
-    self.flagBtn.frame = self.flagRect.frame;
-    [self.mapView addSubview:self.flagRect];
-    [self.mapView addSubview:self.flagLine];
-    [self.mapView addSubview:self.flagTextField];
-    [self.mapView addSubview:self.flagBtn];
+    [self.mapView addSubview:self.mapFlag];
+    
+    // add the valet info view
+    [self.mapView addSubview:self.mapValetInfoView];
     
     // ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -218,31 +214,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          // 0. show the view at the bottom
-                         self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height - self.requestValetButton.frame.size.height,
-                                                                    self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                         [self.requestValetButton showInMapView:self.mapView];
                          
-                         // 1. change the rect
-                         self.flagRect.frame = CGRectMake((DEVICE_WIDTH - FLAG_RECT1_WIDTH) / 2, (DEVICE_HEIGHT - 64) / 2 - FLAG_RECT_HEIGHT * 2,
-                                                          FLAG_RECT1_WIDTH, FLAG_RECT_HEIGHT);
-                         self.flagRect.backgroundColor = [UIColor blackColor];
+                         // 1. change flag style
+                         [self.mapFlag showWil];
                          
-                         // 2. change the line
-                         self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
-                                                          self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
-                                                          2, FLAG_RECT_HEIGHT);
-                         self.flagLine.backgroundColor = self.flagRect.backgroundColor;
-                         
-                         // 3. change the text
-                         self.flagTextField.frame = self.flagRect.frame;
-                         self.flagTextField.text = @"WIL";
-                         self.flagTextField.font = [UIFont systemFontOfSize:15.0f];
-                         
-                         // 4. remove flag button's target
-                         self.flagBtn.frame = self.flagRect.frame;
-                         [self.flagBtn removeTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
-                         
-                         // 5. move my location button
-                         [self moveMyLocationBtn:-64];
+                         // 2. move my location button
+                         [self moveMyLocationBtn:-self.requestValetButton.frame.size.height];
                      }
                      completion:^(BOOL finished) {
                          
@@ -255,31 +233,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          // 0. hide the view at the bottom
-                         self.requestValetButton.frame = CGRectMake(0, self.mapView.frame.size.height,
-                                                                    self.requestValetButton.frame.size.width, self.requestValetButton.frame.size.height);
+                         [self.requestValetButton hideInMapView:self.mapView];
                          
-                         // 1. change the rect
-                         self.flagRect.frame = CGRectMake((DEVICE_WIDTH - FLAG_RECT2_WIDTH) / 2, (DEVICE_HEIGHT - 64) / 2 - FLAG_RECT_HEIGHT * 2,
-                                                          FLAG_RECT2_WIDTH, FLAG_RECT_HEIGHT);
-                         self.flagRect.backgroundColor = [[LibraryAPI sharedInstance] themeBlueColor];
+                         // 1. change flag style
+                         [self.mapFlag showGoToServiceArea];
                          
-                         // 2. change the line color
-                         self.flagLine.frame = CGRectMake(self.flagRect.frame.origin.x + self.flagRect.frame.size.width / 2,
-                                                          self.flagRect.frame.origin.y + self.flagRect.frame.size.height,
-                                                          2, FLAG_RECT_HEIGHT);
-                         self.flagLine.backgroundColor = self.flagRect.backgroundColor;
-                         
-                         // 3. change the text
-                         self.flagTextField.frame = self.flagRect.frame;
-                         self.flagTextField.text = @"Go To Service Area";
-                         self.flagTextField.font = [UIFont systemFontOfSize:13.0f];
-                         
-                         // 4. add flag button's target
-                         self.flagBtn.frame = self.flagRect.frame;
-                         [self.flagBtn addTarget:self action:@selector(moveToServiceArea) forControlEvents:UIControlEventTouchUpInside];
-                         
-                         // 4. move my location button
-                         [self moveMyLocationBtn:64];
+                         // 2. move my location button
+                         [self moveMyLocationBtn:self.requestValetButton.frame.size.height];
                          
                      }
                      completion:^(BOOL finished) {
@@ -292,6 +252,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToLocation:[[LibraryAPI sharedInstance] serviceLocation]];
     [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
 }
+
+
 
 - (void)moveMyLocationBtn:(CGFloat)margin {
     UIView *btnView = [self myLocationBtn];
@@ -353,7 +315,25 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [nearestValetLocation fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
             if (!error) {
                 // 3. assign this valet to user
+                [hud hideAnimated:YES];
                 
+                [UIView animateWithDuration:0.2
+                                      delay:0
+                                    options:UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                                     [self.mapValetInfoView showInMapView:self.mapView];
+                                     [self.requestValetButton hideInMapView:self.mapView];
+                                     [self.mapFlag hideInMapView:self.mapView];
+                                 }
+                                 completion:^(BOOL finished) {
+                                     
+                                 }];
+                
+                // TODO create an order object
+                
+                
+                // TODO set status of main view controller to ORDER
+                // TODO show marker accroding to status
             } else {
                 [hud showMessage:@"try later"];
             }
@@ -441,6 +421,18 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isGettingValetsLocations = NO;
 }
 
+#pragma mark - InstructionVCDelegate
+
+- (void)doneProcessInInstructionVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - MapFlagDelegate
+
+- (void)flagBtnClicked {
+    [self moveToServiceArea];
+}
+
 # pragma mark - Search for a place
 
 - (IBAction)launchSearch:(id)sender {
@@ -505,62 +497,44 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"black"]
                                                   forBarMetrics:UIBarMetricsDefault];
     NSDictionary * dict=[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    //    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gill Sans-UltraBold" size:18], NSFontAttributeName, nil];
+//    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gill Sans-UltraBold" size:18], NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:dict];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //    UIBarButtonItem *backButton =
-    //    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
-    //                                     style:UIBarButtonItemStylePlain
-    //                                    target:nil
-    //                                    action:nil];
-    //    [self.navigationItem setBackBarButtonItem:backButton];
+//    UIBarButtonItem *backButton =
+//    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
+//                                     style:UIBarButtonItemStylePlain
+//                                    target:nil
+//                                    action:nil];
+//    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 - (RequestValetButton *)requestValetButton {
     if (!_requestValetButton) {
-        _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, 64.0f)];
+        _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, REQUEST_VALET_BTN_HEIGHT)];
         [_requestValetButton addTarget:self action:@selector(requestValetBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _requestValetButton;
 }
 
-- (UIView *)flagRect {
-    if (!_flagRect) {
-        _flagRect = [[UIView alloc] init];
-        _flagRect.layer.masksToBounds = YES;
-        _flagRect.layer.cornerRadius = 5;
+- (MapFlag *)mapFlag {
+    if (!_mapFlag) {
+        _mapFlag = [[MapFlag alloc] init];
+        _mapFlag.delegate = self;
     }
     
-    return _flagRect;
+    return _mapFlag;
 }
 
-- (UIView *)flagLine {
-    if (!_flagLine) {
-        _flagLine = [[UIView alloc] init];
+- (MapValetInfoView *)mapValetInfoView {
+    if (!_mapValetInfoView) {
+        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapValetInfoView.backgroundColor = [UIColor whiteColor];
     }
     
-    return _flagLine;
-}
-
-- (UITextField *)flagTextField {
-    if (!_flagTextField) {
-        _flagTextField = [[UITextField alloc] init];
-        _flagTextField.textColor = [UIColor whiteColor];
-        _flagTextField.textAlignment = NSTextAlignmentCenter;
-    }
-    
-    return _flagTextField;
-}
-
-- (UIButton *)flagBtn {
-    if (!_flagBtn) {
-        _flagBtn = [[UIButton alloc] init];
-    }
-    
-    return _flagBtn;
+    return _mapValetInfoView;
 }
 
 - (GMSGeocoder *)geocoder {

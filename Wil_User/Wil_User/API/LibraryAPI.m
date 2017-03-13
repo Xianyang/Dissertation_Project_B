@@ -9,10 +9,12 @@
 #import "LibraryAPI.h"
 #import "PolygonClient.h"
 #import "ValetLocationClient.h"
+#import "OrderClient.h"
 
 @interface LibraryAPI()
 @property (strong, nonatomic) PolygonClient *polygonClient;
 @property (strong, nonatomic) ValetLocationClient *valetLocationClient;
+@property (strong, nonatomic) OrderClient *orderClient;
 
 @end
 
@@ -40,10 +42,13 @@
     {
         self.polygonClient = [[PolygonClient alloc] init];
         self.valetLocationClient = [[ValetLocationClient alloc] init];
+        self.orderClient = [[OrderClient alloc] init];
     }
     
     return self;
 }
+
+#pragma mark - Polygon
 
 - (NSArray *)polygons {
     return [self.polygonClient polygons];
@@ -61,7 +66,7 @@
     return [self.polygonClient serviceLocation];
 }
 
-// valets' locations
+#pragma mark - Valets' locations
 
 - (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
     [self.valetLocationClient fetchValetsLocationsSuccessful:^(NSArray *array) {
@@ -80,7 +85,18 @@
     return [self.valetLocationClient nearestValetLocation:coordinate];
 }
 
-// limit for user's registration
+#pragma mark - Orders
+
+- (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                           parkAddress:(NSString *)parkAddress
+                          parkLocation:(AVGeoPoint *)parkLocation
+                               success:(void (^)(OrderObject *orderObject))successBlock
+                                  fail:(void (^)(NSError *error))failBlock {
+    
+}
+
+#pragma mark - limit for user's registration
+
 - (NSInteger)maxLengthForPhoneNumber {
     return 11;
 }
@@ -105,7 +121,7 @@
     return @"+852";
 }
 
-// color
+#pragma mark - color
 - (UIColor *)themeBlueColor {
     return [UIColor colorWithRed:65.0f / 255.0f green:148.0f / 255.0f blue:229.0f / 255.0f alpha:1.0f];
 }

@@ -10,22 +10,23 @@
 
 @implementation ValetLocation
 
-//@dynamic valet_object_ID;
-//@dynamic valet_user_name;
-//@dynamic valet_first_name;
-//@dynamic valet_last_name;
-//@dynamic valet_mobile_phone_numer;
-//@dynamic valet_location;
+@dynamic valet_object_ID;
+@dynamic valet_user_name;
+@dynamic valet_first_name;
+@dynamic valet_last_name;
+@dynamic valet_mobile_phone_numer;
+@dynamic valet_location;
+@dynamic valet_is_serving;
 
-- (void)transferProperty:(AVObject *)object {
-    self.valet_object_ID = [object objectForKey:@"valet_object_ID"];
-    self.valet_user_name = [object objectForKey:@"valet_user_name"];
-    self.valet_first_name = [object objectForKey:@"valet_first_name"];
-    self.valet_last_name = [object objectForKey:@"valet_last_name"];
-    self.valet_mobile_phone_numer = [object objectForKey:@"valet_mobile_phone_numer"];
-    self.valet_location = [object objectForKey:@"valet_location"];
-    self.valet_is_serving = [object objectForKey:@"valet_is_serving"];
-}
+//- (void)transferProperty:(AVObject *)object {
+//    self.valet_object_ID = [object objectForKey:@"valet_object_ID"];
+//    self.valet_user_name = [object objectForKey:@"valet_user_name"];
+//    self.valet_first_name = [object objectForKey:@"valet_first_name"];
+//    self.valet_last_name = [object objectForKey:@"valet_last_name"];
+//    self.valet_mobile_phone_numer = [object objectForKey:@"valet_mobile_phone_numer"];
+//    self.valet_location = [object objectForKey:@"valet_location"];
+//    self.valet_is_serving = [object objectForKey:@"valet_is_serving"];
+//}
 
 //- (id)initWithValetObjectID:(NSString *)valetObjectID
 //              valetUserName:(NSString *)valetUserName
