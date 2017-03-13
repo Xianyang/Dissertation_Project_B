@@ -95,9 +95,20 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // fetch valets' location from server
     [self.valetLocationTimer setFireDate:[NSDate date]];
     
-    if (!_isMapSetted) {
-        [self setMap];
-        _isMapSetted = YES;
+    if (!_isMapSetted && [AVUser currentUser]) {
+        // check if user has an unfinished order
+        [[LibraryAPI sharedInstance] checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
+            // TODO show this order to user
+            _userOrderStatus = orderObject.order_status;
+        }
+                                                           noOrder:^{
+                                                               _userOrderStatus = kUserOrderStatusNone;
+                                                               [self setMap];
+                                                               _isMapSetted = YES;
+                                                           }
+                                                              fail:^{
+                                                                  // TODO ask user to load view again
+                                                              }];
     }
 }
 
@@ -173,17 +184,19 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
-    if ([self checkIsPositionInPolygon:position.target]) {
-        if (!_isInPolygon) {
-            NSLog(@"user changes to polygon");
-            _isInPolygon = YES;
-            [self showRequestServiceView];
-        }
-    } else {
-        if (_isInPolygon) {
-            NSLog(@"user gets out of polygon");
-            _isInPolygon = NO;
-            [self hideRequestServiceView];
+    if (_userOrderStatus == kUserOrderStatusNone) {
+        if ([self checkIsPositionInPolygon:position.target]) {
+            if (!_isInPolygon) {
+                NSLog(@"user changes to polygon");
+                _isInPolygon = YES;
+                [self showRequestServiceView];
+            }
+        } else {
+            if (_isInPolygon) {
+                NSLog(@"user gets out of polygon");
+                _isInPolygon = NO;
+                [self hideRequestServiceView];
+            }
         }
     }
 }
@@ -315,22 +328,32 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [nearestValetLocation fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
             if (!error) {
                 // 3. assign this valet to user
-                [hud hideAnimated:YES];
-                
-                [UIView animateWithDuration:0.2
-                                      delay:0
-                                    options:UIViewAnimationOptionCurveEaseIn
-                                 animations:^{
-                                     [self.mapValetInfoView showInMapView:self.mapView];
-                                     [self.requestValetButton hideInMapView:self.mapView];
-                                     [self.mapFlag hideInMapView:self.mapView];
-                                 }
-                                 completion:^(BOOL finished) {
-                                     
-                                 }];
                 
                 // TODO create an order object
-                
+                [[LibraryAPI sharedInstance] createAnOrderWithValetObjectID:nearestValetLocation.objectId
+                                                                parkAddress:[self.requestValetButton parkAddress]
+                                                               parkLocation:[AVGeoPoint geoPointWithLatitude:self.mapView.camera.target.latitude
+                                                                                                   longitude:self.mapView.camera.target.longitude]
+                                                                    success:^(OrderObject *orderObject) {
+                                                                        NSLog(@"meet your valet");
+                                                                        [hud hideAnimated:YES];
+                                                                        _userOrderStatus = kUserOrderStatusDroppingOff;
+                                                                        
+                                                                        [UIView animateWithDuration:0.2
+                                                                                              delay:0
+                                                                                            options:UIViewAnimationOptionCurveEaseIn
+                                                                                         animations:^{
+                                                                                             [self.mapValetInfoView showInMapView:self.mapView];
+                                                                                             [self.requestValetButton hideInMapView:self.mapView];
+                                                                                             [self.mapFlag hideInMapView:self.mapView];
+                                                                                         }
+                                                                                         completion:^(BOOL finished) {
+                                                                                             
+                                                                                         }];
+                                                                    }
+                                                                       fail:^(NSError *error) {
+                                                                           [hud showMessage:@"try later"];
+                                                                       }];
                 
                 // TODO set status of main view controller to ORDER
                 // TODO show marker accroding to status
@@ -530,7 +553,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (MapValetInfoView *)mapValetInfoView {
     if (!_mapValetInfoView) {
-        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
         _mapValetInfoView.backgroundColor = [UIColor whiteColor];
     }
     

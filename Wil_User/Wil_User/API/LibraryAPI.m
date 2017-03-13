@@ -92,7 +92,27 @@
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock {
-    
+    [self.orderClient createAnOrderWithValetObjectID:valetObjectID
+                                         parkAddress:parkAddress
+                                        parkLocation:parkLocation
+                                             success:^(OrderObject *orderObject) {
+                                                 successBlock(orderObject);
+                                             }
+                                                fail:^(NSError *error) {
+                                                    failBlock(error);
+                                                }];
+}
+
+- (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock {
+    [self.orderClient checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
+        hasOrderBlock(orderObject);
+    }
+                                            noOrder:^{
+                                                noOrderBlock();
+                                            }
+                                               fail:^{
+                                                   failBlock();
+                                               }];
 }
 
 #pragma mark - limit for user's registration

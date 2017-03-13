@@ -12,12 +12,17 @@
 
 @dynamic user_object_ID;
 @dynamic valet_object_ID;
-@dynamic start_time;
-@dynamic finish_time;
+@dynamic start_at;
+@dynamic finish_at;
 @dynamic park_address;
 @dynamic park_location;
+@dynamic order_status;
 
 + (NSString *)parseClassName {
+    return @"Order";
+}
+
++ (NSString *)xyClassName {
     return @"Order";
 }
 

@@ -12,6 +12,7 @@
 
 - (id)initWithFrame:(CGRect)frame;
 - (void)setLocation:(NSString *)location;
+- (NSString *)parkAddress;
 
 - (void)showInMapView:(GMSMapView *)mapView;
 - (void)hideInMapView:(GMSMapView *)mapView;

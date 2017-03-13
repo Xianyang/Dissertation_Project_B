@@ -29,7 +29,7 @@ typedef enum {
     kUserOrderStatusParked,
     
     // user is requesting its vehicle
-    kUserOrderStatusRequesting,
+    kUserOrderStatusRequestingBack,
     
     // the order is finished
     kUserOrderStatusFinished
@@ -54,6 +54,8 @@ typedef enum {
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock;
+
+- (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock;
 
 // limit for user's registration
 - (NSInteger)maxLengthForPhoneNumber;

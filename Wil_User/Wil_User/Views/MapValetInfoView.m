@@ -11,7 +11,7 @@
 @implementation MapValetInfoView
 
 - (void)showInMapView:(GMSMapView *)mapView {
-    self.frame = CGRectMake(0.0f, mapView.frame.size.height - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
 }
 
 /*

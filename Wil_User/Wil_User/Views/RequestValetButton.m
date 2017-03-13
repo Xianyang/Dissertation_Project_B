@@ -8,6 +8,12 @@
 
 #import "RequestValetButton.h"
 
+@interface RequestValetButton ()
+
+@property (strong, nonatomic) NSString *address;
+
+@end
+
 @implementation RequestValetButton
 
 - (id)initWithFrame:(CGRect)frame {
@@ -23,7 +29,16 @@
     return self;
 }
 
+- (NSString *)parkAddress {
+    if (self.address) {
+        return self.address;
+    } else {
+        return @"";
+    }
+}
+
 - (void)setLocation:(NSString *)location {
+    self.address = location;
     [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
 }
 

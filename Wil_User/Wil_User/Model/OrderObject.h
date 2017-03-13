@@ -13,10 +13,12 @@
 
 @property (nonatomic, copy) NSString *user_object_ID;
 @property (nonatomic, copy) NSString *valet_object_ID;
-@property (nonatomic, copy) NSDate *start_time;
-@property (nonatomic, copy) NSDate *finish_time;
+@property (nonatomic, copy) NSDate *start_at;
+@property (nonatomic, copy) NSDate *finish_at;
 @property (nonatomic, copy) NSString *park_address;
 @property (nonatomic, copy) AVGeoPoint *park_location;
 @property int order_status;
+
++ (NSString *)xyClassName;
 
 @end
