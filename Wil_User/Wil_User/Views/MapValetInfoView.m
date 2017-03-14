@@ -7,11 +7,26 @@
 //
 
 #import "MapValetInfoView.h"
+#import "ValetObject.h"
 
 @implementation MapValetInfoView
 
 - (void)showInMapView:(GMSMapView *)mapView {
     self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+}
+
+- (void)setValetInfo:(NSString *)valetObjectID {
+    ValetObject *valetObject = [ValetObject objectWithObjectId:valetObjectID];
+    [valetObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+        if (object && !error) {
+            UILabel *firstNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 100, 30)];
+            firstNameLabel.text = valetObject.first_name;
+            firstNameLabel.textColor = [UIColor blackColor];
+            [self addSubview:firstNameLabel];
+        } else {
+            
+        }
+    }];
 }
 
 /*

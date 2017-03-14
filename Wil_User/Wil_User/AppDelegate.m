@@ -13,6 +13,7 @@
 #import "ValetLocation.h"
 #import "UserLocation.h"
 #import "OrderObject.h"
+#import "ValetObject.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +30,7 @@
     [ValetLocation registerSubclass];
     [OrderObject registerSubclass];
     [UserLocation registerSubclass];
+    [ValetObject registerSubclass];
     [AVOSCloud setApplicationId:@"LofD16jEuaeoAu0e7fBn7Ug5-gzGzoHsz" clientKey:@"78OBNxyLGXz4iMr2sUcqdhXD"];
     
     return YES;

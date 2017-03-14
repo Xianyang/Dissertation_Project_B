@@ -12,6 +12,7 @@
 @interface OrderClient : NSObject
 
 - (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                 valetLocationObjectID:(NSString *)valetLocationObjectID
                            parkAddress:(NSString *)parkAddress
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock

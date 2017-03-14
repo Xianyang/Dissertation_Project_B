@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            timestampString = "511169221.280405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "-requestValetBtnClicked"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,44 +36,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511112647.210456"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511112647.210456"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511112647.210456"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Wil_User/API/OrderClient.m"
+            timestampString = "511169137.573783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Wil_User/API/OrderClient.m"
+            timestampString = "511169137.573783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            timestampString = "511169221.280405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
             landmarkName = "-requestValetBtnClicked"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,12 +132,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511112647.210456"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -180,12 +180,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511112697.892603"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -196,23 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114752.485422"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-checkIfUserHasUnfinishedOrder:noOrder:fail:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114752.485422"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -228,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114752.485422"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
@@ -243,60 +227,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-viewDidAppear:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MainViewController viewDidAppear:]"
-                  moduleName = "Wil_User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/ViewControllers/MainViewController.m"
-                  timestampString = "511114064.579336"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "380">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[MainViewController viewDidAppear:]_block_invoke"
-                  moduleName = "Wil_User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/ViewControllers/MainViewController.m"
-                  timestampString = "511114064.581089"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114752.485422"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "-checkIfUserHasUnfinishedOrder:noOrder:fail:"
             landmarkType = "7">
          </BreakpointContent>
@@ -308,12 +244,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114345.704083"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-checkIfUserHasUnfinishedOrder:noOrder:fail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Wil_User/API/OrderClient.m"
+            timestampString = "511169137.573783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -356,29 +308,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/API/OrderClient.m"
-            timestampString = "511114469.508101"
+            timestampString = "511169137.573783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-createAnOrderWithValetObjectID:parkAddress:parkLocation:success:fail:"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "-createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-viewDidAppear:"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[OrderClient createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:]"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/API/OrderClient.m"
+                  timestampString = "511169138.662091"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "644">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__106-[OrderClient createAnOrderWithValetObjectID:valetLocationObjectID:parkAddress:parkLocation:success:fail:]_block_invoke"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/API/OrderClient.m"
+                  timestampString = "511169138.663697"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -388,11 +356,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            timestampString = "511168482.808996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "7">
          </BreakpointContent>
@@ -403,13 +371,61 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            filePath = "Wil_User/API/ValetLocationClient.m"
+            timestampString = "511168482.808996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "-updateRequestServiceView:"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-nearestValetLocation:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ValetLocationClient nearestValetLocation:]"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/API/ValetLocationClient.m"
+                  timestampString = "511158471.92369"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ValetLocationClient nearestValetLocation:]"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/API/ValetLocationClient.m"
+                  timestampString = "511158471.9254"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "176">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Wil_User/API/ValetLocationClient.m"
+            timestampString = "511168482.808996"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-nearestValetLocation:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -419,61 +435,93 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            filePath = "Wil_User/API/ValetLocationClient.m"
+            timestampString = "511168482.808996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
-            landmarkName = "-updateRequestServiceView:"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-nearestValetLocation:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            filePath = "Wil_User/Views/MapValetInfoView.m"
+            timestampString = "511168482.450193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-viewDidAppear:"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "-setValetInfo:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            filePath = "Wil_User/Views/MapValetInfoView.m"
+            timestampString = "511168515.976987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-viewDidAppear:"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "-setValetInfo:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MapValetInfoView setValetInfo:]"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/Views/MapValetInfoView.m"
+                  timestampString = "511169138.669547"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[MapValetInfoView setValetInfo:]_block_invoke"
+                  moduleName = "Wil_User"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xianyang/Projects/Dissertation/Project_B/Wil_User/Wil_User/Views/MapValetInfoView.m"
+                  timestampString = "511169138.670955"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511118975.83719"
+            timestampString = "511168597.104171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-viewDidAppear:"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "-checkUserOrderStatus"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

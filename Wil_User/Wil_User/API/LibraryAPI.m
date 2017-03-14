@@ -68,17 +68,40 @@
 
 #pragma mark - Valets' locations
 
-- (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
-    [self.valetLocationClient fetchValetsLocationsSuccessful:^(NSArray *array) {
-        successBlock(array);
-    }
+- (NSMutableArray *)onlineValetLocations {
+    return [self.valetLocationClient onlineValetLocations];
+}
+
+- (NSMutableArray *)availableValetLocations {
+    return [self.valetLocationClient availableValetLocations];
+}
+
+- (NSMutableArray *)busyValetLocations {
+    return [self.valetLocationClient busyValetLocations];
+}
+
+- (ValetLocation *)dropValetLocation {
+    return [self.valetLocationClient dropValetLocation];
+}
+
+- (ValetLocation *)returnValetLocation {
+    return [self.valetLocationClient returnValetLocation];
+}
+
+- (void)fetchValetsLocationsWithStatus:(UserOrderStatus)userOrderStatus
+                           orderObject:(OrderObject *)orderObject
+                          valetMarkers:(NSArray *)valetMarkers
+                               success:(void (^)(NSArray *array))successBlock
+                                  fail:(void (^)(NSError *error))failBlock {
+    [self.valetLocationClient fetchValetsLocationsWithStatus:userOrderStatus
+                                                 orderObject:orderObject
+                                                valetMarkers:valetMarkers
+                                                     success:^(NSArray *array) {
+                                                         successBlock(array);
+                                                     }
                                                         fail:^(NSError *error) {
                                                             failBlock(error);
                                                         }];
-}
-
-- (NSArray *)valetLocations {
-    return [self.valetLocationClient valetLocations];
 }
 
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate {
@@ -88,11 +111,13 @@
 #pragma mark - Orders
 
 - (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                 valetLocationObjectID:(NSString *)valetLocationObjectID
                            parkAddress:(NSString *)parkAddress
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock {
     [self.orderClient createAnOrderWithValetObjectID:valetObjectID
+                               valetLocationObjectID:valetLocationObjectID
                                          parkAddress:parkAddress
                                         parkLocation:parkLocation
                                              success:^(OrderObject *orderObject) {

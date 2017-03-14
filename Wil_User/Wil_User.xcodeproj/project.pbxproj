@@ -32,6 +32,7 @@
 		624E60D61E76C5C6006B516E /* OrderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60D51E76C5C6006B516E /* OrderObject.m */; };
 		624E60D91E76C87B006B516E /* UserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60D81E76C87B006B516E /* UserLocation.m */; };
 		624E60DC1E76D146006B516E /* OrderClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60DB1E76D146006B516E /* OrderClient.m */; };
+		624E60E21E77CEB1006B516E /* ValetObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E60E11E77CEB1006B516E /* ValetObject.m */; };
 		625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97501E62D09000F2C6F5 /* SignInViewController.m */; };
 		625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97531E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m */; };
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
@@ -117,6 +118,8 @@
 		624E60D81E76C87B006B516E /* UserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserLocation.m; path = Model/UserLocation.m; sourceTree = "<group>"; };
 		624E60DA1E76D146006B516E /* OrderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderClient.h; path = API/OrderClient.h; sourceTree = "<group>"; };
 		624E60DB1E76D146006B516E /* OrderClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderClient.m; path = API/OrderClient.m; sourceTree = "<group>"; };
+		624E60E01E77CEB1006B516E /* ValetObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValetObject.h; path = Model/ValetObject.h; sourceTree = "<group>"; };
+		624E60E11E77CEB1006B516E /* ValetObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValetObject.m; path = Model/ValetObject.m; sourceTree = "<group>"; };
 		625B974F1E62D09000F2C6F5 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignInViewController.h; path = ViewControllers/SignInViewController.h; sourceTree = "<group>"; };
 		625B97501E62D09000F2C6F5 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignInViewController.m; path = ViewControllers/SignInViewController.m; sourceTree = "<group>"; };
 		625B97521E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgetPasswordFirstViewController.h; path = ViewControllers/ForgetPasswordFirstViewController.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 		624E60C61E753A8F006B516E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				624E60E01E77CEB1006B516E /* ValetObject.h */,
+				624E60E11E77CEB1006B516E /* ValetObject.m */,
 				624E60C31E753A8C006B516E /* ValetLocation.h */,
 				624E60C41E753A8C006B516E /* ValetLocation.m */,
 				624E60D71E76C87B006B516E /* UserLocation.h */,
@@ -687,6 +692,7 @@
 				624E60D31E76B3A7006B516E /* MapValetInfoView.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				6216691B1E31D65B007292A4 /* main.m in Sources */,
+				624E60E21E77CEB1006B516E /* ValetObject.m in Sources */,
 				624E60CC1E7656EA006B516E /* ValetLocationClient.m in Sources */,
 				624E60C91E756CF9006B516E /* ValetMarker.m in Sources */,
 				621669541E3242EC007292A4 /* RootViewController.m in Sources */,

@@ -11,13 +11,15 @@
 @implementation OrderClient
 
 - (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                 valetLocationObjectID:(NSString *)valetLocationObjectID
                            parkAddress:(NSString *)parkAddress
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock {
     OrderObject *orderObject = [OrderObject object];
     orderObject.user_object_ID = [[AVUser currentUser] objectId];
-    orderObject.valet_object_ID = valetObjectID;
+    orderObject.drop_valet_object_ID = valetObjectID;
+    orderObject.drop_valet_location_object_ID = valetLocationObjectID;
     orderObject.start_at = [NSDate date];
     orderObject.park_address = parkAddress;
     orderObject.park_location = parkLocation;
@@ -26,7 +28,7 @@
     [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             // set valet status to busy
-            ValetLocation *valetLocation = [ValetLocation objectWithObjectId:valetObjectID];
+            ValetLocation *valetLocation = [ValetLocation objectWithObjectId:valetLocationObjectID];
             [valetLocation fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
                 if (object) {
                     if (valetLocation.valet_is_serving == nil || [valetLocation.valet_is_serving boolValue] == NO) {

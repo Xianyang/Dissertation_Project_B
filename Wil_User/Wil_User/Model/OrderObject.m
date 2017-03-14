@@ -11,7 +11,10 @@
 @implementation OrderObject
 
 @dynamic user_object_ID;
-@dynamic valet_object_ID;
+@dynamic drop_valet_object_ID;
+@dynamic drop_valet_location_object_ID;
+@dynamic return_valet_object_ID;
+@dynamic return_valet_location_object_ID;
 @dynamic start_at;
 @dynamic finish_at;
 @dynamic park_address;

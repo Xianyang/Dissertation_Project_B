@@ -10,6 +10,10 @@
 
 @interface MapValetInfoView : UIView
 
+@property (strong, nonatomic) NSString *valetObjectID;
+
 - (void)showInMapView:(GMSMapView *)mapView;
+
+- (void)setValetInfo:(NSString *)valetObjectID;
 
 @end

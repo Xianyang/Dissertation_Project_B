@@ -20,7 +20,7 @@
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
 
 #define REQUEST_VALET_BTN_HEIGHT                    64
-#define MAP_VALET_INFO_VIEW_HEIGHT                  257
+#define MAP_VALET_INFO_VIEW_HEIGHT                  100
 
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -47,6 +47,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     BOOL _isGettingValetsLocations;
     
     UserOrderStatus _userOrderStatus;
+    
+    CGRect _myLocationBtnFrame;
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -68,6 +70,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 // the array for valet markers
 @property (strong, nonatomic) NSMutableArray *valetMarkers;
+
+// the order object
+@property (strong, nonatomic) OrderObject *orderObject;
 @end
 
 @implementation MainViewController
@@ -87,7 +92,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // TODO check user's order status
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -95,41 +99,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // fetch valets' location from server
     [self.valetLocationTimer setFireDate:[NSDate date]];
+    [self fetchValetsLocation];
     
     if (!_isMapSetted) {
         [self setMap];
         _isMapSetted = YES;
     }
     
-    if ([AVUser currentUser]) {
-        // check if user has an unfinished order
-        [[LibraryAPI sharedInstance] checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
-            _userOrderStatus = orderObject.order_status;
-            
-            if (_userOrderStatus == kUserOrderStatusUserDroppingOff) {
-                // TODO show valet info
-            } else if (_userOrderStatus == kUserOrderStatusParking) {
-                // TODO show user's vehicle
-            } else if (_userOrderStatus == kUserOrderStatusParked ) {
-                // TODO
-            } else if (_userOrderStatus == kUserOrderStatusRequestingBack) {
-                // TODO
-            }
-        }
-                                                           noOrder:^{
-                                                               _userOrderStatus = kUserOrderStatusNone;
-                                                               // check if map gets user's location
-                                                               if (self.mapView.myLocation) {
-                                                                   [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
-                                                               } else {
-                                                                   [self setMapToUserOrderStatusNone:self.mapView.camera.target];
-                                                               }
-                                                           }
-                                                              fail:^{
-                                                                  // TODO ask user to load view again
-                                                                  NSLog(@"error");
-                                                              }];
-    }
+    [self checkUserOrderStatus];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -156,6 +133,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // enable my location button
     self.mapView.settings.myLocationButton = YES;
+    _myLocationBtnFrame = [[self myLocationBtn] frame];
     
     // Draw the polygon
     for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
@@ -214,9 +192,76 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 #pragma mark - Order Status
 
+- (void)checkUserOrderStatus {
+    if ([AVUser currentUser]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        // check if user has an unfinished order
+        [[LibraryAPI sharedInstance] checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
+            self.orderObject = orderObject;
+            _userOrderStatus = orderObject.order_status;
+            
+            [hud hideAnimated:YES];
+            if (_userOrderStatus == kUserOrderStatusUserDroppingOff) {
+                [self setMapToUserOrderStatusUserDroppingOff];
+            } else if (_userOrderStatus == kUserOrderStatusParking) {
+                [self setMapToUserOrderStatusParking];
+            } else if (_userOrderStatus == kUserOrderStatusParked ) {
+                [self setMapToUserOrderStatusParked];
+            } else if (_userOrderStatus == kUserOrderStatusRequestingBack) {
+                [self setMapToUserOrderStatusRequestingBack];
+            }
+        }
+                                                           noOrder:^{
+                                                               [hud hideAnimated:YES];
+                                                               _userOrderStatus = kUserOrderStatusNone;
+                                                               // check if map gets user's location
+                                                               if (self.mapView.myLocation) {
+                                                                   [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
+                                                               } else {
+                                                                   [self setMapToUserOrderStatusNone:self.mapView.camera.target];
+                                                               }
+                                                           }
+                                                              fail:^{
+                                                                  // TODO ask user to load view again
+                                                                  [hud showMessage:@"error, try again"];
+                                                                  NSLog(@"error");
+                                                              }];
+    }
+}
+
 // kUserOrderStatusNone
 - (void)setMapToUserOrderStatusNone:(CLLocationCoordinate2D)coordinate {
     [self updateRequestServiceView:coordinate];
+}
+
+- (void)setMapToUserOrderStatusUserDroppingOff {
+    [self fetchValetsLocation];
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapValetInfoView showInMapView:self.mapView];
+                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID];
+                         
+                         [self.requestValetButton hideInMapView:self.mapView];
+                         [self.mapFlag hideInMapView:self.mapView];
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+- (void)setMapToUserOrderStatusParking {
+    
+}
+
+- (void)setMapToUserOrderStatusParked {
+    
+}
+
+- (void)setMapToUserOrderStatusRequestingBack {
+    
 }
 
 - (void)updateRequestServiceView:(CLLocationCoordinate2D)coordinate {
@@ -242,9 +287,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)showRequestServiceView {
-    if ([[self.mapFlag text] isEqualToString:@"WIL"]) {
-        return;
-    }
+//    if ([[self.mapFlag text] isEqualToString:@"WIL"]) {
+//        return;
+//    }
     
     [UIView animateWithDuration:0.2
                           delay:0
@@ -265,9 +310,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)hideRequestServiceView {
-    if (![[self.mapFlag text] isEqualToString:@"WIL"]) {
-        return;
-    }
+//    if (![[self.mapFlag text] isEqualToString:@"WIL"]) {
+//        return;
+//    }
     
     [UIView animateWithDuration:0.2
                           delay:0
@@ -337,14 +382,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToLocation:self.mapView.myLocation.coordinate];
 }
 
-#pragma mark - Request Valet
+#pragma mark - Request Service
 
 - (void)requestValetBtnClicked {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // 1. check if there is any valet
-    if (![[LibraryAPI sharedInstance] valetLocations] || [[[LibraryAPI sharedInstance] valetLocations] count] == 0) {
-        [hud showMessage:@"try later"];
+    if (![[LibraryAPI sharedInstance] onlineValetLocations] || [[[LibraryAPI sharedInstance] onlineValetLocations] count] == 0) {
+        [hud showMessage:@"try later, valets are busy"];
         return;
     }
     
@@ -353,36 +398,23 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     if (nearestValetLocation) {
         [nearestValetLocation fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
             if (!error) {
-                // 3. assign this valet to user
-                
-                // TODO create an order object
-                [[LibraryAPI sharedInstance] createAnOrderWithValetObjectID:nearestValetLocation.objectId
+                // 3. create an order object
+                [[LibraryAPI sharedInstance] createAnOrderWithValetObjectID:nearestValetLocation.valet_object_ID
+                                                      valetLocationObjectID:nearestValetLocation.objectId
                                                                 parkAddress:[self.requestValetButton parkAddress]
                                                                parkLocation:[AVGeoPoint geoPointWithLatitude:self.mapView.camera.target.latitude
                                                                                                    longitude:self.mapView.camera.target.longitude]
                                                                     success:^(OrderObject *orderObject) {
-                                                                        NSLog(@"meet your valet");
+                                                                        NSLog(@"successfully generate an order");
                                                                         [hud hideAnimated:YES];
+                                                                        self.orderObject = orderObject;
                                                                         _userOrderStatus = orderObject.order_status;
                                                                         
-                                                                        [UIView animateWithDuration:0.2
-                                                                                              delay:0
-                                                                                            options:UIViewAnimationOptionCurveEaseIn
-                                                                                         animations:^{
-                                                                                             [self.mapValetInfoView showInMapView:self.mapView];
-                                                                                             [self.requestValetButton hideInMapView:self.mapView];
-                                                                                             [self.mapFlag hideInMapView:self.mapView];
-                                                                                         }
-                                                                                         completion:^(BOOL finished) {
-                                                                                             
-                                                                                         }];
+                                                                        [self setMapToUserOrderStatusUserDroppingOff];
                                                                     }
                                                                        fail:^(NSError *error) {
                                                                            [hud showMessage:@"try later"];
                                                                        }];
-                
-                // TODO set status of main view controller to ORDER
-                // TODO show marker accroding to status
             } else {
                 [hud showMessage:@"try later"];
             }
@@ -402,12 +434,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     if (!_isGettingValetsLocations) {
         _isGettingValetsLocations = YES;
         
-        [[LibraryAPI sharedInstance] fetchValetsLocationsSuccessful:^(NSArray *array) {
-            // add marker to the map
-            [self moveValetMarkers:array];
-        }
+        [[LibraryAPI sharedInstance] fetchValetsLocationsWithStatus:_userOrderStatus
+                                                        orderObject:self.orderObject
+                                                       valetMarkers:self.valetMarkers
+                                                            success:^(NSArray *array) {
+                                                                [self moveValetMarkers:array];
+                                                            }
                                                                fail:^(NSError *error) {
-                                                                   [self removeAllValetMarker];
+                                                                [self removeAllValetMarker];
                                                                }];
     }
 }

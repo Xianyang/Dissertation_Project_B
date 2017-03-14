@@ -47,12 +47,23 @@ typedef enum {
 - (CLLocationCoordinate2D)serviceLocation;
 
 // valets' locations
-- (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock;
-- (NSArray *)valetLocations;
+- (NSMutableArray *)onlineValetLocations;
+- (NSMutableArray *)availableValetLocations;
+- (NSMutableArray *)busyValetLocations;
+- (ValetLocation *)dropValetLocation;
+- (ValetLocation *)returnValetLocation;
+
+- (void)fetchValetsLocationsWithStatus:(UserOrderStatus)userOrderStatus
+                           orderObject:(OrderObject *)orderObject
+                          valetMarkers:(NSArray *)valetMarkers
+                               success:(void (^)(NSArray *array))successBlock
+                                  fail:(void (^)(NSError *error))failBlock;
+
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate;
 
 // order
 - (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID
+                 valetLocationObjectID:(NSString *)valetLocationObjectID
                            parkAddress:(NSString *)parkAddress
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock

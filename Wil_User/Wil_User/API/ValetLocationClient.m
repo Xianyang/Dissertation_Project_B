@@ -10,36 +10,90 @@
 
 @interface ValetLocationClient ()
 
-@property (strong, nonatomic) NSArray * valetLocations;
-
 @end
 
 @implementation ValetLocationClient
 
-- (void)fetchValetsLocationsSuccessful:(void (^)(NSArray *array))successBlock fail:(void (^)(NSError *error))failBlock {
-    NSMutableArray *locations = [NSMutableArray array];
+- (void)fetchValetsLocationsWithStatus:(UserOrderStatus)userOrderStatus
+                           orderObject:(OrderObject *)orderObject
+                          valetMarkers:(NSArray *)valetMarkers
+                               success:(void (^)(NSArray *array))successBlock
+                                  fail:(void (^)(NSError *error))failBlock {
     
     AVQuery *query = [AVQuery queryWithClassName:[ValetLocation parseClassName]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects && objects.count > 0 && !error) {
-            for (AVObject *object in objects) {
-                NSInteger timerinterval = [[NSDate date] timeIntervalSinceDate:object.updatedAt];
-                NSLog(@"time interval %ld", (long)timerinterval);
-                
-                ValetLocation *valetLocation = (ValetLocation *)object;
-                
-                // filter valet locations based on 1. update time 2. is serving status
-                if ([[NSDate date] timeIntervalSinceDate:valetLocation.updatedAt] <= 30000 && ![valetLocation.valet_is_serving boolValue]) {
-                    [locations addObject:valetLocation];
+            // 1. fitler valet locations
+            [self filterValetLocations:objects];
+            
+            // 2. check order status
+            if (userOrderStatus == kUserOrderStatusNone || userOrderStatus == kUserOrderStatusParked) {
+                successBlock(self.availableValetLocations);
+            } else if (userOrderStatus == kUserOrderStatusUserDroppingOff || userOrderStatus == kUserOrderStatusParking) {
+                // get the working valet
+                self.dropValetLocation = [self generateDropVehicleValet:self.onlineValetLocations orderObject:orderObject];
+                if (self.dropValetLocation) {
+                    successBlock(@[self.dropValetLocation]);
+                } else {
+                    failBlock(nil);
                 }
+            } else if (userOrderStatus == kUserOrderStatusRequestingBack) {
+                // get the working valet
+                self.returnValetLocation = [self generateDropVehicleValet:self.onlineValetLocations orderObject:orderObject];
+                if (self.returnValetLocation) {
+                    successBlock(@[self.returnValetLocation]);
+                } else {
+                    failBlock(nil);
+                }
+            } else {
+                failBlock(nil);
             }
             
-            self.valetLocations = locations;
-            successBlock(locations);
         } else {
             failBlock(error);
         }
     }];
+}
+
+- (void)filterValetLocations:(NSArray *)valetLocations {
+    [self.onlineValetLocations removeAllObjects];
+    [self.availableValetLocations removeAllObjects];
+    [self.busyValetLocations removeAllObjects];
+    
+    for (ValetLocation *valetLocation in valetLocations) {
+        NSInteger timeInterval = [[NSDate date] timeIntervalSinceDate:valetLocation.updatedAt];
+        NSLog(@"time interval is %ld for %@", (long)timeInterval, valetLocation.valet_first_name);
+        if (timeInterval <= 30000) {
+            [self.onlineValetLocations addObject:valetLocation];
+            
+            // check if the valet is busy or free
+            if ([valetLocation.valet_is_serving boolValue]) {
+                [self.busyValetLocations addObject:valetLocation];
+            } else {
+                [self.availableValetLocations addObject:valetLocation];
+            }
+        }
+    }
+}
+
+- (ValetLocation *)generateDropVehicleValet:(NSArray *)valetLocations orderObject:(OrderObject *)orderObject{
+    for (ValetLocation *valetLocation in valetLocations) {
+        if ([valetLocation.valet_object_ID isEqualToString:orderObject.drop_valet_object_ID]) {
+            return valetLocation;
+        }
+    }
+    
+    return nil;
+}
+
+- (ValetLocation *)generateReturnVehicleValet:(NSArray *)valetLocations orderObject:(OrderObject *)orderObject {
+    for (ValetLocation *valetLocation in valetLocations) {
+        if ([valetLocation.valet_object_ID isEqualToString:orderObject.return_valet_object_ID]) {
+            return valetLocation;
+        }
+    }
+    
+    return nil;
 }
 
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate {
@@ -47,7 +101,7 @@
     CLLocationDistance nearestDistance = CLLocationDistanceMax;
     ValetLocation *nearestValetLocation = nil;
     
-    for (ValetLocation *valetLocation in self.valetLocations) {
+    for (ValetLocation *valetLocation in self.availableValetLocations) {
         CLLocation *valetCLLocation = [[CLLocation alloc] initWithLatitude:valetLocation.valet_location.latitude longitude:valetLocation.valet_location.longitude];
         CLLocationDistance tempDistance = [userLocation distanceFromLocation:valetCLLocation];
         if (tempDistance < nearestDistance) {
@@ -59,12 +113,28 @@
     return nearestValetLocation;
 }
 
-- (NSArray *)valetLocations {
-    if (!_valetLocations) {
-        _valetLocations = [[NSArray alloc] init];
+- (NSMutableArray *)onlineValetLocations {
+    if (!_onlineValetLocations) {
+        _onlineValetLocations = [[NSMutableArray alloc] init];
     }
     
-    return _valetLocations;
+    return _onlineValetLocations;
+}
+
+- (NSMutableArray *)availableValetLocations {
+    if (!_availableValetLocations) {
+        _availableValetLocations = [[NSMutableArray alloc] init];
+    }
+    
+    return _availableValetLocations;
+}
+
+- (NSMutableArray *)busyValetLocations {
+    if (!_busyValetLocations) {
+        _busyValetLocations = [[NSMutableArray alloc] init];
+    }
+    
+    return _busyValetLocations;
 }
 
 @end
