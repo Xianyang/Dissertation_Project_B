@@ -241,7 +241,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView showInMapView:self.mapView];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID];
+                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address];
                          
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.mapFlag hideInMapView:self.mapView];
