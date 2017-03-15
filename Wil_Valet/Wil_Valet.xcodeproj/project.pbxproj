@@ -39,6 +39,7 @@
 		62D56ED91E7987E500879ECB /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ED81E7987E500879ECB /* PolygonClient.m */; };
 		62D56EDC1E798C3900879ECB /* ClientLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EDB1E798C3900879ECB /* ClientLocation.m */; };
 		62D56EDF1E798C5000879ECB /* ClientLocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EDE1E798C5000879ECB /* ClientLocationClient.m */; };
+		62D56EE21E7998E200879ECB /* MapInfoClientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EE11E7998E200879ECB /* MapInfoClientView.m */; };
 		8D9D197616698FDF57DBA513 /* libPods-Wil_Valet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE806811807F0572937AC85C /* libPods-Wil_Valet.a */; };
 		C92CE1CB495DB1FFB593861A /* libPods-Wil_ValetUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */; };
 		E06F68B0E5D3907CBFA6C2CC /* libPods-Wil_ValetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */; };
@@ -129,6 +130,8 @@
 		62D56EDB1E798C3900879ECB /* ClientLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientLocation.m; path = Model/ClientLocation.m; sourceTree = "<group>"; };
 		62D56EDD1E798C5000879ECB /* ClientLocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientLocationClient.h; path = API/ClientLocationClient.h; sourceTree = "<group>"; };
 		62D56EDE1E798C5000879ECB /* ClientLocationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientLocationClient.m; path = API/ClientLocationClient.m; sourceTree = "<group>"; };
+		62D56EE01E7998E200879ECB /* MapInfoClientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapInfoClientView.h; path = Views/MapInfoClientView.h; sourceTree = "<group>"; };
+		62D56EE11E7998E200879ECB /* MapInfoClientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapInfoClientView.m; path = Views/MapInfoClientView.m; sourceTree = "<group>"; };
 		88EB98C62142934F5D5D3048 /* Pods-Wil_Valet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_Valet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet.debug.xcconfig"; sourceTree = "<group>"; };
 		8CD32182077325DAE1B137C5 /* Pods-Wil_ValetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests.release.xcconfig"; sourceTree = "<group>"; };
 		8DB551F7EE205B02C7C70DDC /* Pods-Wil_ValetUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 				6241EC451E68085800249DE1 /* SideMenuCell.m */,
 				62D56EC21E784D6800879ECB /* OrderCell.h */,
 				62D56EC31E784D6800879ECB /* OrderCell.m */,
+				62D56EE01E7998E200879ECB /* MapInfoClientView.h */,
+				62D56EE11E7998E200879ECB /* MapInfoClientView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -646,6 +651,7 @@
 				6241EC6C1E695D2C00249DE1 /* LibraryAPI.m in Sources */,
 				6241EC5B1E695C0800249DE1 /* SignInViewController.m in Sources */,
 				62D56EBE1E7831AA00879ECB /* OrderClient.m in Sources */,
+				62D56EE21E7998E200879ECB /* MapInfoClientView.m in Sources */,
 				62D56EC41E784D6800879ECB /* OrderCell.m in Sources */,
 				6241EC401E6807BA00249DE1 /* RootViewController.m in Sources */,
 				62D56ED61E79480000879ECB /* OrderDetailViewController.m in Sources */,

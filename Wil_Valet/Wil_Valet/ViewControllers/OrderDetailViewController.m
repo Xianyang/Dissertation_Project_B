@@ -7,10 +7,12 @@
 //
 
 #define DEFAULT_ZOOM_LEVEL                          15.5
+#define MAP_VALET_INFO_VIEW_HEIGHT                  100
 
 #import "OrderDetailViewController.h"
+#import "MapInfoClientView.h"
 
-@interface OrderDetailViewController () <GMSMapViewDelegate> {
+@interface OrderDetailViewController () <GMSMapViewDelegate, MapClientInfoViewDelegate> {
     BOOL _isMapSetted;
     BOOL _firstLocationUpdate;
     BOOL _isMyLocationBtnInOriginalPosition;
@@ -27,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) GMSMarker *clientMarker;
 @property (strong, nonatomic) GMSMarker *flagMarker;
+@property (strong, nonatomic) MapInfoClientView *mapInfoClientView;
 
 @end
 
@@ -84,7 +87,8 @@
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
     
-    // TODO add client marker
+    // add client info view
+    [self.mapView addSubview:self.mapInfoClientView];
     
     
     // ask for My Location data after the map has already been added to the UI.
@@ -174,7 +178,20 @@
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
-    
+    // update the view
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapInfoClientView showInMapView:self.mapView];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address];
+                         
+                         _isMyLocationBtnInOriginalPosition = YES;
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 - (void)setMapToUserOrderStatusParking {
@@ -185,6 +202,15 @@
     
 }
 
+#pragma mark - MapClientInfoViewDelegate
+
+- (void)callClientWithNumber:(NSString *)mobilePhoneNumber {
+    
+}
+
+- (void)updateOrderStatus:(UserOrderStatus)orderStatus {
+    
+}
 
 #pragma mark - Client location
 
@@ -208,6 +234,8 @@
     self.orderObject = orderObject;
     self.clientObject = clientObject;
 }
+
+#pragma mark - Some Settings
 
 - (void)dealloc {
     [self.mapView removeObserver:self
@@ -233,6 +261,16 @@
     }
     
     return _flagMarker;
+}
+
+- (MapInfoClientView *)mapInfoClientView {
+    if (!_mapInfoClientView) {
+        _mapInfoClientView = [[MapInfoClientView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapInfoClientView.delegate = self;
+        _mapInfoClientView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _mapInfoClientView;
 }
 
 - (NSTimer *)clientLocationTimer {
