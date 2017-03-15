@@ -35,6 +35,10 @@
 		62D56EC41E784D6800879ECB /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EC31E784D6800879ECB /* OrderCell.m */; };
 		62D56ECA1E791FD700879ECB /* ClientObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EC91E791FD700879ECB /* ClientObject.m */; };
 		62D56ECD1E79208600879ECB /* ClientClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ECC1E79208600879ECB /* ClientClient.m */; };
+		62D56ED61E79480000879ECB /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ED51E79480000879ECB /* OrderDetailViewController.m */; };
+		62D56ED91E7987E500879ECB /* PolygonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ED81E7987E500879ECB /* PolygonClient.m */; };
+		62D56EDC1E798C3900879ECB /* ClientLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EDB1E798C3900879ECB /* ClientLocation.m */; };
+		62D56EDF1E798C5000879ECB /* ClientLocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EDE1E798C5000879ECB /* ClientLocationClient.m */; };
 		8D9D197616698FDF57DBA513 /* libPods-Wil_Valet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE806811807F0572937AC85C /* libPods-Wil_Valet.a */; };
 		C92CE1CB495DB1FFB593861A /* libPods-Wil_ValetUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */; };
 		E06F68B0E5D3907CBFA6C2CC /* libPods-Wil_ValetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */; };
@@ -117,6 +121,14 @@
 		62D56EC91E791FD700879ECB /* ClientObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientObject.m; path = Model/ClientObject.m; sourceTree = "<group>"; };
 		62D56ECB1E79208600879ECB /* ClientClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientClient.h; path = API/ClientClient.h; sourceTree = "<group>"; };
 		62D56ECC1E79208600879ECB /* ClientClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientClient.m; path = API/ClientClient.m; sourceTree = "<group>"; };
+		62D56ED41E79480000879ECB /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailViewController.h; path = ViewControllers/OrderDetailViewController.h; sourceTree = "<group>"; };
+		62D56ED51E79480000879ECB /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailViewController.m; path = ViewControllers/OrderDetailViewController.m; sourceTree = "<group>"; };
+		62D56ED71E7987E500879ECB /* PolygonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolygonClient.h; path = API/PolygonClient.h; sourceTree = "<group>"; };
+		62D56ED81E7987E500879ECB /* PolygonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PolygonClient.m; path = API/PolygonClient.m; sourceTree = "<group>"; };
+		62D56EDA1E798C3900879ECB /* ClientLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientLocation.h; path = Model/ClientLocation.h; sourceTree = "<group>"; };
+		62D56EDB1E798C3900879ECB /* ClientLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientLocation.m; path = Model/ClientLocation.m; sourceTree = "<group>"; };
+		62D56EDD1E798C5000879ECB /* ClientLocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientLocationClient.h; path = API/ClientLocationClient.h; sourceTree = "<group>"; };
+		62D56EDE1E798C5000879ECB /* ClientLocationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientLocationClient.m; path = API/ClientLocationClient.m; sourceTree = "<group>"; };
 		88EB98C62142934F5D5D3048 /* Pods-Wil_Valet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_Valet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_Valet/Pods-Wil_Valet.debug.xcconfig"; sourceTree = "<group>"; };
 		8CD32182077325DAE1B137C5 /* Pods-Wil_ValetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests.release.xcconfig"; sourceTree = "<group>"; };
 		8DB551F7EE205B02C7C70DDC /* Pods-Wil_ValetUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetUITests/Pods-Wil_ValetUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -273,6 +285,8 @@
 			children = (
 				6241EC481E68086F00249DE1 /* MainViewController.h */,
 				6241EC491E68086F00249DE1 /* MainViewController.m */,
+				62D56ED41E79480000879ECB /* OrderDetailViewController.h */,
+				62D56ED51E79480000879ECB /* OrderDetailViewController.m */,
 				6241EC4B1E68087700249DE1 /* ProfileViewController.h */,
 				6241EC4C1E68087700249DE1 /* ProfileViewController.m */,
 				6241EC4F1E68108D00249DE1 /* AboutViewController.h */,
@@ -303,10 +317,14 @@
 				6241EC6B1E695D2C00249DE1 /* LibraryAPI.m */,
 				62D56EB91E782B8D00879ECB /* ValetLocationClient.h */,
 				62D56EBA1E782B8D00879ECB /* ValetLocationClient.m */,
+				62D56EDD1E798C5000879ECB /* ClientLocationClient.h */,
+				62D56EDE1E798C5000879ECB /* ClientLocationClient.m */,
 				62D56EBC1E7831AA00879ECB /* OrderClient.h */,
 				62D56EBD1E7831AA00879ECB /* OrderClient.m */,
 				62D56ECB1E79208600879ECB /* ClientClient.h */,
 				62D56ECC1E79208600879ECB /* ClientClient.m */,
+				62D56ED71E7987E500879ECB /* PolygonClient.h */,
+				62D56ED81E7987E500879ECB /* PolygonClient.m */,
 				6241EC631E695CF400249DE1 /* MBProgressHUD+WilShowError.h */,
 				6241EC641E695CF400249DE1 /* MBProgressHUD+WilShowError.m */,
 				6241EC651E695CF400249DE1 /* UIButton+Status.h */,
@@ -322,6 +340,8 @@
 				62D56EC91E791FD700879ECB /* ClientObject.m */,
 				624E60BF1E752E51006B516E /* ValetLocation.h */,
 				624E60C01E752E51006B516E /* ValetLocation.m */,
+				62D56EDA1E798C3900879ECB /* ClientLocation.h */,
+				62D56EDB1E798C3900879ECB /* ClientLocation.m */,
 				62D56EBF1E7831D400879ECB /* OrderObject.h */,
 				62D56EC01E7831D400879ECB /* OrderObject.m */,
 			);
@@ -628,13 +648,17 @@
 				62D56EBE1E7831AA00879ECB /* OrderClient.m in Sources */,
 				62D56EC41E784D6800879ECB /* OrderCell.m in Sources */,
 				6241EC401E6807BA00249DE1 /* RootViewController.m in Sources */,
+				62D56ED61E79480000879ECB /* OrderDetailViewController.m in Sources */,
 				6241EC541E68108D00249DE1 /* ContactViewController.m in Sources */,
 				62D56EC11E7831D400879ECB /* OrderObject.m in Sources */,
 				6241EC671E695CF400249DE1 /* MBProgressHUD+WilShowError.m in Sources */,
+				62D56EDF1E798C5000879ECB /* ClientLocationClient.m in Sources */,
 				6241EC611E695CB500249DE1 /* ForgetPasswordFirstViewController.m in Sources */,
 				62D56EBB1E782B8D00879ECB /* ValetLocationClient.m in Sources */,
+				62D56ED91E7987E500879ECB /* PolygonClient.m in Sources */,
 				62D56ECA1E791FD700879ECB /* ClientObject.m in Sources */,
 				624E60C11E752E51006B516E /* ValetLocation.m in Sources */,
+				62D56EDC1E798C3900879ECB /* ClientLocation.m in Sources */,
 				621668D91E31D622007292A4 /* main.m in Sources */,
 				6241EC4A1E68086F00249DE1 /* MainViewController.m in Sources */,
 				6241EC431E68081B00249DE1 /* MenuViewController.m in Sources */,

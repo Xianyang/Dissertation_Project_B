@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MapValetInfoViewDelegate
+
+- (void)callValetWithNumber:(NSString *)mobilePhoneNumber;
+
+@end
+
 @interface MapValetInfoView : UIView
 
 @property (strong, nonatomic) NSString *valetObjectID;
+@property (assign, nonatomic) id <MapValetInfoViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame;
 
@@ -18,5 +25,7 @@
 - (void)hideInMapView:(GMSMapView *)mapView;
 
 - (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address;
+
+
 
 @end

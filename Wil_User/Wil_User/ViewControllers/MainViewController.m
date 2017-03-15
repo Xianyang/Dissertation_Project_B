@@ -37,7 +37,7 @@
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate,GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate>
+@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate,GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate, MapValetInfoViewDelegate>
 {
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
@@ -265,7 +265,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                       success:^(OrderObject *orderObject) {
                                                           [hud hideAnimated:YES];
                                                           self.orderObject = nil;
-                                                          [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
+                                                          [self setMapToUserOrderStatusNone:self.mapView.camera.target];
                                                       }
                                                          fail:^(NSError *error) {
                                                              [hud showMessage:@"cancel fail"];
@@ -322,6 +322,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.mapFlag hideInMapView:self.mapView];
+                         
+                         _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                      }
                      completion:^(BOOL finished) {
@@ -395,13 +397,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      animations:^{
                          // 0. hide the view at the bottom
                          [self.requestValetButton hideInMapView:self.mapView];
-                         
-                         // 1. change flag style
                          [self.mapFlag showGoToServiceArea];
-                         
-                         // 2. move my location button
+                         _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                          
+                         // hide other views
+                         [self.mapValetInfoView hideInMapView:self.mapView];
                      }
                      completion:^(BOOL finished) {
                          
@@ -688,6 +689,19 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
+#pragma mark - MapValetInfoViewDelegate 
+
+- (void)callValetWithNumber:(NSString *)mobilePhoneNumber {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", mobilePhoneNumber]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+        [hud hideAnimated:YES];
+    } else {
+        [hud showMessage:@"Call facility is not available!"];
+    }
+}
 
 #pragma mark - Some Settings
 
@@ -734,6 +748,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (MapValetInfoView *)mapValetInfoView {
     if (!_mapValetInfoView) {
         _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapValetInfoView.delegate = self;
         _mapValetInfoView.backgroundColor = [UIColor whiteColor];
     }
     

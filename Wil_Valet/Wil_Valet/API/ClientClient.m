@@ -25,6 +25,7 @@
     } else {
         [clientObject fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
             if (object && !error) {
+                [self.clients addObject:(ClientObject *)object];
                 successBlock((ClientObject *)object);
             } else {
                 failBlock(error);
@@ -37,6 +38,16 @@
     for (ClientObject *savedClientObject in self.clients) {
         if ([savedClientObject.objectId isEqualToString:clientObject.objectId]) {
             return savedClientObject;
+        }
+    }
+    
+    return nil;
+}
+
+- (ClientObject *)clientObjectWithObjectID:(NSString *)clientObjectID {
+    for (ClientObject *clientObject in self.clients) {
+        if ([clientObject.objectId isEqualToString:clientObjectID]) {
+            return clientObject;
         }
     }
     

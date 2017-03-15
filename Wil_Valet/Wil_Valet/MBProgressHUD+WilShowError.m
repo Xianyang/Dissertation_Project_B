@@ -19,4 +19,10 @@
     [self hideAnimated:YES afterDelay:2];
 }
 
+- (void)showMessage:(NSString *)message {
+    self.mode = MBProgressHUDModeText;
+    self.label.text = message;
+    [self hideAnimated:YES afterDelay:2];
+}
+
 @end

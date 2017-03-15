@@ -11,6 +11,8 @@
 
 @interface MapValetInfoView ()
 
+@property (strong, nonatomic) NSString *valetMobilePhoneNumber;
+
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *addressLabel;
 @property (strong, nonatomic) UILabel *nameLabel;
@@ -53,6 +55,7 @@
         [self.callButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.callButton setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
         [self.callButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [self.callButton addTarget:self action:@selector(callBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         
         // add a line
         self.lineView = [[UIView alloc] initWithFrame:CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + 2,
@@ -90,6 +93,8 @@
     ValetObject *valetObject = [ValetObject objectWithObjectId:valetObjectID];
     [valetObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
         if (object && !error) {
+            self.valetMobilePhoneNumber = [valetObject objectForKey:@"mobilePhoneNumber"];
+            
             self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
             self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
             
@@ -114,6 +119,10 @@
             
         }
     }];
+}
+
+- (void)callBtnClicked {
+    [self.delegate callValetWithNumber:self.valetMobilePhoneNumber];
 }
 
 /*

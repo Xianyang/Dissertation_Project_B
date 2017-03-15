@@ -7,7 +7,9 @@
 //
 
 #import "LibraryAPI.h"
+#import "PolygonClient.h"
 #import "ValetLocationClient.h"
+#import "ClientLocationClient.h"
 #import "OrderClient.h"
 #import "ClientClient.h"
 
@@ -15,7 +17,9 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 
 @interface LibraryAPI()
 
+@property (strong, nonatomic) PolygonClient *polygonClient;
 @property (strong, nonatomic) ValetLocationClient *valetLocationClient;
+@property (strong, nonatomic) ClientLocationClient *clientLocationClient;
 @property (strong, nonatomic) OrderClient *orderClient;
 @property (strong, nonatomic) ClientClient *clientClient;
 
@@ -43,7 +47,9 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 {
     if (self = [super init])
     {
+        self.polygonClient = [[PolygonClient alloc] init];
         self.valetLocationClient = [[ValetLocationClient alloc] init];
+        self.clientLocationClient = [[ClientLocationClient alloc] init];
         self.orderClient = [[OrderClient alloc] init];
         self.clientClient = [[ClientClient alloc] init];
     }
@@ -81,6 +87,10 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
                                                 fail:^(NSError *error) {
                                                     failBlock(error);
                                                 }];
+}
+
+- (ClientObject *)clientObjectWithObjectID:(NSString *)clientObjectID {
+    return [self.clientClient clientObjectWithObjectID:clientObjectID];
 }
 
 #pragma mark - limit for user's registration
@@ -132,6 +142,34 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID {
     [self.valetLocationClient saveValetLocationObjectIDLocally:valetLocationObjectID];
+}
+
+- (void)fetchClientLocationWithClientObjectID:(NSString *)clientObjectID success:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.clientLocationClient fetchClientLocationWithClientObjectID:clientObjectID
+                                                             success:^(ClientLocation *clientLocation) {
+                                                                 successBlock(clientLocation);
+                                                             }
+                                                                fail:^(NSError *error) {
+                                                                    failBlock(error);
+                                                                }];
+}
+
+#pragma mark - Polygon
+
+- (NSArray *)polygons {
+    return [self.polygonClient polygons];
+}
+
+- (GMSPolygon *)polygonForHKIsland {
+    return [self.polygonClient polygonForHKIsland];
+}
+
+- (GMSPolygon *)polygonForKowloon {
+    return [self.polygonClient polygonForKowloon];
+}
+
+- (CLLocationCoordinate2D)serviceLocation {
+    return [self.polygonClient serviceLocation];
 }
 
 @end

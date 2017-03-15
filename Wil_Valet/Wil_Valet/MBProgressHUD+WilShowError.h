@@ -11,5 +11,6 @@
 @interface MBProgressHUD (WilShowError)
 
 - (void)showErrorMessage:(NSError *)error process:(NSString *)process;
+- (void)showMessage:(NSString *)message;
 
 @end

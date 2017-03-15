@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ValetLocation.h"
+#import "ClientLocation.h"
 #import "OrderObject.h"
 #import "ClientObject.h"
 
@@ -26,6 +27,7 @@
     [GMSPlacesClient provideAPIKey:@"AIzaSyDtHKe-FeiUgYf3SMrz6ZLEPYKUTtwUK_I"];
     
     [ValetLocation registerSubclass];
+    [ClientLocation registerSubclass];
     [OrderObject registerSubclass];
     [ClientObject registerSubclass];
     

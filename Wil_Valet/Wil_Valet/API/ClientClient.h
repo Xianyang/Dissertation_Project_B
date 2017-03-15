@@ -12,5 +12,6 @@
 @interface ClientClient : NSObject
 
 - (void)fetchClientObjectWithObjectID:(NSString *)clientObjectID success:(void (^)(ClientObject *clientObject))successBlock fail:(void (^)(NSError *error))failBlock;
+- (ClientObject *)clientObjectWithObjectID:(NSString *)clientObjectID;
 
 @end

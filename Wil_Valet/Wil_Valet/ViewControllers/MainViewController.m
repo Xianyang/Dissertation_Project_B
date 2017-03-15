@@ -8,10 +8,12 @@
 
 #import "MainViewController.h"
 #import "SignInViewController.h"
+#import "OrderDetailViewController.h"
 #import "ValetLocation.h"
 #import "OrderObject.h"
 #import "OrderCell.h"
 #import "ClientObject.h"
+
 
 static NSString * const OrderCellIdentifier = @"OrderCell";
 
@@ -44,13 +46,22 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     }
 }
 
+- (IBAction)refreshBtnClicked:(id)sender {
+    [self getCurrentOrders];
+}
+
 - (void)getCurrentOrders {
     [[LibraryAPI sharedInstance] fetchCurrentDropOrder:^(NSArray *orders) {
         self.currentDropOrders = orders;
         [self.tableView reloadData];
     }
                                                   fail:^(NSError *error) {
+                                                      if (self.currentDropOrders.count > 0) {
+                                                          self.currentDropOrders = @[];
+                                                          [self.tableView reloadData];
+                                                      }
                                                       
+                                                      [self showNoOrderMessage];
                                                   }];
     
     [[LibraryAPI sharedInstance] fetchCurrentReturnOrder:^(NSArray *orders) {
@@ -58,14 +69,36 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
         [self.tableView reloadData];
     }
                                                     fail:^(NSError *error) {
+                                                        if (self.currentReturnOrders.count > 0) {
+                                                            self.currentReturnOrders = @[];
+                                                            [self.tableView reloadData];
+                                                        }
                                                         
+                                                        [self showNoOrderMessage];
                                                     }];
+}
+
+- (void)showNoOrderMessage {
+    if (self.currentReturnOrders.count == 0 && self.currentDropOrders.count == 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud showMessage:@"Currently No Order"];
+    }
 }
 
 #pragma mark - UITableView
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    OrderDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+    OrderObject *orderObject = [self orderObjectAtIndexPath:indexPath];
+    ClientObject *clientObject = [[LibraryAPI sharedInstance] clientObjectWithObjectID:orderObject.user_object_ID];
+    [vc setOrder:orderObject client:clientObject];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return section?@"Return Vehicle Orders":@"Drop Vehicle Orders";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,14 +124,7 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
 
 - (void)configureCell:(OrderCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     // TODO set profile image
-    
-    OrderObject *orderObject;
-    if (indexPath.section) {
-        orderObject = self.currentReturnOrders[indexPath.row];
-    } else {
-        orderObject = self.currentDropOrders[indexPath.row];
-    }
-    
+    OrderObject *orderObject = [self orderObjectAtIndexPath:indexPath];
     [[LibraryAPI sharedInstance] fetchClientObjectWithObjectID:orderObject.user_object_ID
                                                        success:^(ClientObject *clientObject) {
                                                            cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", clientObject.last_name, clientObject.first_name];
@@ -113,6 +139,10 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
                                                           fail:^(NSError *error) {
                                                               
                                                           }];
+}
+
+- (OrderObject *)orderObjectAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section?self.currentReturnOrders[indexPath.row]:self.currentDropOrders[indexPath.row];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -192,12 +222,11 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //    UIBarButtonItem *backButton =
-    //    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
-    //                                     style:UIBarButtonItemStylePlain
-    //                                    target:nil
-    //                                    action:nil];
-    //    [self.navigationItem setBackBarButtonItem:backButton];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"Back")
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:nil
+                                                                  action:nil];
+    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 - (void)animateSignInView {

@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 #import "ValetLocation.h"
+#import "ClientLocation.h"
 #import "ClientObject.h"
 
 @interface LibraryAPI : NSObject
@@ -59,11 +60,21 @@ typedef enum {
 - (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID;
 
+// Client Location
+- (void)fetchClientLocationWithClientObjectID:(NSString *)clientObjectID success:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;
+
 // order
 - (void)fetchCurrentDropOrder:(void (^)(NSArray *orders))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)fetchCurrentReturnOrder:(void (^)(NSArray *orders))successBlock fail:(void (^)(NSError *error))failBlock;
 
 // client
 - (void)fetchClientObjectWithObjectID:(NSString *)clientObjectID success:(void (^)(ClientObject *clientObject))successBlock fail:(void (^)(NSError *error))failBlock;
+- (ClientObject *)clientObjectWithObjectID:(NSString *)clientObjectID;
+
+// polygon
+- (NSArray *)polygons;
+- (GMSPolygon *)polygonForHKIsland;
+- (GMSPolygon *)polygonForKowloon;
+- (CLLocationCoordinate2D)serviceLocation;
 
 @end
