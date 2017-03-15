@@ -10,18 +10,6 @@
 
 @interface ValetLocation : AVObject <AVSubclassing>
 
-//- (id)initWithValetObjectID:(NSString *)valetObjectID
-//              valetUserName:(NSString *)valetUserName
-//             valetFirstName:(NSString *)valetFirstName
-//              valetLastName:(NSString *)valetLastName
-//     valetMobilePhoneNumber:(NSString *)valetMobilePhoneNumer
-//              valetLocation:(AVGeoPoint *)valetLocation
-//            valetIsServiing:(NSNumber *)valetIsServing;
-//
-//- (id)initWithAVObject:(AVObject *)object;
-
-//- (void)transferProperty:(AVObject *)object;
-
 @property (nonatomic, copy) NSString *valet_object_ID;
 @property (nonatomic, copy) NSString *valet_user_name;
 @property (nonatomic, copy) NSString *valet_first_name;

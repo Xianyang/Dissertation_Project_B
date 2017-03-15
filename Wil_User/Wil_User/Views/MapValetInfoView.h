@@ -12,7 +12,10 @@
 
 @property (strong, nonatomic) NSString *valetObjectID;
 
+- (id)initWithFrame:(CGRect)frame;
+
 - (void)showInMapView:(GMSMapView *)mapView;
+- (void)hideInMapView:(GMSMapView *)mapView;
 
 - (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address;
 

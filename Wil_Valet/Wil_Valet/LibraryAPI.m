@@ -7,10 +7,17 @@
 //
 
 #import "LibraryAPI.h"
+#import "ValetLocationClient.h"
+#import "OrderClient.h"
+#import "ClientClient.h"
 
 static NSString * const LocationObjectName = @"valet_location_object_id";
 
 @interface LibraryAPI()
+
+@property (strong, nonatomic) ValetLocationClient *valetLocationClient;
+@property (strong, nonatomic) OrderClient *orderClient;
+@property (strong, nonatomic) ClientClient *clientClient;
 
 @end
 
@@ -36,13 +43,48 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 {
     if (self = [super init])
     {
-        
+        self.valetLocationClient = [[ValetLocationClient alloc] init];
+        self.orderClient = [[OrderClient alloc] init];
+        self.clientClient = [[ClientClient alloc] init];
     }
     
     return self;
 }
 
-// limit for user's registration
+#pragma mark - Orders
+
+- (void)fetchCurrentDropOrder:(void (^)(NSArray *orders))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient fetchCurrentDropOrder:^(NSArray *orders) {
+        successBlock(orders);
+    }
+                                   fail:^(NSError *error) {
+                                       failBlock(error);
+                                   }];
+}
+
+- (void)fetchCurrentReturnOrder:(void (^)(NSArray *orders))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient fetchCurrentReturnOrder:^(NSArray *orders) {
+        successBlock(orders);
+    }
+                                         fail:^(NSError *error) {
+                                             failBlock(error);
+                                         }];
+}
+
+#pragma mark - CLient
+
+- (void)fetchClientObjectWithObjectID:(NSString *)clientObjectID success:(void (^)(ClientObject *clientObject))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.clientClient fetchClientObjectWithObjectID:clientObjectID
+                                             success:^(ClientObject *clientObject) {
+                                                 successBlock(clientObject);
+                                             }
+                                                fail:^(NSError *error) {
+                                                    failBlock(error);
+                                                }];
+}
+
+#pragma mark - limit for user's registration
+
 - (NSInteger)maxLengthForPhoneNumber {
     return 11;
 }
@@ -77,17 +119,19 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 }
 
 // Location
-- (NSString *)valetLocationObjectID {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@""];
+
+- (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.valetLocationClient uploadValetLocation:geoPoint
+                                       successful:^(ValetLocation *valetLocation) {
+                                           successBlock(valetLocation);
+                                       }
+                                             fail:^(NSError *error) {
+                                                 failBlock(error);
+                                             }];
 }
 
-- (void)saveValetLocationObjectID:(NSString *)objectID {
-    if ([self valetLocationObjectID] && ![[self valetLocationObjectID] isEqualToString:LocationObjectName]) {
-        NSLog(@"fail to save valet location object id. ID already exists");
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:objectID forKey:LocationObjectName];
-        NSLog(@"save valet location object id successfully");
-    }
+- (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID {
+    [self.valetLocationClient saveValetLocationObjectIDLocally:valetLocationObjectID];
 }
 
 @end

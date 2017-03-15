@@ -16,6 +16,7 @@
 @dynamic valet_last_name;
 @dynamic valet_mobile_phone_numer;
 @dynamic valet_location;
+@dynamic valet_is_serving;
 
 + (NSString *)parseClassName {
     return @"Valet_Location";

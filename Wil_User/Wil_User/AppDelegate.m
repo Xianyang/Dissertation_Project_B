@@ -11,7 +11,7 @@
 @import GooglePlaces;
 #import <AVOSCloud/AVOSCloud.h>
 #import "ValetLocation.h"
-#import "UserLocation.h"
+#import "ClientLocation.h"
 #import "OrderObject.h"
 #import "ValetObject.h"
 
@@ -29,7 +29,7 @@
     
     [ValetLocation registerSubclass];
     [OrderObject registerSubclass];
-    [UserLocation registerSubclass];
+    [ClientLocation registerSubclass];
     [ValetObject registerSubclass];
     [AVOSCloud setApplicationId:@"LofD16jEuaeoAu0e7fBn7Ug5-gzGzoHsz" clientKey:@"78OBNxyLGXz4iMr2sUcqdhXD"];
     

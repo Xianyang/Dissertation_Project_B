@@ -167,11 +167,6 @@
                                 <action selector="presentLeftMenuViewController:" destination="wNv-Oz-9Qz" id="t31-DI-vp5"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="CP3-7I-Wrf">
-                            <connections>
-                                <action selector="launchSearch:" destination="wNv-Oz-9Qz" id="akh-lY-yhB"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="u8y-b1-TbM" id="HPA-sF-8VE"/>
@@ -254,7 +249,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ContentViewController" automaticallyAdjustsScrollViewInsets="NO" id="3b8-w4-GSv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GwN-37-zFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GwN-37-zFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -459,7 +454,7 @@
                 <navigationController storyboardIdentifier="InstructionNav" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Ma4-6c-Zf3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nFq-sK-Ujb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nFq-sK-Ujb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

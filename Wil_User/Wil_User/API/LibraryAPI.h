@@ -10,7 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 #import "ValetLocation.h"
-#import "UserLocation.h"
+#import "ClientLocation.h"
 #import "OrderObject.h"
 
 @interface LibraryAPI : NSObject
@@ -35,7 +35,10 @@ typedef enum {
     kUserOrderStatusRequestingBack,
     
     // the order is finished
-    kUserOrderStatusFinished
+    kUserOrderStatusFinished,
+    
+    // the order is cancel
+    kUserOrderStatusCancel
 } UserOrderStatus;
 
 + (LibraryAPI *)sharedInstance;
@@ -68,6 +71,10 @@ typedef enum {
                           parkLocation:(AVGeoPoint *)parkLocation
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock;
+
+- (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
+                             success:(void (^)(OrderObject *orderObject))successBlock
+                                fail:(void (^)(NSError *error))failBlock;
 
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock;
 

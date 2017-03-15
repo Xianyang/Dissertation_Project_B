@@ -9,16 +9,20 @@
 #import "MainViewController.h"
 #import "SignInViewController.h"
 #import "ValetLocation.h"
+#import "OrderObject.h"
+#import "OrderCell.h"
+#import "ClientObject.h"
 
-static NSString * const ValetLocationClassName = @"Valet_Location";
+static NSString * const OrderCellIdentifier = @"OrderCell";
 
-@interface MainViewController () <SignInVCDelegate, CLLocationManagerDelegate> {
+@interface MainViewController () <SignInVCDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource> {
     BOOL _isSignInAnimated;
 }
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (strong, nonatomic) ValetLocation *valetLocation;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *currentDropOrders;
+@property (strong, nonatomic) NSArray *currentReturnOrders;
 
 @end
 
@@ -29,62 +33,103 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     
     [self setNavigationBar];
     [self checkCurrentUser];
-    [[LibraryAPI sharedInstance] saveValetLocationObjectID:@""];
+    [[LibraryAPI sharedInstance] saveValetLocationObjectIDLocally:@""];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([AVUser currentUser]) {
+        [self getCurrentOrders];
+    }
 }
 
 - (void)getCurrentOrders {
+    [[LibraryAPI sharedInstance] fetchCurrentDropOrder:^(NSArray *orders) {
+        self.currentDropOrders = orders;
+        [self.tableView reloadData];
+    }
+                                                  fail:^(NSError *error) {
+                                                      
+                                                  }];
     
+    [[LibraryAPI sharedInstance] fetchCurrentReturnOrder:^(NSArray *orders) {
+        self.currentReturnOrders = orders;
+        [self.tableView reloadData];
+    }
+                                                    fail:^(NSError *error) {
+                                                        
+                                                    }];
 }
 
-#pragma mark - Location Service
+#pragma mark - UITableView
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.0f;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return section?self.currentReturnOrders.count:self.currentDropOrders.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:OrderCellIdentifier
+                                                      forIndexPath:indexPath];
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)configureCell:(OrderCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    // TODO set profile image
+    
+    OrderObject *orderObject;
+    if (indexPath.section) {
+        orderObject = self.currentReturnOrders[indexPath.row];
+    } else {
+        orderObject = self.currentDropOrders[indexPath.row];
+    }
+    
+    [[LibraryAPI sharedInstance] fetchClientObjectWithObjectID:orderObject.user_object_ID
+                                                       success:^(ClientObject *clientObject) {
+                                                           cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", clientObject.last_name, clientObject.first_name];
+                                                           if (orderObject.order_status == kUserOrderStatusUserDroppingOff) {
+                                                               cell.infoLabel.text = [NSString stringWithFormat:@"Meet at %@", orderObject.park_address];
+                                                           } else if (orderObject.order_status == kUserOrderStatusParking){
+                                                               cell.infoLabel.text = @"Valet is parking";
+                                                           } else {
+                                                               cell.infoLabel.text = @"";
+                                                           }
+                                                       }
+                                                          fail:^(NSError *error) {
+                                                              
+                                                          }];
+}
+
+#pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     if (locations.count) {
         CLLocation *location = locations[0];
         NSLog(@"latitude:%f, longitude:%f", location.coordinate.latitude, location.coordinate.longitude);
-        self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", location.coordinate.latitude, location.coordinate.longitude];
         AVGeoPoint *geoPoint = [AVGeoPoint geoPointWithLocation:location];
         
-        if (self.valetLocation.objectId == nil) {
-            // 1. query from the server
-            AVUser *valet = [AVUser currentUser];
-            
-            AVQuery *query = [AVQuery queryWithClassName:ValetLocationClassName];
-            [query whereKey:@"valet_object_ID" equalTo:valet.objectId];
-            [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                if (objects.count == 1 && !error) {
-                    self.valetLocation = objects[0];
-                    
-                    // 2. update location
-                    
-                    self.valetLocation.valet_location = geoPoint;
-                    [self.valetLocation saveInBackground];
-                    
-                    // 3. save the objectID
-                    [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.valetLocation.objectId];
-                } else {
-                    // 2. create this ValetLocation object
-                    self.valetLocation.valet_location = geoPoint;
-                    self.valetLocation.valet_object_ID = valet.objectId;
-                    self.valetLocation.valet_first_name = [valet objectForKey:@"first_name"];
-                    self.valetLocation.valet_last_name = [valet objectForKey:@"last_name"];
-                    self.valetLocation.valet_mobile_phone_numer = valet.mobilePhoneNumber;
-                    self.valetLocation.valet_user_name = valet.username;
-                    
-                    [self.valetLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                        if (succeeded) {
-                            // 3. save the objectID
-                            [[LibraryAPI sharedInstance] saveValetLocationObjectID:self.valetLocation.objectId];
-                        } else {
-                            
-                        }
-                    }];
-                }
-            }];
-        } else {
-            self.valetLocation.valet_location = geoPoint;
-            [self.valetLocation saveInBackground];
-        }
+        [[LibraryAPI sharedInstance] uploadValetLocation:geoPoint
+                                              successful:^(ValetLocation *valetLocation) {
+                                                  NSLog(@"location upload successfully");
+                                              }
+                                                    fail:^(NSError *error) {
+                                                        NSLog(@"location upload fail");
+                                                    }];
     }
 }
 
@@ -168,17 +213,20 @@ static NSString * const ValetLocationClassName = @"Valet_Location";
     return _locationManager;
 }
 
-- (ValetLocation *)valetLocation {
-    if (!_valetLocation) {
-        NSString *valetLocationObjectID = [[LibraryAPI sharedInstance] valetLocationObjectID];
-        if (valetLocationObjectID && ![valetLocationObjectID isEqualToString:@""]) {
-            _valetLocation = [ValetLocation objectWithObjectId:valetLocationObjectID];
-        } else {
-            _valetLocation = [ValetLocation object];
-        }
+- (NSArray *)currentDropOrders {
+    if (!_currentDropOrders) {
+        _currentDropOrders = [[NSArray alloc] init];
     }
     
-    return _valetLocation;
+    return _currentDropOrders;
+}
+
+- (NSArray *)currentReturnOrders {
+    if (!_currentReturnOrders) {
+        _currentReturnOrders = [[NSArray alloc] init];
+    }
+    
+    return _currentReturnOrders;
 }
 
 - (void)didReceiveMemoryWarning {

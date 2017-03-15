@@ -1,14 +1,14 @@
 //
-//  UserLocation.m
+//  ClientLocation.m
 //  Wil_User
 //
-//  Created by xianyang on 13/03/2017.
+//  Created by xianyang on 15/03/2017.
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
-#import "UserLocation.h"
+#import "ClientLocation.h"
 
-@implementation UserLocation
+@implementation ClientLocation
 
 @dynamic user_object_ID;
 @dynamic user_user_name;
@@ -18,7 +18,7 @@
 @dynamic user_location;
 
 + (NSString *)parseClassName {
-    return @"User_Location";
+    return @"Client_Location";
 }
 
 @end

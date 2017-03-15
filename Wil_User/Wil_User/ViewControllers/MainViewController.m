@@ -33,7 +33,7 @@
 #import "MapFlag.h"
 #import "MapValetInfoView.h"
 #import "OrderObject.h"
-#import "UserLocation.h"
+#import "ClientLocation.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
@@ -52,6 +52,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *maskView;
+@property (strong, nonatomic) UIBarButtonItem *navRightItem;
 @property (strong, nonatomic) GMSPlacesClient *placesClient;
 @property (nonatomic, strong, nonnull) GMSGeocoder *geocoder;
 @property (strong, nonatomic) NSArray * filterPlaces;
@@ -73,6 +74,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 // the order object
 @property (strong, nonatomic) OrderObject *orderObject;
+
+// the flag marker to show drop off or return back point
+@property (strong, nonatomic) GMSMarker *flagMarker;
+
+// the vehicle marker to show the position of vehicle
+@property (strong, nonatomic) GMSMarker *vehicleMarker;
 @end
 
 @implementation MainViewController
@@ -213,7 +220,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         }
                                                            noOrder:^{
                                                                [hud hideAnimated:YES];
-                                                               _userOrderStatus = kUserOrderStatusNone;
                                                                // check if map gets user's location
                                                                if (self.mapView.myLocation) {
                                                                    [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
@@ -229,13 +235,82 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
+- (void)tryCancelOrder {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"Are you sure you want to cancel this order?"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Yes, I am sure"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self cancelOrder];
+                                                         }];
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"No"
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              
+                                                          }];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
+}
+
+- (void)cancelOrder {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[LibraryAPI sharedInstance] cancelAnOrderWithOrderObject:self.orderObject
+                                                      success:^(OrderObject *orderObject) {
+                                                          [hud hideAnimated:YES];
+                                                          self.orderObject = nil;
+                                                          [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
+                                                      }
+                                                         fail:^(NSError *error) {
+                                                             [hud showMessage:@"cancel fail"];
+                                                         }];
+}
+
 // kUserOrderStatusNone
 - (void)setMapToUserOrderStatusNone:(CLLocationCoordinate2D)coordinate {
+    // set status
+    _userOrderStatus = kUserOrderStatusNone;
+    
+    // set right navigation item to search
+    self.navRightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                      target:self action:@selector(launchSearch)];
+    self.navigationItem.rightBarButtonItem = self.navRightItem;
+    
+    // update the valet marker
+    [self fetchValetsLocation];
+    
+    // remove the flag marker
+    self.flagMarker.map = nil;
+    self.flagMarker = nil;
+    
+    // update the view
     [self updateRequestServiceView:coordinate];
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
+    // set status
+    _userOrderStatus = kUserOrderStatusUserDroppingOff;
+    
+    // set right navigation item to cancel
+    self.navRightItem = [[UIBarButtonItem alloc] initWithTitle:@"cancel" style:UIBarButtonItemStylePlain
+                                                        target:self action:@selector(tryCancelOrder)];
+    self.navigationItem.rightBarButtonItem = self.navRightItem;
+    
+    // update the valet marker
     [self fetchValetsLocation];
+    
+    // add the flag marker
+    CLLocationCoordinate2D a = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    NSLog(@"%f, %f", a.latitude, a.longitude);
+    
+    self.flagMarker.map = self.mapView;
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
+    // update the view
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -253,15 +328,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)setMapToUserOrderStatusParking {
-    
+    _userOrderStatus = kUserOrderStatusParking;
 }
 
 - (void)setMapToUserOrderStatusParked {
-    
+    _userOrderStatus = kUserOrderStatusParked;
 }
 
 - (void)setMapToUserOrderStatusRequestingBack {
-    
+    _userOrderStatus = kUserOrderStatusRequestingBack;
 }
 
 - (void)updateRequestServiceView:(CLLocationCoordinate2D)coordinate {
@@ -295,14 +370,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         // 0. show the view at the bottom
                          [self.requestValetButton showInMapView:self.mapView];
-                         
-                         // 1. change flag style
                          [self.mapFlag showWil];
-                         
-                         // 2. move my location button
                          [self moveMyLocationBtn:-self.requestValetButton.frame.size.height];
+                         
+                         // hide other views
+                         [self.mapValetInfoView hideInMapView:self.mapView];
                      }
                      completion:^(BOOL finished) {
                          
@@ -325,7 +398,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapFlag showGoToServiceArea];
                          
                          // 2. move my location button
-                         [self moveMyLocationBtn:self.requestValetButton.frame.size.height];
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                          
                      }
                      completion:^(BOOL finished) {
@@ -518,7 +591,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 # pragma mark - Search for a place
 
-- (IBAction)launchSearch:(id)sender {
+- (void)launchSearch {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;
     // set the search bounds to Hong Kong
@@ -646,6 +719,16 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _valetMarkers;
+}
+
+- (GMSMarker *)flagMarker {
+    if (!_flagMarker) {
+        _flagMarker = [[GMSMarker alloc] init];
+        _flagMarker.icon = [UIImage imageNamed:@"flag_marker"];
+        _flagMarker.appearAnimation = kGMSMarkerAnimationPop;
+    }
+    
+    return _flagMarker;
 }
 
 - (void)dealloc {

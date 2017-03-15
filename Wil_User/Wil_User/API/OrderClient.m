@@ -57,6 +57,24 @@
     }];
 }
 
+- (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
+                             success:(void (^)(OrderObject *orderObject))successBlock
+                                fail:(void (^)(NSError *error))failBlock {
+    orderObject.order_status = kUserOrderStatusCancel;
+    
+    [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            successBlock(orderObject);
+            
+            ValetLocation *valetLocation = [ValetLocation objectWithObjectId:orderObject.drop_valet_location_object_ID];
+            valetLocation.valet_is_serving = @(NO);
+            [valetLocation saveInBackground];
+        } else {
+            failBlock(error);
+        }
+    }];
+}
+
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *))hasOrderBlock noOrder:(void (^)())noOrderBlock fail:(void (^)())failBlock {
     AVQuery *userObjectIDQuery = [AVQuery queryWithClassName:[OrderObject xyClassName]];
     [userObjectIDQuery whereKey:@"user_object_ID" equalTo:[[AVUser currentUser] objectId]];

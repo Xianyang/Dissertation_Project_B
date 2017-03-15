@@ -128,6 +128,18 @@
                                                 }];
 }
 
+- (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
+                             success:(void (^)(OrderObject *orderObject))successBlock
+                                fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient cancelAnOrderWithOrderObject:orderObject
+                                           success:^(OrderObject *orderObject) {
+                                               successBlock(orderObject);
+                                           }
+                                              fail:^(NSError *error) {
+                                                  failBlock(error);
+                                              }];
+}
+
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock {
     [self.orderClient checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
         hasOrderBlock(orderObject);
