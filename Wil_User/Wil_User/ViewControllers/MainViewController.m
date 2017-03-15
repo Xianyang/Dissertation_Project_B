@@ -37,7 +37,7 @@
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate>
+@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate,GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate>
 {
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
@@ -56,6 +56,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 @property (strong, nonatomic) GMSPlacesClient *placesClient;
 @property (nonatomic, strong, nonnull) GMSGeocoder *geocoder;
 @property (strong, nonatomic) NSArray * filterPlaces;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 // the button in the bottom of the map
 @property (strong, nonatomic) RequestValetButton *requestValetButton;
@@ -91,6 +92,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isMapSetted = NO;
     _isMyLocationBtnInOriginalPosition = YES;
     _userOrderStatus = kUserOrderStatusUndefine;
+    [[LibraryAPI sharedInstance] saveClientLocationObjectIDLocally:@""];
     
     [self checkCurrentUser];
     [self setNavigationBar];
@@ -581,6 +583,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (void)doneProcessInInstructionVC {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self requestLocationService];
 }
 
 #pragma mark - MapFlagDelegate
@@ -638,7 +641,51 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         InstructionViewController *vc = [navVC.viewControllers objectAtIndex:0];
         vc.delegate = self;
         [self presentViewController:navVC animated:_isSignInAnimated completion:nil];
+    } else {
+        [self requestLocationService];
     }
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    if (locations.count) {
+        CLLocation *location = locations[0];
+        NSLog(@"latitude:%f, longitude:%f", location.coordinate.latitude, location.coordinate.longitude);
+        AVGeoPoint *geoPoint = [AVGeoPoint geoPointWithLocation:location];
+        
+        [[LibraryAPI sharedInstance] uploadClientLocation:geoPoint
+                                               successful:^(ClientLocation *clientLocation) {
+                                                   NSLog(@"upload location successfully");
+                                               }
+                                                     fail:^(NSError *error) {
+                                                         NSLog(@"fail to upload client's location");
+                                                     }];
+    }
+}
+
+- (void)requestLocationService {
+    // 1. check authorization status
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestAlwaysAuthorization];
+    } else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"We need your location"
+                                                                       message:@"Customers need to find valets"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.locationManager requestAlwaysAuthorization];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    // 2. get valet's location
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    self.locationManager.distanceFilter = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
 
@@ -729,6 +776,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _flagMarker;
+}
+
+- (CLLocationManager *)locationManager {
+    if (!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+    }
+    
+    return _locationManager;
 }
 
 - (void)dealloc {

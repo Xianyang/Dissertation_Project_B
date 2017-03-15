@@ -8,11 +8,13 @@
 
 #import "LibraryAPI.h"
 #import "PolygonClient.h"
+#import "ClientLocationClient.h"
 #import "ValetLocationClient.h"
 #import "OrderClient.h"
 
 @interface LibraryAPI()
 @property (strong, nonatomic) PolygonClient *polygonClient;
+@property (strong, nonatomic) ClientLocationClient *clientLocationClient;
 @property (strong, nonatomic) ValetLocationClient *valetLocationClient;
 @property (strong, nonatomic) OrderClient *orderClient;
 
@@ -41,6 +43,7 @@
     if (self = [super init])
     {
         self.polygonClient = [[PolygonClient alloc] init];
+        self.clientLocationClient = [[ClientLocationClient alloc] init];
         self.valetLocationClient = [[ValetLocationClient alloc] init];
         self.orderClient = [[OrderClient alloc] init];
     }
@@ -64,6 +67,22 @@
 
 - (CLLocationCoordinate2D)serviceLocation {
     return [self.polygonClient serviceLocation];
+}
+
+#pragma mark - Client's location
+
+- (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.clientLocationClient uploadClientLocation:geoPoint
+                                         successful:^(ClientLocation *clientLocation) {
+                                             successBlock(clientLocation);
+                                         }
+                                               fail:^(NSError *error) {
+                                                   failBlock(error);
+                                               }];
+}
+
+- (void)saveClientLocationObjectIDLocally:(NSString *)objectID {
+    [self.clientLocationClient saveClientLocationObjectIDLocally:objectID];
 }
 
 #pragma mark - Valets' locations

@@ -10,15 +10,19 @@
 
 @implementation ClientLocation
 
-@dynamic user_object_ID;
-@dynamic user_user_name;
-@dynamic user_first_name;
-@dynamic user_last_name;
-@dynamic user_mobile_phone_numer;
-@dynamic user_location;
+@dynamic client_object_ID;
+@dynamic client_user_name;
+@dynamic client_first_name;
+@dynamic client_last_name;
+@dynamic client_mobile_phone_numer;
+@dynamic client_location;
 
 + (NSString *)parseClassName {
     return @"Client_Location";
+}
+
++ (NSString *)xyClassName {
+    return [ClientLocation parseClassName];
 }
 
 @end

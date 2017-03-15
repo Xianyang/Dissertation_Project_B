@@ -49,6 +49,10 @@ typedef enum {
 - (GMSPolygon *)polygonForKowloon;
 - (CLLocationCoordinate2D)serviceLocation;
 
+// clien's location
+- (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;
+- (void)saveClientLocationObjectIDLocally:(NSString *)objectID;
+
 // valets' locations
 - (NSMutableArray *)onlineValetLocations;
 - (NSMutableArray *)availableValetLocations;

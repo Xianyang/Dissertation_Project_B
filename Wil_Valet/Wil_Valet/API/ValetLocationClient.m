@@ -8,7 +8,7 @@
 
 #import "ValetLocationClient.h"
 
-static NSString * const LocationObjectName = @"local_valet_location_object_id";
+static NSString * const LocationObjectName = @"wil_local_valet_location_object_id";
 
 @interface ValetLocationClient ()
 

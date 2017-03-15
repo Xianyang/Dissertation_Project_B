@@ -55,7 +55,7 @@ typedef enum {
 - (UIColor *)themeBlueColor;
 - (UIColor *)themeLightBlueColor;
 
-// Location
+// Valet Location
 - (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID;
 

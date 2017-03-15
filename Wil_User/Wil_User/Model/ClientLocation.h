@@ -10,11 +10,13 @@
 
 @interface ClientLocation : AVObject
 
-@property (nonatomic, copy) NSString *user_object_ID;
-@property (nonatomic, copy) NSString *user_user_name;
-@property (nonatomic, copy) NSString *user_first_name;
-@property (nonatomic, copy) NSString *user_last_name;
-@property (nonatomic, copy) NSString *user_mobile_phone_numer;
-@property (nonatomic, copy) AVGeoPoint *user_location;
+@property (nonatomic, copy) NSString *client_object_ID;
+@property (nonatomic, copy) NSString *client_user_name;
+@property (nonatomic, copy) NSString *client_first_name;
+@property (nonatomic, copy) NSString *client_last_name;
+@property (nonatomic, copy) NSString *client_mobile_phone_numer;
+@property (nonatomic, copy) AVGeoPoint *client_location;
+
++ (NSString *)xyClassName;
 
 @end
