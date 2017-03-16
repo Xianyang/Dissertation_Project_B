@@ -37,9 +37,14 @@
     }
 }
 
-- (void)setLocation:(NSString *)location {
+- (void)setLocation:(NSString *)location orderStatus:(UserOrderStatus)orderStatus {
     self.address = location;
-    [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
+    
+    if (orderStatus == kUserOrderStatusNone) {
+        [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
+    } else if (orderStatus == kUserOrderStatusParked) {
+        [self setTitle:[NSString stringWithFormat:@"Return vehicle at %@", location] forState:UIControlStateNormal];
+    }
 }
 
 - (void)showInMapView:(GMSMapView *)mapView {

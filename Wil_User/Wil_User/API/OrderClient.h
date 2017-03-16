@@ -18,11 +18,24 @@
                                success:(void (^)(OrderObject *orderObject))successBlock
                                   fail:(void (^)(NSError *error))failBlock;
 
+- (void)requestingVehicleBackWithOrderObject:(OrderObject *)orderObject
+                               valetObjectID:(NSString *)valetObjectID
+                       valetLocationObjectID:(NSString *)valetLocationObjectID
+                               returnAddress:(NSString *)returnAddress
+                              returnLocation:(AVGeoPoint *)returnLocation
+                                  returnTime:(NSDate *)returnTime
+                                     success:(void (^)(OrderObject *orderObject))successBlock
+                                        fail:(void (^)(NSError *error))failBlock;
+
 - (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
                              success:(void (^)(OrderObject *orderObject))successBlock
                                 fail:(void (^)(NSError *error))failBlock;
 
+
+
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock;
+
+- (void)fetchOrderStatusWithObjectID:(NSString *)orderObjectID success:(void (^)(OrderObject *orderObject))successBlock fail:(void (^)(NSError *error))failBlock;
 
 
 

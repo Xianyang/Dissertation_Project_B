@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *valetMobilePhoneNumber;
 
 @property (strong, nonatomic) UIImageView *profileImageView;
-@property (strong, nonatomic) UILabel *addressLabel;
+@property (strong, nonatomic) UILabel *subInfoLabel;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UIButton *callButton;
 @property (strong, nonatomic) UIView *lineView;
@@ -41,16 +41,16 @@
         self.nameLabel.font = [UIFont systemFontOfSize:16];
         
         // add address label
-        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 5,
+        self.subInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 5,
                                                                       self.nameLabel.frame.size.width, 20)];
-        self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.addressLabel.textAlignment = NSTextAlignmentLeft;
-        self.addressLabel.textColor = [UIColor colorWithRed:155.0f / 255.0f green:155.0f / 255.0f blue:155.0f / 255.0f alpha:1.0f];
-        self.addressLabel.font = [UIFont systemFontOfSize:15];
-        self.addressLabel.numberOfLines = 0;
+        self.subInfoLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.subInfoLabel.textAlignment = NSTextAlignmentLeft;
+        self.subInfoLabel.textColor = [UIColor colorWithRed:155.0f / 255.0f green:155.0f / 255.0f blue:155.0f / 255.0f alpha:1.0f];
+        self.subInfoLabel.font = [UIFont systemFontOfSize:15];
+        self.subInfoLabel.numberOfLines = 0;
         
         // add the call button
-        self.callButton = [[UIButton alloc] initWithFrame:CGRectMake(self.addressLabel.frame.origin.x, self.addressLabel.frame.origin.y + self.addressLabel.frame.size.height + 5,
+        self.callButton = [[UIButton alloc] initWithFrame:CGRectMake(self.subInfoLabel.frame.origin.x, self.subInfoLabel.frame.origin.y + self.subInfoLabel.frame.size.height + 5,
                                                                      30, 20)];
         [self.callButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.callButton setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
@@ -71,7 +71,7 @@
         
         
         [self addSubview:self.profileImageView];
-        [self addSubview:self.addressLabel];
+        [self addSubview:self.subInfoLabel];
         [self addSubview:self.nameLabel];
         [self addSubview:self.callButton];
         [self addSubview:self.lineView];
@@ -89,27 +89,49 @@
     self.frame = CGRectMake(0.0f, 0.0f - self.frame.size.height, self.frame.size.width, self.frame.size.height);
 }
 
-- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address {
+- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus{
     ValetObject *valetObject = [ValetObject objectWithObjectId:valetObjectID];
     [valetObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
         if (object && !error) {
             self.valetMobilePhoneNumber = [valetObject objectForKey:@"mobilePhoneNumber"];
-            
             self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
-            self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
             
-            self.addressLabel.text = [NSString stringWithFormat:@"Meet him at %@", address];
-            CGRect currentFrame = self.addressLabel.frame;
-            CGSize max = CGSizeMake(self.addressLabel.frame.size.width, 40);
-            CGSize expected = [self.addressLabel.text sizeWithFont:self.addressLabel.font constrainedToSize:max lineBreakMode:self.addressLabel.lineBreakMode];
+            if (orderStatus == kUserOrderStatusUserDroppingOff) {
+                self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Meet him at %@", address];
+                [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
+                self.timeLabel.hidden = NO;
+                self.timeLabel.text = @"5 minutes";
+            } else if (orderStatus == kUserOrderStatusParking) {
+                self.nameLabel.text = [NSString stringWithFormat:@"Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
+                self.subInfoLabel.text = @"He is parking your vehicle";
+                [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
+                self.timeLabel.hidden = NO;
+                self.timeLabel.text = @"Enjoy!";
+            } else if (orderStatus == kUserOrderStatusRequestingBack) {
+                self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Return vehicle at %@", address];
+                [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
+                self.timeLabel.hidden = NO;
+                // TODO set time
+                self.timeLabel.text = @"5 minutes";
+            } else if (orderStatus == kUserOrderStatusReturningBack) {
+                self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Returning vehicle at %@", address];
+                [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
+                self.timeLabel.hidden = NO;
+                // TODO set time
+                self.timeLabel.text = @"5 minutes";
+            }
+            
+            CGRect currentFrame = self.subInfoLabel.frame;
+            CGSize max = CGSizeMake(self.subInfoLabel.frame.size.width, 40);
+            CGSize expected = [self.subInfoLabel.text sizeWithFont:self.subInfoLabel.font constrainedToSize:max lineBreakMode:self.subInfoLabel.lineBreakMode];
             currentFrame.size.height = expected.height;
-            self.addressLabel.frame = currentFrame;
-            
-            [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
-            self.timeLabel.text = @"5 minutes";
+            self.subInfoLabel.frame = currentFrame;
             
             // change frame
-            self.callButton.frame = CGRectMake(self.addressLabel.frame.origin.x, self.addressLabel.frame.origin.y + self.addressLabel.frame.size.height + 5,
+            self.callButton.frame = CGRectMake(self.subInfoLabel.frame.origin.x, self.subInfoLabel.frame.origin.y + self.subInfoLabel.frame.size.height + 5,
                                                30, 20);
             self.lineView.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + 2,
                                              1, self.callButton.frame.size.height - 4);

@@ -24,7 +24,7 @@
 - (void)showInMapView:(GMSMapView *)mapView;
 - (void)hideInMapView:(GMSMapView *)mapView;
 
-- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address;
+- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus;
 
 
 

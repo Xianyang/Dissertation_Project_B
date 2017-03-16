@@ -154,6 +154,10 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
                                                                 }];
 }
 
+- (void)updateValetServingStatus:(BOOL)isServing {
+    [self.valetLocationClient updateValetServingStatus:isServing];
+}
+
 #pragma mark - Polygon
 
 - (NSArray *)polygons {

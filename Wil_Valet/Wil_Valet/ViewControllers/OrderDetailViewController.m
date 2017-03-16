@@ -84,9 +84,6 @@
         polygon.map = self.mapView;
     }
     
-    // add flag marker
-    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
-    
     // add client info view
     [self.mapView addSubview:self.mapInfoClientView];
     
@@ -171,12 +168,17 @@
         [self setMapToUserOrderStatusParking];
     } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
         [self setMapToUserOrderStatusRequestingBack];
+    } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
+        [self setMapToUserOrdreStatusReturningBack];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
+    // add flag marker
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
     // update the view
     [UIView animateWithDuration:0.2
                           delay:0
@@ -194,6 +196,9 @@
 }
 
 - (void)setMapToUserOrderStatusParking {
+    // add flag marker
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
     // update the view
     [UIView animateWithDuration:0.2
                           delay:0
@@ -211,7 +216,43 @@
 }
 
 - (void)setMapToUserOrderStatusRequestingBack {
+    // add flag marker
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     
+    // update the view
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapInfoClientView showInMapView:self.mapView];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.return_address orderStatus:self.orderObject.order_status];
+                         
+                         _isMyLocationBtnInOriginalPosition = YES;
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+- (void)setMapToUserOrdreStatusReturningBack {
+    // add flag marker
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
+    
+    // update the view
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapInfoClientView showInMapView:self.mapView];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.return_address orderStatus:self.orderObject.order_status];
+                         
+                         _isMyLocationBtnInOriginalPosition = YES;
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 #pragma mark - MapClientInfoViewDelegate
@@ -234,6 +275,8 @@
     } else if (self.orderObject.order_status == kUserOrderStatusParking) {
         [self presentAlertViewWithMessage:@"Did you park client's vehicle?" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusParked];
     } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
+        [self presentAlertViewWithMessage:@"Did you get client's vehicle" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusReturningBack];
+    } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
         [self presentAlertViewWithMessage:@"Did you return client's vehicle" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusFinished];
     }
 }
@@ -243,6 +286,16 @@
     
     UserOrderStatus originOrderStatus = self.orderObject.order_status;
     self.orderObject.order_status = orderStatus;
+    
+    if (orderStatus == kUserOrderStatusParked) {
+        self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
+        
+        // update valetLocation object
+        [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
+    } else if (orderStatus == kUserOrderStatusFinished) {
+        [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
+    }
+    
     [self.orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [hud hideAnimated:YES];

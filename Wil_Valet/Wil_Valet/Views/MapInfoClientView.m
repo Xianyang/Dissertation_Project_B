@@ -120,6 +120,8 @@
     } else if (orderStatus == kUserOrderStatusParking) {
         return @"Park finished";
     } else if (orderStatus == kUserOrderStatusRequestingBack) {
+        return @"Got the Vehicle";
+    } else if (orderStatus == kUserOrderStatusReturningBack) {
         return @"Return finished";
     } else {
         return @"error";

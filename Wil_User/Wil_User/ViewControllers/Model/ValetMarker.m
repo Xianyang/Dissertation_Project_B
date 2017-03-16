@@ -14,12 +14,12 @@
     self = [super init];
     
     if (self) {
+        self.map = mapView;
         self.valetObjectID = valetObjectID;
         self.position = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
         self.icon = [UIImage imageNamed:@"valet_marker"];
         self.isUpdate = YES;
         self.appearAnimation = kGMSMarkerAnimationPop;
-        self.map = mapView;
     }
     
     return self;

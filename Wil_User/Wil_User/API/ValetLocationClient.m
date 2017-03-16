@@ -37,7 +37,7 @@
                 } else {
                     failBlock(nil);
                 }
-            } else if (userOrderStatus == kUserOrderStatusRequestingBack) {
+            } else if (userOrderStatus == kUserOrderStatusRequestingBack || userOrderStatus == kUserOrderStatusReturningBack) {
                 // get the working valet
                 self.returnValetLocation = [self generateDropVehicleValet:self.onlineValetLocations orderObject:orderObject];
                 if (self.returnValetLocation) {

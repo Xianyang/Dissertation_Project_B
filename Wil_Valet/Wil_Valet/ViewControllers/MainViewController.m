@@ -79,10 +79,10 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
 }
 
 - (void)showNoOrderMessage {
-    if (self.currentReturnOrders.count == 0 && self.currentDropOrders.count == 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud showMessage:@"Currently No Order"];
-    }
+//    if (self.currentReturnOrders.count == 0 && self.currentDropOrders.count == 0) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [hud showMessage:@"Currently No Order"];
+//    }
 }
 
 #pragma mark - UITableView
@@ -132,8 +132,10 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
                                                                cell.infoLabel.text = [NSString stringWithFormat:@"Meet at %@", orderObject.park_address];
                                                            } else if (orderObject.order_status == kUserOrderStatusParking){
                                                                cell.infoLabel.text = @"Valet is parking";
-                                                           } else {
-                                                               cell.infoLabel.text = @"";
+                                                           } else if (orderObject.order_status == kUserOrderStatusRequestingBack) {
+                                                               cell.infoLabel.text = [NSString stringWithFormat:@"Return at %@", orderObject.return_address];
+                                                           } else if (orderObject.order_status == kUserOrderStatusReturningBack) {
+                                                               cell.infoLabel.text = @"Valet is returning";
                                                            }
                                                        }
                                                           fail:^(NSError *error) {

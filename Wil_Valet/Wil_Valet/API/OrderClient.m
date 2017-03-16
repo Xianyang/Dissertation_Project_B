@@ -35,10 +35,13 @@
     AVQuery *valetObjectIDQuery = [AVQuery queryWithClassName:[OrderObject xyClassName]];
     [valetObjectIDQuery whereKey:@"return_valet_object_ID" equalTo:[[AVUser currentUser] objectId]];
     
-    AVQuery *orderStatusQuery = [AVQuery queryWithClassName:[OrderObject xyClassName]];
-    [orderStatusQuery whereKey:@"order_status" equalTo:@(kUserOrderStatusRequestingBack)];
+    AVQuery *orderStatusQueryLowLimit = [AVQuery queryWithClassName:[OrderObject xyClassName]];
+    [orderStatusQueryLowLimit whereKey:@"order_status" greaterThan:@(kUserOrderStatusParked)];
     
-    AVQuery *query = [AVQuery andQueryWithSubqueries:@[valetObjectIDQuery, orderStatusQuery]];
+    AVQuery *orderStatusQueryHighLimit = [AVQuery queryWithClassName:[OrderObject xyClassName]];
+    [orderStatusQueryHighLimit whereKey:@"order_status" lessThan:@(kUserOrderStatusFinished)];
+    
+    AVQuery *query = [AVQuery andQueryWithSubqueries:@[valetObjectIDQuery, orderStatusQueryLowLimit, orderStatusQueryHighLimit]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects && objects.count > 0 && !error) {
             successBlock(objects);

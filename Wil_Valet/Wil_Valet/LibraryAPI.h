@@ -34,6 +34,9 @@ typedef enum {
     // user is requesting its vehicle
     kUserOrderStatusRequestingBack,
     
+    // valet is returning the vehicle
+    kUserOrderStatusReturningBack,
+    
     // the order is finished
     kUserOrderStatusFinished,
     
@@ -59,6 +62,7 @@ typedef enum {
 // Valet Location
 - (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID;
+- (void)updateValetServingStatus:(BOOL)isServing;
 
 // Client Location
 - (void)fetchClientLocationWithClientObjectID:(NSString *)clientObjectID success:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;

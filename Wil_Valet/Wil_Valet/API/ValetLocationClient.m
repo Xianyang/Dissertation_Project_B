@@ -61,6 +61,12 @@ static NSString * const LocationObjectName = @"wil_local_valet_location_object_i
     }
 }
 
+- (void)updateValetServingStatus:(BOOL)isServing{
+    self.valetLocation.valet_is_serving = @(isServing);
+    
+    [self.valetLocation saveInBackground];
+}
+
 - (ValetLocation *)valetLocation {
     if (!_valetLocation) {
         NSString *valetLocationObjectID = [self valetLocationObjectID];

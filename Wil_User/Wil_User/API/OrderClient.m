@@ -57,6 +57,71 @@
     }];
 }
 
+- (void)requestingVehicleBackWithOrderObject:(OrderObject *)orderObject
+                               valetObjectID:(NSString *)valetObjectID
+                       valetLocationObjectID:(NSString *)valetLocationObjectID
+                               returnAddress:(NSString *)returnAddress
+                              returnLocation:(AVGeoPoint *)returnLocation
+                                  returnTime:(NSDate *)returnTime
+                                     success:(void (^)(OrderObject *orderObject))successBlock
+                                        fail:(void (^)(NSError *error))failBlock{
+    UserOrderStatus originOrderStatus = orderObject.order_status;
+    
+    orderObject.return_valet_object_ID = valetObjectID;
+    orderObject.return_valet_location_object_ID = valetLocationObjectID;
+    orderObject.return_address = returnAddress;
+    orderObject.return_location = returnLocation;
+    orderObject.return_Time = returnTime;
+    orderObject.order_status = kUserOrderStatusRequestingBack;
+    
+    [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (successBlock) {
+            // set valet status to busy
+            ValetLocation *valetLocation = [ValetLocation objectWithObjectId:valetLocationObjectID];
+            [valetLocation fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+                if (object) {
+                    if (valetLocation.valet_is_serving == nil || [valetLocation.valet_is_serving boolValue] == NO) {
+                        valetLocation.valet_is_serving = @(YES);
+                        [valetLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                            if (succeeded) {
+                                successBlock(orderObject);
+                            } else {
+                                orderObject.order_status = originOrderStatus;
+                                [orderObject saveInBackground];
+                                failBlock(nil);
+                            }
+                        }];
+                    } else {
+                        orderObject.order_status = originOrderStatus;
+                        [orderObject saveInBackground];
+                        failBlock(nil);
+                    }
+                } else {
+                    orderObject.order_status = originOrderStatus;
+                    [orderObject saveInBackground];
+                    failBlock(nil);
+                }
+            }];
+        } else {
+            orderObject.order_status = originOrderStatus;
+            [orderObject saveInBackground];
+            failBlock(nil);
+        }
+    }];
+}
+
+- (void)fetchOrderStatusWithObjectID:(NSString *)orderObjectID success:(void (^)(OrderObject *orderObject))successBlock fail:(void (^)(NSError *error))failBlock {
+    OrderObject *orderObject = [OrderObject objectWithObjectId:orderObjectID];
+    
+    [orderObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+        if (object && !error) {
+            successBlock((OrderObject *)object);
+        } else {
+            failBlock(error);
+        }
+    }];
+}
+
 - (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
                              success:(void (^)(OrderObject *orderObject))successBlock
                                 fail:(void (^)(NSError *error))failBlock {

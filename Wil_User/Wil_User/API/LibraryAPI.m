@@ -147,6 +147,38 @@
                                                 }];
 }
 
+- (void)fetchOrderStatusWithObjectID:(NSString *)orderObjectID success:(void (^)(OrderObject *orderObject))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient fetchOrderStatusWithObjectID:orderObjectID
+                                           success:^(OrderObject *orderObject) {
+                                               successBlock(orderObject);
+                                           }
+                                              fail:^(NSError *error) {
+                                                  failBlock(error);
+                                              }];
+}
+
+- (void)requestingVehicleBackWithOrderObject:(OrderObject *)orderObject
+                               valetObjectID:(NSString *)valetObjectID
+                       valetLocationObjectID:(NSString *)valetLocationObjectID
+                               returnAddress:(NSString *)returnAddress
+                              returnLocation:(AVGeoPoint *)returnLocation
+                                  returnTime:(NSDate *)returnTime
+                                     success:(void (^)(OrderObject *orderObject))successBlock
+                                        fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient requestingVehicleBackWithOrderObject:orderObject
+                                             valetObjectID:valetObjectID
+                                     valetLocationObjectID:valetLocationObjectID
+                                             returnAddress:returnAddress
+                                            returnLocation:returnLocation
+                                                returnTime:returnTime
+                                                   success:^(OrderObject *orderObject) {
+                                                       successBlock(orderObject);
+                                                   }
+                                                      fail:^(NSError *error) {
+                                                          failBlock(error);
+                                                      }];
+}
+
 - (void)cancelAnOrderWithOrderObject:(OrderObject *)orderObject
                              success:(void (^)(OrderObject *orderObject))successBlock
                                 fail:(void (^)(NSError *error))failBlock {

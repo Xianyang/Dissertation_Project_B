@@ -11,7 +11,7 @@
 @interface RequestValetButton : UIButton
 
 - (id)initWithFrame:(CGRect)frame;
-- (void)setLocation:(NSString *)location;
+- (void)setLocation:(NSString *)location orderStatus:(UserOrderStatus)orderStatus;
 - (NSString *)parkAddress;
 
 - (void)showInMapView:(GMSMapView *)mapView;

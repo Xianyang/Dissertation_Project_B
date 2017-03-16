@@ -19,6 +19,10 @@
 @dynamic finish_at;
 @dynamic park_address;
 @dynamic park_location;
+@dynamic parked_location;
+@dynamic return_address;
+@dynamic return_location;
+@dynamic return_Time;
 @dynamic order_status;
 @dynamic vehicle_plate;
 

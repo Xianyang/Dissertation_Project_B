@@ -42,8 +42,6 @@
 - (IBAction)signInBtnClicked:(id)sender {
     NSLog(@"user signs in");
     
-    
-    
     SignInViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInViewController"];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];

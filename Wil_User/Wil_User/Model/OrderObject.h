@@ -20,6 +20,10 @@
 @property (nonatomic, copy) NSDate *finish_at;
 @property (nonatomic, copy) NSString *park_address;
 @property (nonatomic, copy) AVGeoPoint *park_location;
+@property (nonatomic, copy) AVGeoPoint *parked_location;
+@property (nonatomic, copy) NSString *return_address;
+@property (nonatomic, copy) AVGeoPoint *return_location;
+@property (nonatomic, copy) NSDate *return_Time;
 @property int order_status;
 @property (nonatomic, copy) NSString *vehicle_plate;
 

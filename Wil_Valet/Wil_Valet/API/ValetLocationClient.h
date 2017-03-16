@@ -13,5 +13,6 @@
 
 - (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveValetLocationObjectIDLocally:(NSString *)objectID;
+- (void)updateValetServingStatus:(BOOL)isServing;
 
 @end
