@@ -12,7 +12,7 @@
 @protocol MapClientInfoViewDelegate
 
 - (void)callClientWithNumber:(NSString *)mobilePhoneNumber;
-- (void)updateOrderStatus:(UserOrderStatus)orderStatus;
+- (void)tryUpdateOrderStatus;
 
 @end
 
@@ -26,6 +26,6 @@
 - (void)showInMapView:(GMSMapView *)mapView;
 - (void)hideInMapView:(GMSMapView *)mapView;
 
-- (void)setCLientInfo:(ClientObject *)clientObject address:(NSString *)address;
+- (void)setCLientInfo:(ClientObject *)clientObject address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus;
 
 @end

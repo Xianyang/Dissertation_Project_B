@@ -10,14 +10,14 @@
 
 @interface MapInfoClientView ()
 
-@property (strong, nonatomic) NSString *valetMobilePhoneNumber;
+@property (strong, nonatomic) NSString *clientMobilePhoneNumber;
 
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *addressLabel;
 @property (strong, nonatomic) UIButton *callButton;
 @property (strong, nonatomic) UIView *lineView;
-@property (strong, nonatomic) UILabel *timeLabel;
+@property (strong, nonatomic) UIButton *updateOrderBtn;
 
 @end
 
@@ -62,11 +62,12 @@
         self.lineView.backgroundColor = [UIColor lightGrayColor];
         
         // add the time label
-        self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
-                                                                   100, 20)];
-        
-        self.timeLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
-        self.timeLabel.font = [UIFont systemFontOfSize:15];
+        self.updateOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
+                                                                   DEVICE_WIDTH - self.lineView.frame.origin.x - self.lineView.frame.size.width - 20., 20)];
+        [self.updateOrderBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.updateOrderBtn setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.updateOrderBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [self.updateOrderBtn addTarget:self action:@selector(updateOrderBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         
         
         [self addSubview:self.profileImageView];
@@ -74,14 +75,14 @@
         [self addSubview:self.nameLabel];
         [self addSubview:self.callButton];
         [self addSubview:self.lineView];
-        [self addSubview:self.timeLabel];
+        [self addSubview:self.updateOrderBtn];
     }
     
     return self;
 }
 
-- (void)setCLientInfo:(ClientObject *)clientObject address:(NSString *)address {
-    self.valetMobilePhoneNumber = [clientObject objectForKey:@"mobilePhoneNumber"];
+- (void)setCLientInfo:(ClientObject *)clientObject address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus{
+    self.clientMobilePhoneNumber = [clientObject objectForKey:@"mobilePhoneNumber"];
     
     self.profileImageView.image = [UIImage imageNamed:@"client_profile_default"];
     self.nameLabel.text = [NSString stringWithFormat:@"Client: %@ %@", clientObject.last_name, clientObject.first_name];
@@ -94,15 +95,35 @@
     self.addressLabel.frame = currentFrame;
     
     [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
-    self.timeLabel.text = @"change to button";
+    [self.updateOrderBtn setTitle:[self updateOrderText:orderStatus] forState:UIControlStateNormal];
     
     // change frame
     self.callButton.frame = CGRectMake(self.addressLabel.frame.origin.x, self.addressLabel.frame.origin.y + self.addressLabel.frame.size.height + 5,
                                        30, 20);
     self.lineView.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + 2,
                                      1, self.callButton.frame.size.height - 4);
-    self.timeLabel.frame = CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
-                                      100, 20);
+    self.updateOrderBtn.frame = CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
+                                      self.updateOrderBtn.frame.size.width, self.updateOrderBtn.frame.size.height);
+}
+
+- (void)callBtnClicked {
+    [self.delegate callClientWithNumber:self.clientMobilePhoneNumber];
+}
+
+- (void)updateOrderBtnClicked {
+    [self.delegate tryUpdateOrderStatus];
+}
+
+- (NSString *)updateOrderText:(UserOrderStatus)orderStatus {
+    if (orderStatus == kUserOrderStatusUserDroppingOff) {
+        return @"Got the Vehicle";
+    } else if (orderStatus == kUserOrderStatusParking) {
+        return @"Park finished";
+    } else if (orderStatus == kUserOrderStatusRequestingBack) {
+        return @"Return finished";
+    } else {
+        return @"error";
+    }
 }
 
 - (void)showInMapView:(GMSMapView *)mapView {

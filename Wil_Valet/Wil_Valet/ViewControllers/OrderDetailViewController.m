@@ -172,8 +172,7 @@
     } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
         [self setMapToUserOrderStatusRequestingBack];
     } else {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud showMessage:@"error with order status"];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -184,7 +183,7 @@
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapInfoClientView showInMapView:self.mapView];
-                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address orderStatus:self.orderObject.order_status];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -195,7 +194,20 @@
 }
 
 - (void)setMapToUserOrderStatusParking {
-    
+    // update the view
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapInfoClientView showInMapView:self.mapView];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address orderStatus:self.orderObject.order_status];
+                         
+                         _isMyLocationBtnInOriginalPosition = YES;
+                         [[self myLocationBtn] setFrame:_myLocationBtnFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 - (void)setMapToUserOrderStatusRequestingBack {
@@ -205,12 +217,69 @@
 #pragma mark - MapClientInfoViewDelegate
 
 - (void)callClientWithNumber:(NSString *)mobilePhoneNumber {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", mobilePhoneNumber]];
     
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+        [hud hideAnimated:YES];
+    } else {
+        [hud showMessage:@"Call facility is not available!"];
+    }
+}
+
+- (void)tryUpdateOrderStatus {
+    if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
+        [self presentAlertViewWithMessage:@"Did you get client's vehicle?" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusParking];
+    } else if (self.orderObject.order_status == kUserOrderStatusParking) {
+        [self presentAlertViewWithMessage:@"Did you park client's vehicle?" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusParked];
+    } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
+        [self presentAlertViewWithMessage:@"Did you return client's vehicle" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusFinished];
+    }
 }
 
 - (void)updateOrderStatus:(UserOrderStatus)orderStatus {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    UserOrderStatus originOrderStatus = self.orderObject.order_status;
+    self.orderObject.order_status = orderStatus;
+    [self.orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [hud hideAnimated:YES];
+            [self checkOrderStatus];
+        } else {
+            [hud showMessage:@"Update Order Fail"];
+            self.orderObject.order_status = originOrderStatus;
+            [self checkOrderStatus];
+        }
+    }];
 }
+
+- (void)presentAlertViewWithMessage:(NSString *)message confirmActionTitle:(NSString *)confirmActionTitle updateOrderStatus:(UserOrderStatus)orderStatus {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmActionTitle
+                                                            style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              [self updateOrderStatus:orderStatus];
+                                                          }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                         }];
+    [alert addAction:confirmAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
+}
+
+
 
 #pragma mark - Client location
 
