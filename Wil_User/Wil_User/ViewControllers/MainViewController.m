@@ -45,6 +45,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     BOOL _isMapSetted;
     BOOL _isMyLocationBtnInOriginalPosition;
     BOOL _isGettingValetsLocations;
+    BOOL _isNeedUpdateBounds;
     
     UserOrderStatus _userOrderStatus;
     
@@ -207,6 +208,27 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
+- (void)fitBounds {
+    NSMutableArray *markers = [NSMutableArray arrayWithObjects:self.flagMarker, self.vehicleMarker, nil];
+    [markers addObjectsFromArray:self.valetMarkers];
+    
+    if (markers.count == 2) return;
+    if (!_isNeedUpdateBounds) return;
+    
+    _isNeedUpdateBounds = NO;
+    
+    CLLocationCoordinate2D firstPos = self.mapView.myLocation.coordinate;
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:firstPos coordinate:firstPos];
+    for (GMSMarker *marker in markers) {
+        if (marker.map) {
+            bounds = [bounds includingCoordinate:marker.position];
+        }
+    }
+    GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0f];
+    
+    [self.mapView animateWithCameraUpdate:update];
+}
+
 #pragma mark - Order Status
 
 - (void)fetchOrderStatus {
@@ -298,6 +320,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the valet marker
     [self fetchValetsLocation];
+    _isNeedUpdateBounds = YES;
     
     // add the flag marker
     self.flagMarker.map = self.mapView;
@@ -331,6 +354,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the valet marker
     [self fetchValetsLocation];
+    _isNeedUpdateBounds = YES;
     
     // add the flag marker
     self.flagMarker.map = self.mapView;
@@ -367,6 +391,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the valet marker
     [self fetchValetsLocation];
+    _isNeedUpdateBounds = YES;
     
     // remove the flag marker
     self.flagMarker.map = nil;
@@ -391,6 +416,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the valet marker
     [self fetchValetsLocation];
+    _isNeedUpdateBounds = YES;
     
     // add the flag marker
     self.flagMarker.map = self.mapView;
@@ -428,6 +454,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the valet marker
     [self fetchValetsLocation];
+    _isNeedUpdateBounds = YES;
     
     // add the flag marker
     self.flagMarker.map = self.mapView;
@@ -728,7 +755,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     self.valetMarkers = tempCopy;
     
-    // 4. check if need to add vehicle marker
+    // 4. check if need to change marker icon
     if (_userOrderStatus == kUserOrderStatusParking ||
         _userOrderStatus == kUserOrderStatusReturningBack) {
         for (ValetMarker *marker in self.valetMarkers) {
@@ -740,7 +767,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         }
     }
     
-    // 5. finish
+    // 5. fit bounds with valet location
+    [self fitBounds];
+    
+    // 6. finish
     _isGettingValetsLocations = NO;
 }
 
@@ -834,7 +864,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     if (locations.count) {
-        CLLocation *location = locations[0];
+        CLLocation *location = locations.firstObject;
         NSLog(@"latitude:%f, longitude:%f", location.coordinate.latitude, location.coordinate.longitude);
         AVGeoPoint *geoPoint = [AVGeoPoint geoPointWithLocation:location];
         

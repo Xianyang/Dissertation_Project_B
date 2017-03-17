@@ -52,7 +52,7 @@
     [self fetchClientLocation];
     
     if (!_isMapSetted) {
-        self.mapView.hidden = YES;
+//        self.mapView.hidden = YES;
         [self setMap];
         _isMapSetted = YES;
     }
@@ -109,6 +109,7 @@
         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         self.mapView.hidden = NO;
+        [self fitBounds];
     }
 }
 
@@ -159,6 +160,24 @@
     return nil;
 }
 
+- (void)fitBounds {
+    NSMutableArray *markers = [NSMutableArray arrayWithObjects:self.flagMarker, self.clientMarker, nil];
+    
+    CLLocationCoordinate2D firstPos = self.mapView.myLocation.coordinate;
+    if (!firstPos.latitude || !firstPos.longitude) return;
+    
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:firstPos coordinate:firstPos];
+    for (GMSMarker *marker in markers) {
+        if (marker.map) {
+            bounds = [bounds includingCoordinate:marker.position];
+        }
+    }
+    
+    GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0f];
+    
+    [self.mapView animateWithCameraUpdate:update];
+}
+
 #pragma mark - Order 
 
 - (void)checkOrderStatus {
@@ -169,10 +188,13 @@
     } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
         [self setMapToUserOrderStatusRequestingBack];
     } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
-        [self setMapToUserOrdreStatusReturningBack];
+        [self setMapToUserOrderStatusReturningBack];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    
+    [self fitBounds];
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
@@ -235,7 +257,7 @@
                      }];
 }
 
-- (void)setMapToUserOrdreStatusReturningBack {
+- (void)setMapToUserOrderStatusReturningBack {
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     

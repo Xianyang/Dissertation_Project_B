@@ -27,7 +27,7 @@ static NSString * const LocationCLientObjectID = @"wil_local_client_location_obj
         [query whereKey:@"client_object_ID" equalTo:client.objectId];
         [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             if (objects.count == 1 && !error) {
-                self.clientLocation = objects[0];
+                self.clientLocation = objects.firstObject;
                 
                 // 2. update location
                 

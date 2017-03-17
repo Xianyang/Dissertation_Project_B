@@ -153,7 +153,7 @@
     AVQuery *query = [AVQuery andQueryWithSubqueries:@[userObjectIDQuery, orderStatusQueryLowLimit, orderStatusQueryHighLimit]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects && objects.count > 0) {
-            hasOrderBlock(objects[0]);
+            hasOrderBlock(objects.firstObject);
         } else if (objects && objects.count == 0) {
             noOrderBlock();
         } else {
