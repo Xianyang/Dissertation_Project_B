@@ -79,6 +79,9 @@
     self.mapView.settings.myLocationButton = YES;
     _myLocationBtnFrame = [[self myLocationBtn] frame];
     
+    // enable traffic
+    self.mapView.trafficEnabled = YES;
+    
     // Draw the polygon
     for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
         polygon.map = self.mapView;
