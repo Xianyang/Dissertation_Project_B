@@ -40,7 +40,7 @@
 - (void)setLocation:(NSString *)location orderStatus:(UserOrderStatus)orderStatus {
     self.address = location;
     
-    if (orderStatus == kUserOrderStatusNone) {
+    if (orderStatus == kUserOrderStatusNone || orderStatus == kUserOrderStatusUndefine) {
         [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
     } else if (orderStatus == kUserOrderStatusParked) {
         [self setTitle:[NSString stringWithFormat:@"Return vehicle at %@", location] forState:UIControlStateNormal];

@@ -183,21 +183,21 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         
         // 2. Check if the user is in the polygon and add the flag
-        if (_userOrderStatus == kUserOrderStatusNone) {
-            [self setMapToUserOrderStatusNone:location.coordinate];
-        }
+//        if (_userOrderStatus == kUserOrderStatusNone) {
+//            [self setMapToUserOrderStatusNone:location.coordinate];
+//        }
     }
 }
 
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
-    if (_userOrderStatus == kUserOrderStatusNone || _userOrderStatus == kUserOrderStatusParked) {
+    if (_userOrderStatus == kUserOrderStatusNone || _userOrderStatus == kUserOrderStatusParked || _userOrderStatus == kUserOrderStatusUndefine) {
         [self updateRequestServiceView:position.target];
     }
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
-    if (_userOrderStatus == kUserOrderStatusNone || _userOrderStatus == kUserOrderStatusParked) {
-        if (_isInPolygon) {
+    if (_userOrderStatus == kUserOrderStatusNone || _userOrderStatus == kUserOrderStatusParked || _userOrderStatus == kUserOrderStatusUndefine) {
+        if ([self checkIsPositionInPolygon:position.target]) {
             // update the postion of target
             [self.geocoder reverseGeocodeCoordinate:position.target
                                   completionHandler:^(GMSReverseGeocodeResponse * response, NSError * error) {
@@ -254,12 +254,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         }
                                                            noOrder:^{
                                                                [hud hideAnimated:YES];
-                                                               // check if map gets user's location
-                                                               if (self.mapView.myLocation) {
-                                                                   [self setMapToUserOrderStatusNone:self.mapView.myLocation.coordinate];
-                                                               } else {
-                                                                   [self setMapToUserOrderStatusNone:self.mapView.camera.target];
-                                                               }
+                                                               [self setMapToUserOrderStatusNone:self.mapView.camera.target];
                                                            }
                                                               fail:^{
                                                                   // TODO ask user to load view again
@@ -287,6 +282,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // update the view
     [self updateRequestServiceView:coordinate];
+    
+    // update the address
+    [self mapView:self.mapView idleAtCameraPosition:self.mapView.camera];
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
@@ -378,7 +376,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     self.vehicleMarker.position = CLLocationCoordinate2DMake(self.orderObject.parked_location.latitude, self.orderObject.parked_location.longitude);
     
     // update the view
-    [self updateRequestServiceView:self.mapView.myLocation.coordinate];
+    [self updateRequestServiceView:self.mapView.camera.target];
+    
+    // update the address
+    [self mapView:self.mapView idleAtCameraPosition:self.mapView.camera];
 }
 
 - (void)setMapToUserOrderStatusRequestingBack {
@@ -615,7 +616,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // 1. check if there is any valet
     if (![[LibraryAPI sharedInstance] onlineValetLocations] || [[[LibraryAPI sharedInstance] onlineValetLocations] count] == 0) {
-        [hud showMessage:@"try later, valets are busy"];
+        [hud showMessage:@"try later, no valet online"];
         return;
     }
     
@@ -662,11 +663,11 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                                                  }];
                 }
             } else {
-                [hud showMessage:@"try later"];
+                [hud showMessage:@"try later, can not fetch valet's location"];
             }
         }];
     } else {
-        [hud showMessage:@"try later"];
+        [hud showMessage:@"try later, valets are busy"];
         return;
     }
     
