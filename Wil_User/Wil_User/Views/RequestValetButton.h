@@ -12,6 +12,7 @@
 
 - (id)initWithFrame:(CGRect)frame;
 - (void)setLocation:(NSString *)location orderStatus:(UserOrderStatus)orderStatus;
+- (void)setStatus:(UserOrderStatus)orderStatus;
 - (NSString *)parkAddress;
 
 - (void)showInMapView:(GMSMapView *)mapView;

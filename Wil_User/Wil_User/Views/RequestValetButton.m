@@ -37,13 +37,21 @@
     }
 }
 
+- (void)setStatus:(UserOrderStatus)orderStatus {
+    if (orderStatus == kUserOrderStatusNone || orderStatus == kUserOrderStatusUndefine) {
+        [self setTitle:@"Drop off" forState:UIControlStateNormal];
+    } else if (orderStatus == kUserOrderStatusParked) {
+        [self setTitle:@"Return Your Vehicle" forState:UIControlStateNormal];
+    }
+}
+
 - (void)setLocation:(NSString *)location orderStatus:(UserOrderStatus)orderStatus {
     self.address = location;
     
     if (orderStatus == kUserOrderStatusNone || orderStatus == kUserOrderStatusUndefine) {
-        [self setTitle:[NSString stringWithFormat:@"Drop off at %@", location] forState:UIControlStateNormal];
+        [self setTitle:[NSString stringWithFormat:@"Drop off%@", location] forState:UIControlStateNormal];
     } else if (orderStatus == kUserOrderStatusParked) {
-        [self setTitle:[NSString stringWithFormat:@"Return vehicle at %@", location] forState:UIControlStateNormal];
+        [self setTitle:[NSString stringWithFormat:@"Return your vehicle%@", location] forState:UIControlStateNormal];
     }
 }
 
