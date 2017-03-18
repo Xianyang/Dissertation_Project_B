@@ -38,6 +38,8 @@
 		625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97591E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m */; };
 		625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */; };
 		62911FB11E7D3C650075AC9E /* MapSearchPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62911FB01E7D3C650075AC9E /* MapSearchPlaceView.m */; };
+		62911FB41E7D7F740075AC9E /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62911FB31E7D7F740075AC9E /* ProfileCell.m */; };
+		62911FB71E7D84A00075AC9E /* ChangeInfoViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 62911FB61E7D84A00075AC9E /* ChangeInfoViewContoller.m */; };
 		62D56ED01E793DDE00879ECB /* ClientLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ECF1E793DDE00879ECB /* ClientLocation.m */; };
 		62D56ED31E793E4A00879ECB /* ClientLocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56ED21E793E4A00879ECB /* ClientLocationClient.m */; };
 		62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D6F91E59A75B001AC360 /* LibraryAPI.m */; };
@@ -133,6 +135,10 @@
 		625B97611E63E8FF00F2C6F5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = ViewControllers/SignUpViewController.m; sourceTree = "<group>"; };
 		62911FAF1E7D3C650075AC9E /* MapSearchPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapSearchPlaceView.h; path = Views/MapSearchPlaceView.h; sourceTree = "<group>"; };
 		62911FB01E7D3C650075AC9E /* MapSearchPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapSearchPlaceView.m; path = Views/MapSearchPlaceView.m; sourceTree = "<group>"; };
+		62911FB21E7D7F740075AC9E /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileCell.h; path = Views/ProfileCell.h; sourceTree = "<group>"; };
+		62911FB31E7D7F740075AC9E /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileCell.m; path = Views/ProfileCell.m; sourceTree = "<group>"; };
+		62911FB51E7D84A00075AC9E /* ChangeInfoViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeInfoViewContoller.h; path = ViewControllers/ChangeInfoViewContoller.h; sourceTree = "<group>"; };
+		62911FB61E7D84A00075AC9E /* ChangeInfoViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeInfoViewContoller.m; path = ViewControllers/ChangeInfoViewContoller.m; sourceTree = "<group>"; };
 		62D56ECE1E793DDE00879ECB /* ClientLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientLocation.h; path = Model/ClientLocation.h; sourceTree = "<group>"; };
 		62D56ECF1E793DDE00879ECB /* ClientLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientLocation.m; path = Model/ClientLocation.m; sourceTree = "<group>"; };
 		62D56ED11E793E4A00879ECB /* ClientLocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientLocationClient.h; path = API/ClientLocationClient.h; sourceTree = "<group>"; };
@@ -280,6 +286,8 @@
 				621669591E324390007292A4 /* MainViewController.m */,
 				6216695B1E32439D007292A4 /* ProfileViewController.h */,
 				6216695C1E32439D007292A4 /* ProfileViewController.m */,
+				62911FB51E7D84A00075AC9E /* ChangeInfoViewContoller.h */,
+				62911FB61E7D84A00075AC9E /* ChangeInfoViewContoller.m */,
 				623A67DB1E335181009A63AC /* PaymentViewController.h */,
 				623A67DC1E335181009A63AC /* PaymentViewController.m */,
 				623A67DE1E335193009A63AC /* SubscriptionsViewController.h */,
@@ -354,6 +362,8 @@
 				624E60CD1E76A837006B516E /* OnMap */,
 				623A67E81E33633F009A63AC /* SideMenuCell.h */,
 				623A67E91E33633F009A63AC /* SideMenuCell.m */,
+				62911FB21E7D7F740075AC9E /* ProfileCell.h */,
+				62911FB31E7D7F740075AC9E /* ProfileCell.m */,
 				62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */,
 				62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */,
 			);
@@ -717,6 +727,7 @@
 				624E60D61E76C5C6006B516E /* OrderObject.m in Sources */,
 				623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */,
 				625533E61E7BCE920026033C /* AVGeoPoint+CoordinateWithGeoPoint.m in Sources */,
+				62911FB71E7D84A00075AC9E /* ChangeInfoViewContoller.m in Sources */,
 				623A67E31E335199009A63AC /* AboutViewController.m in Sources */,
 				62F7D73D1E616FC3001AC360 /* MBProgressHUD+WilShowError.m in Sources */,
 				62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */,
@@ -734,6 +745,7 @@
 				62F7D7371E6143D6001AC360 /* UIButton+Status.m in Sources */,
 				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 				62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */,
+				62911FB41E7D7F740075AC9E /* ProfileCell.m in Sources */,
 				625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */,
 				623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */,
 			);
