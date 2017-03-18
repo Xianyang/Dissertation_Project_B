@@ -16,4 +16,6 @@
 - (CLLocationCoordinate2D)coordinateWithValetLocationObject:(ValetLocation *)valetLocation;
 - (CLLocationCoordinate2D)coordinateWithClientLocationObject:(ClientLocation *)clientLocation;
 
+- (CLLocation *)locationWithGeoPoint:(AVGeoPoint *)geoPoint;
+
 @end

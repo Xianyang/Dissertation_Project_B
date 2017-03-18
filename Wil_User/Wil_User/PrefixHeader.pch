@@ -20,5 +20,6 @@
 #import "MBProgressHUD+WilShowError.h"
 #import "UIButton+Status.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "AVGeoPoint+CoordinateWithGeoPoint.h"
 
 #endif /* PrefixHeader_pch */

@@ -85,6 +85,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 // the vehicle marker to show the position of vehicle
 @property (strong, nonatomic) GMSMarker *vehicleMarker;
+
+// the route
+@property (strong, nonatomic) GMSPolyline *route;
 @end
 
 @implementation MainViewController
@@ -153,6 +156,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // enable traffic
     self.mapView.trafficEnabled = YES;
+    
+    // set max and min zoom level
+    [self.mapView setMinZoom:12 maxZoom:18];
     
     // Draw the polygon
     for (GMSPolygon *polygon in [[LibraryAPI sharedInstance] polygons]) {
@@ -305,6 +311,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // remove the flag marker
     self.flagMarker.map = nil;
     
+    // remove the route
+    self.route.map = nil;
+    
     // update the view
     [self updateRequestServiceView:coordinate];
     
@@ -328,6 +337,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
+    // add the route
+    [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
+                                    destinationLocation:[self.orderObject.park_location locationWithGeoPoint:self.orderObject.park_location]
+                                                success:^(GMSPolyline *route) {
+                                                    self.route = route;
+                                                    self.route.map = self.mapView;
+                                                }
+                                                   fail:^(NSError *error) {
+                                                       
+                                                   }];
     
     // update the view
     [UIView animateWithDuration:0.2
@@ -362,6 +382,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
+    // remove the route
+    self.route.map = nil;
     
     // update the view
     [UIView animateWithDuration:0.2
@@ -399,6 +422,9 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // remove the flag marker
     self.flagMarker.map = nil;
     
+    // remove the route
+    self.route.map = nil;
+    
     // show the vehicle marker
     self.vehicleMarker.map = self.mapView;
     self.vehicleMarker.position = CLLocationCoordinate2DMake(self.orderObject.parked_location.latitude, self.orderObject.parked_location.longitude);
@@ -424,6 +450,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
+    
+    // add the route
+    [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
+                                    destinationLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]
+                                                success:^(GMSPolyline *route) {
+                                                    self.route = route;
+                                                    self.route.map = self.mapView;
+                                                }
+                                                   fail:^(NSError *error) {
+                                                       
+                                                   }];
     
     // show the vehicle marker
     self.vehicleMarker.map = self.mapView;
@@ -462,6 +499,19 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
+    
+    // add the route
+    if (!self.route.map) {
+        [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
+                                        destinationLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]
+                                                    success:^(GMSPolyline *route) {
+                                                        self.route = route;
+                                                        self.route.map = self.mapView;
+                                                    }
+                                                       fail:^(NSError *error) {
+                                                           
+                                                       }];
+    }
     
     // hide the vehicle marker
     self.vehicleMarker.map = nil;
@@ -1038,6 +1088,14 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _locationManager;
+}
+
+- (GMSPolyline *)route {
+    if (!_route) {
+        _route = [[GMSPolyline alloc] init];
+    }
+    
+    return _route;
 }
 
 - (void)dealloc {

@@ -85,6 +85,17 @@
     [self.clientLocationClient saveClientLocationObjectIDLocally:objectID];
 }
 
+- (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.clientLocationClient getRouteWithMyLocation:myLocation
+                                  destinationLocation:destinationLocation
+                                              success:^(GMSPolyline *route) {
+                                                  successBlock(route);
+                                              }
+                                                 fail:^(NSError *error) {
+                                                     failBlock(error);
+                                                 }];
+}
+
 #pragma mark - Valets' locations
 
 - (NSMutableArray *)onlineValetLocations {

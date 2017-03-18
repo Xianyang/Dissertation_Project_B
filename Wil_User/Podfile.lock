@@ -14,6 +14,19 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - ASIHTTPRequest (1.8.2):
+    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
+    - ASIHTTPRequest/CloudFiles (= 1.8.2)
+    - ASIHTTPRequest/Core (= 1.8.2)
+    - ASIHTTPRequest/S3 (= 1.8.2)
+  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/CloudFiles (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/Core (1.8.2):
+    - Reachability
+  - ASIHTTPRequest/S3 (1.8.2):
+    - ASIHTTPRequest/Core
   - AVOSCloud (4.0.1)
   - AVOSCloudCrashReporting (4.0.1):
     - AVOSCloud (= 4.0.1)
@@ -48,11 +61,13 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
+  - Reachability (3.2)
   - RESideMenu (4.0.7)
   - UMengAnalytics (4.0.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - ASIHTTPRequest
   - AVOSCloud
   - AVOSCloudCrashReporting
   - AVOSCloudIM
@@ -67,6 +82,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   AVOSCloud: 521d3639c2619126ec073f617bb5992472b5b2d3
   AVOSCloudCrashReporting: f828e57e6900bc7d08bee74e85455b1080b61ea0
   AVOSCloudIM: 46daef41d5258297cffcca23cfde6a9453a538fa
@@ -76,9 +92,10 @@ SPEC CHECKSUMS:
   JSONModel: 81c06ecf99190a25fa6aafceea5faffa7880868a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
 
-PODFILE CHECKSUM: fe011d5c80c05f2e6228f044b413a06cd75863c2
+PODFILE CHECKSUM: 3baa24526c4a40dc0d5c1a795a2ce562b6988f05
 
 COCOAPODS: 1.2.0

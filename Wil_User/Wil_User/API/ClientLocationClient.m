@@ -7,6 +7,7 @@
 //
 
 #import "ClientLocationClient.h"
+#import "ASIHTTPRequest.h"
 
 static NSString * const LocationCLientObjectID = @"wil_local_client_location_object_id";
 
@@ -59,7 +60,34 @@ static NSString * const LocationCLientObjectID = @"wil_local_client_location_obj
         self.clientLocation.client_location = geoPoint;
         [self.clientLocation saveInBackground];
     }
+}
 
+- (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock {
+    NSString *urlString = [NSString stringWithFormat:
+                           @"%@?origin=%f,%f&destination=%f,%f&sensor=true&key=%@",
+                           @"https://maps.googleapis.com/maps/api/directions/json",
+                           myLocation.coordinate.latitude,
+                           myLocation.coordinate.longitude,
+                           destinationLocation.coordinate.latitude,
+                           destinationLocation.coordinate.longitude,
+                           @"AIzaSyAt1lC0x7LA89ssDNdw5tv1jL7SUEbojC0"];
+    NSURL *directionsURL = [NSURL URLWithString:urlString];
+    
+    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:directionsURL];
+    [req startSynchronous];
+    NSError *error = [req error];
+    if (!error) {
+        NSString *response = [req responseString];
+        NSLog(@"%@",response);
+        NSDictionary *json =[NSJSONSerialization JSONObjectWithData:[req responseData] options:NSJSONReadingMutableContainers error:&error];
+        GMSPath *path =[GMSPath pathFromEncodedPath:json[@"routes"][0][@"overview_polyline"][@"points"]];
+        GMSPolyline *singleLine = [GMSPolyline polylineWithPath:path];
+        singleLine.strokeWidth = 7;
+        singleLine.strokeColor = [UIColor colorWithRed:90.0f / 255.0f green:150.0f / 255.0f blue:245.0f / 255.0f alpha:1];
+        successBlock(singleLine);
+    } else {
+        failBlock(error);
+    }
 }
 
 - (ClientLocation *)clientLocation {

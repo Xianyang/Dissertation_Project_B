@@ -22,4 +22,8 @@
     return CLLocationCoordinate2DMake(clientLocation.client_location.latitude, clientLocation.client_location.longitude);
 }
 
+- (CLLocation *)locationWithGeoPoint:(AVGeoPoint *)geoPoint {
+    return [[CLLocation alloc] initWithLatitude:geoPoint.latitude longitude:geoPoint.longitude];
+}
+
 @end
