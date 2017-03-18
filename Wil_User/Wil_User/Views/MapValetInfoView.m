@@ -81,11 +81,11 @@
     return self;
 }
 
-- (void)showInMapView:(GMSMapView *)mapView {
+- (void)show {
     self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
 }
 
-- (void)hideInMapView:(GMSMapView *)mapView {
+- (void)hide {
     self.frame = CGRectMake(0.0f, 0.0f - self.frame.size.height, self.frame.size.width, self.frame.size.height);
 }
 

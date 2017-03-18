@@ -38,7 +38,7 @@
 }
 
 - (void)setStatus:(UserOrderStatus)orderStatus {
-    if (orderStatus == kUserOrderStatusNone || orderStatus == kUserOrderStatusUndefine) {
+    if (orderStatus == kUserOrderStatusNone || orderStatus == kUserOrderStatusUndefine || orderStatus == kUserOrderStatusFinished) {
         [self setTitle:@"Drop off" forState:UIControlStateNormal];
     } else if (orderStatus == kUserOrderStatusParked) {
         [self setTitle:@"Return Your Vehicle" forState:UIControlStateNormal];

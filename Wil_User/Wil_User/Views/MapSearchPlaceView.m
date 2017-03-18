@@ -7,7 +7,7 @@
 //
 
 #define SEARCH_IMAGE_ORIGIN_X 10
-#define SEARCH_IMAGE_ORIGIN_Y 10
+#define SEARCH_IMAGE_ORIGIN_Y 15
 
 #import "MapSearchPlaceView.h"
 
@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UIButton *searchBtn;
 @property (strong, nonatomic) UILabel *addressLabel;
+
+@property (strong, nonatomic) NSString *address;
 
 @end
 
@@ -35,8 +37,8 @@
         self.searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SEARCH_IMAGE_ORIGIN_X, SEARCH_IMAGE_ORIGIN_Y, self.frame.size.height - 2 * SEARCH_IMAGE_ORIGIN_Y, self.frame.size.height - 2 * SEARCH_IMAGE_ORIGIN_Y)];
         self.lineView = [[UIView alloc] initWithFrame:CGRectMake(self.searchImageView.frame.origin.x + self.searchImageView.frame.size.width + 10, SEARCH_IMAGE_ORIGIN_Y
                                                                  , 1, self.searchImageView.frame.size.height)];
-        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 10, SEARCH_IMAGE_ORIGIN_Y,
-                                                                      self.frame.size.width - self.lineView.frame.origin.x - self.lineView.frame.size.width - 2 * 10, self.searchImageView.frame.size.height)];
+        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 10, 0,
+                                                                      self.frame.size.width - self.lineView.frame.origin.x - self.lineView.frame.size.width - 2 * 10, self.frame.size.height)];
         self.searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         
         [self addSubview:self.searchImageView];
@@ -45,6 +47,7 @@
         [self addSubview:self.searchBtn];
         
         self.searchImageView.image = [UIImage imageNamed:@"search"];
+        self.lineView.backgroundColor = [UIColor lightGrayColor];
         [self setDefaultTitle];
         self.addressLabel.textColor = [UIColor blackColor];
         [self.searchBtn addTarget:self action:@selector(searchBtnCLicked) forControlEvents:UIControlEventTouchUpInside];
@@ -57,6 +60,10 @@
     [self.delegate searchBtnClicked];
 }
 
+- (NSString *)meetAddress {
+    return self.address;
+}
+
 - (void)setDefaultTitle {
     self.addressLabel.text = @"Where should we meet?";
     self.addressLabel.textColor = [UIColor lightGrayColor];
@@ -66,6 +73,7 @@
     if ([parkAddress isEqualToString:@""] || !parkAddress) {
         [self setDefaultTitle];
     } else {
+        self.address = parkAddress;
         self.addressLabel.text = parkAddress;
         self.addressLabel.textColor = [UIColor blackColor];
     }

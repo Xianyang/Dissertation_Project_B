@@ -21,8 +21,8 @@
 
 - (id)initWithFrame:(CGRect)frame;
 
-- (void)showInMapView:(GMSMapView *)mapView;
-- (void)hideInMapView:(GMSMapView *)mapView;
+- (void)show;
+- (void)hide;
 
 - (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus;
 

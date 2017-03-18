@@ -64,7 +64,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 @property (strong, nonatomic) RequestValetButton *requestValetButton;
 
 // the flag in the center of the map
-@property (strong, nonatomic) MapFlag *mapFlag;
+@property (strong, nonatomic) MapFlag *wilFlag;
 
 // the info view for valet
 @property (strong, nonatomic) MapValetInfoView *mapValetInfoView;
@@ -122,7 +122,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.orderStatusTimer setFireDate:[NSDate date]];
     
     [self fetchValetsLocation];
-    [self checkUserOrderStatus];
+    [self checkIfUserHasUnfinishedOrder];
     
     if (!_isMapSetted) {
         [self setMap];
@@ -177,7 +177,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView addSubview:self.requestValetButton];
     
     // add the flag
-    [self.mapView addSubview:self.mapFlag];
+    [self.mapView addSubview:self.wilFlag];
     
     // add the valet info view
     [self.mapView addSubview:self.mapValetInfoView];
@@ -253,7 +253,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                               success:^(OrderObject *orderObject) {
                                                                   if (self.orderObject.order_status != orderObject.order_status) {
                                                                       self.orderObject = orderObject;
-                                                                      [self checkUserOrderStatus];
+                                                                      [self updateMapViewStatus];
                                                                   }
                                                               }
                                                                  fail:^(NSError *error) {
@@ -263,7 +263,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
-- (void)checkUserOrderStatus {
+- (void)checkIfUserHasUnfinishedOrder {
     if ([AVUser currentUser] && !self.orderObject) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         // check if user has an unfinished order
@@ -271,20 +271,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
             self.orderObject = orderObject;
             
             [hud hideAnimated:YES];
-            if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
-                [self setMapToUserOrderStatusUserDroppingOff];
-            } else if (self.orderObject.order_status == kUserOrderStatusParking) {
-                [self setMapToUserOrderStatusParking];
-            } else if (self.orderObject.order_status == kUserOrderStatusParked ) {
-                // TODO notificate client
-                [self setMapToUserOrderStatusParked];
-            } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
-                [self setMapToUserOrderStatusRequestingBack];
-            } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
-                [self setMapToUserOrderStatusReturningBack];
-            } else if (self.orderObject.order_status == kUserOrderStatusFinished) {
-                [self setMapToUserOrderStatusFinished];
-            }
+            [self updateMapViewStatus];
         }
                                                            noOrder:^{
                                                                [hud hideAnimated:YES];
@@ -298,50 +285,65 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
+- (void)updateMapViewStatus {
+    if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
+        [self setMapToUserOrderStatusUserDroppingOff];
+    } else if (self.orderObject.order_status == kUserOrderStatusParking) {
+        [self setMapToUserOrderStatusParking];
+    } else if (self.orderObject.order_status == kUserOrderStatusParked ) {
+        // TODO notificate client
+        [self setMapToUserOrderStatusParked];
+    } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
+        [self setMapToUserOrderStatusRequestingBack];
+    } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
+        [self setMapToUserOrderStatusReturningBack];
+    } else if (self.orderObject.order_status == kUserOrderStatusFinished) {
+        [self setMapToUserOrderStatusFinished];
+    }
+}
+
 // kUserOrderStatusNone
 - (void)setMapToUserOrderStatusNone:(CLLocationCoordinate2D)coordinate {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusNone;
     
-    // set right navigation item to search
-    self.navRightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                                                      target:self action:@selector(launchSearch)];
-    self.navigationItem.rightBarButtonItem = self.navRightItem;
+    // 2. set right navigation item to nil
+    self.navigationItem.rightBarButtonItem = nil;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
-    
-    // remove the flag marker
     self.flagMarker.map = nil;
+    self.vehicleMarker.map = nil;
     
-    // remove the route
+    // 4. remove the route
     self.route.map = nil;
     
-    // update the view
+    // 5. update the view
     [self updateRequestServiceView:coordinate];
     
-    // update the address
+    // 6. update the address
     [self mapView:self.mapView idleAtCameraPosition:self.mapView.camera];
 }
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusUserDroppingOff;
     
-    // set right navigation item to cancel
+    // 2. set right navigation item to cancel
     self.navRightItem = [[UIBarButtonItem alloc] initWithTitle:@"cancel" style:UIBarButtonItemStylePlain
                                                         target:self action:@selector(tryCancelOrder)];
     self.navigationItem.rightBarButtonItem = self.navRightItem;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
     _isNeedUpdateBounds = YES;
     
-    // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
     
-    // add the route
+    self.vehicleMarker.map = nil;
+    
+    // 4. add the route from my position to park address
     [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
                                     destinationLocation:[self.orderObject.park_location locationWithGeoPoint:self.orderObject.park_location]
                                                 success:^(GMSPolyline *route) {
@@ -352,17 +354,19 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                        
                                                    }];
     
-    // update the view
+    // 5. update the view
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         [self.mapValetInfoView showInMapView:self.mapView];
+                         // 5.1 show map info view
+                         [self.mapValetInfoView show];
                          [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
                          
+                         // 5.2
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
-                         [self.mapFlag hideInMapView:self.mapView];
+                         [self.wilFlag hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -373,35 +377,36 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)setMapToUserOrderStatusParking {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusParking;
     
-    // set right navigation item to none
+    // 2. set right navigation item to nil
     self.navigationItem.rightBarButtonItem = nil;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
     _isNeedUpdateBounds = YES;
     
-    // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
     
-    // remove the route
+    self.vehicleMarker.map = nil;
+    
+    // 4. remove the route
     self.route.map = nil;
     
-    // update the view
+    // 5. update the view
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         [self.mapValetInfoView showInMapView:self.mapView];
+                         [self.mapValetInfoView show];
                          // TODO pass the order object
                          [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
-                         [self.mapFlag hideInMapView:self.mapView];
+                         [self.wilFlag hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -412,51 +417,49 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)setMapToUserOrderStatusParked {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusParked;
     
-    // set right navigation item to search
-    self.navRightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
-                                                                      target:self action:@selector(launchSearch)];
-    self.navigationItem.rightBarButtonItem = self.navRightItem;
+    // 2. set right navigation item to nil
+    self.navigationItem.rightBarButtonItem = nil;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
     _isNeedUpdateBounds = YES;
-    
-    // remove the flag marker
+
     self.flagMarker.map = nil;
     
-    // remove the route
-    self.route.map = nil;
-    
-    // show the vehicle marker
     self.vehicleMarker.map = self.mapView;
     self.vehicleMarker.position = CLLocationCoordinate2DMake(self.orderObject.parked_location.latitude, self.orderObject.parked_location.longitude);
     
-    // update the view
+    // 4. remove the route
+    self.route.map = nil;
+    
+    // 5. update the view
     [self updateRequestServiceView:self.mapView.camera.target];
     
-    // update the address
+    // 6. update the address
     [self mapView:self.mapView idleAtCameraPosition:self.mapView.camera];
 }
 
 - (void)setMapToUserOrderStatusRequestingBack {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusRequestingBack;
     
-    // set right navigation item to nil
+    // 2. set right navigation item to nil
     self.navigationItem.rightBarButtonItem = nil;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
     _isNeedUpdateBounds = YES;
     
-    // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     
-    // add the route
+    self.vehicleMarker.map = self.mapView;
+    self.vehicleMarker.position = CLLocationCoordinate2DMake(self.orderObject.parked_location.latitude, self.orderObject.parked_location.longitude);
+    
+    // 4. add the route
     [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
                                     destinationLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]
                                                 success:^(GMSPolyline *route) {
@@ -467,21 +470,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                        
                                                    }];
     
-    // show the vehicle marker
-    self.vehicleMarker.map = self.mapView;
-    self.vehicleMarker.position = CLLocationCoordinate2DMake(self.orderObject.parked_location.latitude, self.orderObject.parked_location.longitude);
-    
-    // update the view
+    // 5. update the view
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         [self.mapValetInfoView showInMapView:self.mapView];
+                         [self.mapValetInfoView show];
                          [self.mapValetInfoView setValetInfo:self.orderObject.return_valet_object_ID address:self.orderObject.return_address orderStatus:_userOrderStatus];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
-                         [self.mapFlag hideInMapView:self.mapView];
+                         [self.wilFlag hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -492,21 +491,22 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)setMapToUserOrderStatusReturningBack {
-    // set status
+    // 1. set status
     _userOrderStatus = kUserOrderStatusReturningBack;
     
-    // set right navigation item to nil
+    // 2. set right navigation item to nil
     self.navigationItem.rightBarButtonItem = nil;
     
-    // update the valet marker
+    // 3. update three maker - valet marker, flag marker and vehicle marker
     [self fetchValetsLocation];
     _isNeedUpdateBounds = YES;
     
-    // add the flag marker
     self.flagMarker.map = self.mapView;
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     
-    // add the route
+    self.vehicleMarker.map = nil;
+    
+    // 4. add the route
     if (!self.route.map) {
         [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
                                         destinationLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]
@@ -519,20 +519,17 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                                                        }];
     }
     
-    // hide the vehicle marker
-    self.vehicleMarker.map = nil;
-    
-    // update the view
+    // 5. update the view
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         [self.mapValetInfoView showInMapView:self.mapView];
+                         [self.mapValetInfoView show];
                          [self.mapValetInfoView setValetInfo:self.orderObject.return_valet_object_ID address:self.orderObject.return_address orderStatus:_userOrderStatus];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
-                         [self.mapFlag hideInMapView:self.mapView];
+                         [self.wilFlag hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -604,7 +601,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)showRequestServiceView {
-//    if ([[self.mapFlag text] isEqualToString:@"WIL"]) {
+//    if ([[self.wilFlag text] isEqualToString:@"WIL"]) {
 //        return;
 //    }
     
@@ -614,12 +611,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      animations:^{
                          [self.requestValetButton showInMapView:self.mapView];
                          [self.requestValetButton setStatus:self.orderObject.order_status];
-                         [self.mapFlag showWil];
+                         [self.wilFlag showWil];
                          [self.mapSearchPlaceView show];
                          [self moveMyLocationBtn:-self.requestValetButton.frame.size.height];
                          
                          // hide other views
-                         [self.mapValetInfoView hideInMapView:self.mapView];
+                         [self.mapValetInfoView hide];
                      }
                      completion:^(BOOL finished) {
                          
@@ -627,7 +624,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)hideRequestServiceView {
-//    if (![[self.mapFlag text] isEqualToString:@"WIL"]) {
+//    if (![[self.wilFlag text] isEqualToString:@"WIL"]) {
 //        return;
 //    }
     
@@ -638,12 +635,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapSearchPlaceView show];
                          // 0. hide the view at the bottom
                          [self.requestValetButton hideInMapView:self.mapView];
-                         [self.mapFlag showGoToServiceArea];
+                         [self.wilFlag showGoToServiceArea];
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                          
                          // hide other views
-                         [self.mapValetInfoView hideInMapView:self.mapView];
+                         [self.mapValetInfoView hide];
                      }
                      completion:^(BOOL finished) {
                          
@@ -719,7 +716,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                 if (_userOrderStatus == kUserOrderStatusNone) {
                     [[LibraryAPI sharedInstance] createAnOrderWithValetObjectID:nearestValetLocation.valet_object_ID
                                                           valetLocationObjectID:nearestValetLocation.objectId
-                                                                    parkAddress:[self.requestValetButton parkAddress]
+                                                                    parkAddress:[self.mapSearchPlaceView meetAddress]
                                                                    parkLocation:[AVGeoPoint geoPointWithLatitude:self.mapView.camera.target.latitude
                                                                                                        longitude:self.mapView.camera.target.longitude]
                                                                         success:^(OrderObject *orderObject) {
@@ -737,7 +734,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                     [[LibraryAPI sharedInstance] requestingVehicleBackWithOrderObject:self.orderObject
                                                                         valetObjectID:nearestValetLocation.valet_object_ID
                                                                 valetLocationObjectID:nearestValetLocation.objectId
-                                                                        returnAddress:[self.requestValetButton parkAddress]
+                                                                        returnAddress:[self.mapSearchPlaceView meetAddress]
                                                                        returnLocation:[AVGeoPoint geoPointWithLatitude:self.mapView.camera.target.latitude
                                                                                                              longitude:self.mapView.camera.target.longitude]
                                                                            returnTime:[NSDate date]
@@ -1019,13 +1016,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     return _requestValetButton;
 }
 
-- (MapFlag *)mapFlag {
-    if (!_mapFlag) {
-        _mapFlag = [[MapFlag alloc] init];
-        _mapFlag.delegate = self;
+- (MapFlag *)wilFlag {
+    if (!_wilFlag) {
+        _wilFlag = [[MapFlag alloc] init];
+        _wilFlag.delegate = self;
     }
     
-    return _mapFlag;
+    return _wilFlag;
 }
 
 - (MapValetInfoView *)mapValetInfoView {
@@ -1070,7 +1067,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (NSTimer *)orderStatusTimer {
     if (!_orderStatusTimer) {
-        _orderStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5
+        _orderStatusTimer = [NSTimer scheduledTimerWithTimeInterval:3
                                                              target:self
                                                            selector:@selector(fetchOrderStatus)
                                                            userInfo:nil

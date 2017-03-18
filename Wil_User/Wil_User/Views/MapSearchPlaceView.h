@@ -21,6 +21,7 @@
 @property (assign, nonatomic) id <MapSearchPlaceViewDelegate> delegate;
 
 - (void)setParkAddress:(NSString *)parkAddress;
+- (NSString *)meetAddress;
 - (void)show;
 - (void)hide;
 
