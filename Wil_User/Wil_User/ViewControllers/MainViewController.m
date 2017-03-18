@@ -872,47 +872,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self launchSearch];
 }
 
-# pragma mark - Search for a place
-
-- (void)launchSearch {
-    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
-    acController.delegate = self;
-    // set the search bounds to Hong Kong
-    acController.autocompleteBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(LEFT_TOP_CORNER_LATITUDE_HONG_KONG, LEFT_TOP_CORNER_LONGITUDE_HONG_KONG)
-                                                                           coordinate:CLLocationCoordinate2DMake(RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG, RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG)];
-    [self presentViewController:acController animated:YES completion:nil];
-}
-
-// handle the user's selection
-- (void)viewController:(GMSAutocompleteViewController *)viewController didAutocompleteWithPlace:(GMSPlace *)place {
-//    [self.mapView animateToLocation:place.coordinate];
-//    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
-    [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL]];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL];
-}
-
-- (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // TODO: handle the error.
-    NSLog(@"Error: %@", [error description]);
-}
-
-// User canceled the operation.
-- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-// Turn the network activity indicator on and off again.
-- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
 #pragma mark - User 
 
 - (void)checkCurrentUser {
@@ -1128,6 +1087,111 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          context:NULL];
 }
 
+# pragma mark - Search for a place
+
+- (void)launchSearch {
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
+    UIColor *selectedTableCellBackgroundColor = [UIColor colorWithWhite:0.35f alpha:1.0f];
+    UIColor *darkBackgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
+    UIColor *primaryTextColor = [UIColor whiteColor];
+    UIColor *highlightColor = [UIColor colorWithRed:0.75f green:1.0f blue:0.75f alpha:1.0f];
+    UIColor *secondaryColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+    UIColor *tintColor = [UIColor whiteColor];
+    UIColor *searchBarTintColor = tintColor;
+    UIColor *separatorColor = [UIColor colorWithRed:0.5f green:0.75f blue:0.5f alpha:0.30f];
+    
+    
+    // Use UIAppearance proxies to change the appearance of UI controls in
+    // GMSAutocompleteViewController. Here we use appearanceWhenContainedIn to localise changes to
+    // just this part of the Demo app. This will generally not be necessary in a real application as
+    // you will probably want the same theme to apply to all elements in your app.
+    UIActivityIndicatorView *appearence = [UIActivityIndicatorView
+                                           appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil];
+    [appearence setColor:primaryTextColor];
+    
+    [[UINavigationBar appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil]
+     setBarTintColor:darkBackgroundColor];
+    [[UINavigationBar appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil]
+     setTintColor:searchBarTintColor];
+    
+    // Color of typed text in search bar.
+    NSDictionary *searchBarTextAttributes = @{
+                                              NSForegroundColorAttributeName : searchBarTintColor,
+                                              NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]]
+                                              };
+    [[UITextField appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil]
+     setDefaultTextAttributes:searchBarTextAttributes];
+    
+    // Color of the "Search" placeholder text in search bar. For this example, we'll make it the same
+    // as the bar tint color but with added transparency.
+    CGFloat increasedAlpha = CGColorGetAlpha(searchBarTintColor.CGColor) * 0.75f;
+    UIColor *placeHolderColor = [searchBarTintColor colorWithAlphaComponent:increasedAlpha];
+    
+    NSDictionary *placeholderAttributes = @{
+                                            NSForegroundColorAttributeName : placeHolderColor,
+                                            NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]]
+                                            };
+    NSAttributedString *attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Search" attributes:placeholderAttributes];
+    
+    [[UITextField appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil]
+     setAttributedPlaceholder:attributedPlaceholder];
+    
+    // Change the background color of selected table cells.
+    UIView *selectedBackgroundView = [[UIView alloc] init];
+    selectedBackgroundView.backgroundColor = selectedTableCellBackgroundColor;
+    id tableCellAppearance =
+    [UITableViewCell appearanceWhenContainedIn:[GMSAutocompleteViewController class], nil];
+    [tableCellAppearance setSelectedBackgroundView:selectedBackgroundView];
+    
+    // Depending on the navigation bar background color, it might also be necessary to customise the
+    // icons displayed in the search bar to something other than the default. The
+    // setupSearchBarCustomIcons method contains example code to do this.
+    
+    acController.delegate = self;
+    acController.tableCellBackgroundColor = backgroundColor;
+    acController.tableCellSeparatorColor = separatorColor;
+    acController.primaryTextColor = primaryTextColor;
+    acController.primaryTextHighlightColor = highlightColor;
+    acController.secondaryTextColor = secondaryColor;
+    acController.tintColor = tintColor;
+    // set the search bounds to Hong Kong
+    acController.autocompleteBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(LEFT_TOP_CORNER_LATITUDE_HONG_KONG, LEFT_TOP_CORNER_LONGITUDE_HONG_KONG)
+                                                                           coordinate:CLLocationCoordinate2DMake(RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG, RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG)];
+    [self presentViewController:acController animated:YES completion:nil];
+}
+
+// handle the user's selection
+- (void)viewController:(GMSAutocompleteViewController *)viewController didAutocompleteWithPlace:(GMSPlace *)place {
+    //    [self.mapView animateToLocation:place.coordinate];
+    //    [self.mapView animateToZoom:DEFAULT_ZOOM_LEVEL];
+    [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL]];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //    self.mapView.camera = [GMSCameraPosition cameraWithTarget:place.coordinate zoom:DEFAULT_ZOOM_LEVEL];
+}
+
+- (void)viewController:(GMSAutocompleteViewController *)viewController didFailAutocompleteWithError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: handle the error.
+    NSLog(@"Error: %@", [error description]);
+}
+
+// User canceled the operation.
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// Turn the network activity indicator on and off again.
+- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

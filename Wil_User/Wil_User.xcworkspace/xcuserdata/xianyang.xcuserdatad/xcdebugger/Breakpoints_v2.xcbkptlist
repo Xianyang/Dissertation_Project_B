@@ -516,11 +516,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511530246.254639"
+            timestampString = "511532390.856255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "934"
-            endingLineNumber = "934"
+            startingLineNumber = "999"
+            endingLineNumber = "999"
             landmarkName = "-locationManager:didUpdateLocations:"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,22 +890,6 @@
             startingLineNumber = "350"
             endingLineNumber = "350"
             landmarkName = "-setMapToUserOrderStatusUserDroppingOff"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Wil_User/ViewControllers/MainViewController.m"
-            timestampString = "511530246.254639"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "892"
-            endingLineNumber = "892"
-            landmarkName = "-viewController:didAutocompleteWithPlace:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
