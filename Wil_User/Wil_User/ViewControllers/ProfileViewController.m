@@ -6,6 +6,8 @@
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
+#define PROFILE_IMAGE_WIDTH 100
+#define EDIT_IMAGE_WIDTH    31
 
 
 #import "ProfileViewController.h"
@@ -16,11 +18,6 @@ static NSString * const ProfileCellIdentifier = @"ProfileCell";
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, ChangeInfoViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *mobilePhoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *logOutBtn;
 
 @end
 
@@ -30,17 +27,6 @@ static NSString * const ProfileCellIdentifier = @"ProfileCell";
     [super viewDidLoad];
     
     [self setNavigationBar];
-    
-    [self.logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)setUserInfo {
-    AVUser *user = [AVUser currentUser];
-    
-    self.mobilePhoneLabel.text = user.mobilePhoneNumber;
-    self.firstNameLabel.text = [user objectForKey:@"first_name"];
-    self.lastNameLabel.text = [user objectForKey:@"last_name"];
-    self.userNameLabel.text = user.username;
 }
 
 #pragma mark - ChangeInfoViewControllerDelegate
@@ -61,6 +47,21 @@ static NSString * const ProfileCellIdentifier = @"ProfileCell";
     if (!section) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 150)];
         view.backgroundColor = [UIColor whiteColor];
+        
+        
+        UIImageView *profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake((DEVICE_WIDTH - PROFILE_IMAGE_WIDTH) / 2, (view.frame.size.height - PROFILE_IMAGE_WIDTH) / 2,
+                                                                                      PROFILE_IMAGE_WIDTH, PROFILE_IMAGE_WIDTH)];
+        profileImageView.image = [UIImage imageNamed:@"default_profile_image"];
+        profileImageView.layer.masksToBounds = YES;
+        profileImageView.layer.cornerRadius = PROFILE_IMAGE_WIDTH / 2;
+        [view addSubview:profileImageView];
+        
+        UIImageView *editImageView = [[UIImageView alloc] initWithFrame:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y + profileImageView.frame.size.height - EDIT_IMAGE_WIDTH, EDIT_IMAGE_WIDTH, EDIT_IMAGE_WIDTH)];
+        editImageView.image = [UIImage imageNamed:@"edit"];
+        editImageView.layer.masksToBounds = YES;
+        editImageView.layer.cornerRadius = EDIT_IMAGE_WIDTH / 2;
+        [view addSubview:editImageView];
+        
         return view;
     } else {
         return nil;
@@ -187,13 +188,6 @@ static NSString * const ProfileCellIdentifier = @"ProfileCell";
     [self.navigationController.navigationBar setTitleTextAttributes:dict];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
-    
-//    UIBarButtonItem *backButton =
-//    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
-//                                     style:UIBarButtonItemStylePlain
-//                                    target:nil
-//                                    action:nil];
-//    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 
