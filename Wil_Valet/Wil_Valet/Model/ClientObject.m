@@ -12,6 +12,7 @@
 
 @dynamic last_name;
 @dynamic first_name;
+@dynamic profile_image_url;
 
 + (NSString *)parseClassName {
     return @"Client";

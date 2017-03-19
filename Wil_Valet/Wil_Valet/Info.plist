@@ -22,8 +22,25 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>clouddn.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Use your camera to take a picture</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Let users find valets</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Pick a picture from your library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

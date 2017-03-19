@@ -8,7 +8,9 @@
 
 #import "MapInfoClientView.h"
 
-@interface MapInfoClientView ()
+@interface MapInfoClientView () {
+    BOOL _isProfileImageSet;
+}
 
 @property (strong, nonatomic) NSString *clientMobilePhoneNumber;
 
@@ -84,7 +86,17 @@
 - (void)setCLientInfo:(ClientObject *)clientObject address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus{
     self.clientMobilePhoneNumber = [clientObject objectForKey:@"mobilePhoneNumber"];
     
-    self.profileImageView.image = [UIImage imageNamed:@"client_profile_default"];
+    if (!_isProfileImageSet) {
+        self.profileImageView.image = [UIImage imageNamed:@"client_profile_default"];
+        [[LibraryAPI sharedInstance] getPhotoWithURL:clientObject.profile_image_url
+                                             success:^(UIImage *image) {
+                                                 self.profileImageView.image = image;
+                                                 _isProfileImageSet = YES;
+                                             }
+                                                fail:^(NSError *error) {
+                                                }];
+    }
+    
     self.nameLabel.text = [NSString stringWithFormat:@"Client: %@ %@", clientObject.last_name, clientObject.first_name];
     
     self.addressLabel.text = [NSString stringWithFormat:@"Meet at %@", address];

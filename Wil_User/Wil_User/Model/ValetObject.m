@@ -12,6 +12,7 @@
 
 @dynamic first_name;
 @dynamic last_name;
+@dynamic profile_image_url;
 
 + (NSString *)parseClassName {
     return @"Valet";

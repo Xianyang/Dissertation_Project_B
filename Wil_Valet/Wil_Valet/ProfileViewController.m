@@ -137,13 +137,13 @@ static NSString * const ProfileCellIdentifier = @"ProfileCell";
     AVUser *user = [AVUser currentUser];
     NSString *fileURL = [user objectForKey:@"profile_image_url"];
     if (fileURL && ![fileURL isEqualToString:@""]) {
-        [[LibraryAPI sharedInstance] getPhotoWithURL:fileURL
-                                             success:^(UIImage *image) {
-                                                 self.profileImageView.image = image;
-                                             }
-                                                fail:^(NSError *error) {
-                                                    
-                                                }];
+        [[LibraryAPI sharedInstance] getClientProfilePhotoWithURL:fileURL
+                                                          success:^(UIImage *image) {
+                                                              self.profileImageView.image = image;
+                                                          }
+                                                             fail:^(NSError *error) {
+                                                                 
+                                                             }];
     }
 }
 

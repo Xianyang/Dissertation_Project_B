@@ -12,6 +12,7 @@
 #import "ClientLocationClient.h"
 #import "OrderClient.h"
 #import "ClientClient.h"
+#import "FileClient.h"
 
 static NSString * const LocationObjectName = @"valet_location_object_id";
 
@@ -22,7 +23,7 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 @property (strong, nonatomic) ClientLocationClient *clientLocationClient;
 @property (strong, nonatomic) OrderClient *orderClient;
 @property (strong, nonatomic) ClientClient *clientClient;
-
+@property (strong, nonatomic) FileClient *fileClient;
 @end
 
 @implementation LibraryAPI
@@ -52,6 +53,7 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
         self.clientLocationClient = [[ClientLocationClient alloc] init];
         self.orderClient = [[OrderClient alloc] init];
         self.clientClient = [[ClientClient alloc] init];
+        self.fileClient = [[FileClient alloc] init];
     }
     
     return self;
@@ -91,6 +93,52 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
 
 - (ClientObject *)clientObjectWithObjectID:(NSString *)clientObjectID {
     return [self.clientClient clientObjectWithObjectID:clientObjectID];
+}
+
+#pragma mark - File
+
+- (void)uploadFile:(AVFile *)file success:(void (^)(NSString *fileURL))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.fileClient uploadFile:file
+                        success:^(NSString *fileURL) {
+                            successBlock(fileURL);
+                        }
+                           fail:^(NSError *error) {
+                               failBlock(error);
+                           }];
+}
+
+- (void)getPhotoWithURL:(NSString *)imageURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.fileClient getPhotoWithURL:imageURL
+                             success:^(UIImage *image) {
+                                 successBlock(image);
+                             }
+                                fail:^(NSError *error) {
+                                    failBlock(error);
+                                }];
+}
+
+- (void)getAppUserProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.fileClient getAppUserProfilePhotoWithURL:fileURL
+                                           success:^(UIImage *image) {
+                                               successBlock(image);
+                                           }
+                                              fail:^(NSError *error) {
+                                                  failBlock(error);
+                                              }];
+}
+
+- (void)getClientProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.fileClient getClientProfilePhotoWithURL:fileURL
+                                          success:^(UIImage *image) {
+                                              successBlock(image);
+                                          }
+                                             fail:^(NSError *error) {
+                                                 failBlock(error);
+                                             }];
+}
+
+- (void)getValetProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+    
 }
 
 #pragma mark - limit for user's registration

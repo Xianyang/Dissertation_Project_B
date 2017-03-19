@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *first_name;
 @property (nonatomic, copy) NSString *last_name;
+@property (nonatomic, copy) NSString *profile_image_url;
 
 @end

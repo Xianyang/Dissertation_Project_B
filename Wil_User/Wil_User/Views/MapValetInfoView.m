@@ -9,7 +9,9 @@
 #import "MapValetInfoView.h"
 #import "ValetObject.h"
 
-@interface MapValetInfoView ()
+@interface MapValetInfoView () {
+    BOOL _isProfileImageSet;
+}
 
 @property (strong, nonatomic) NSString *valetMobilePhoneNumber;
 
@@ -94,7 +96,20 @@
     [valetObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
         if (object && !error) {
             self.valetMobilePhoneNumber = [valetObject objectForKey:@"mobilePhoneNumber"];
-            self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
+            
+            if (!_isProfileImageSet) {
+                self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
+                
+                [[LibraryAPI sharedInstance] getPhotoWithURL:valetObject.profile_image_url
+                                                     success:^(UIImage *image) {
+                                                         _isProfileImageSet = YES;
+                                                         self.profileImageView.image = image;
+                                                     }
+                                                        fail:^(NSError *error) {
+                                                            
+                                                        }];
+            }
+            
             
             if (orderStatus == kUserOrderStatusUserDroppingOff) {
                 self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
