@@ -63,6 +63,7 @@ PODS:
   - NJKWebViewProgress/ProgressView (0.2.3)
   - Reachability (3.2)
   - RESideMenu (4.0.7)
+  - Stripe (10.0.1)
   - UMengAnalytics (4.0.4)
 
 DEPENDENCIES:
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - NJKWebViewProgress (~> 0.2.3)
   - RESideMenu (~> 4.0.7)
+  - Stripe
   - UMengAnalytics (~> 4.0.4)
 
 SPEC CHECKSUMS:
@@ -94,8 +96,9 @@ SPEC CHECKSUMS:
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
+  Stripe: dd6df0e2c6a8463e2f1ca9b15dc246e5ae1eee64
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
 
-PODFILE CHECKSUM: 3baa24526c4a40dc0d5c1a795a2ce562b6988f05
+PODFILE CHECKSUM: 2f305938b4a9753d2f79935d5961582e89f18429
 
 COCOAPODS: 1.2.0
