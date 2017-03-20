@@ -16,6 +16,7 @@ target 'Wil_Valet' do
   pod 'JSONModel', '~> 1.3.0'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'ASIHTTPRequest'
 
   pod 'AVOSCloud'              
   pod 'AVOSCloudIM'            

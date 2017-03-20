@@ -127,6 +127,13 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     OrderObject *orderObject = [self orderObjectAtIndexPath:indexPath];
     [[LibraryAPI sharedInstance] fetchClientObjectWithObjectID:orderObject.user_object_ID
                                                        success:^(ClientObject *clientObject) {
+                                                           [[LibraryAPI sharedInstance] getPhotoWithURL:clientObject.profile_image_url
+                                                                                                success:^(UIImage *image) {
+                                                                                                    cell.profileImageView.image = image;
+                                                                                                }
+                                                                                                   fail:^(NSError *error) {
+                                                                                                       
+                                                                                                   }];
                                                            cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", clientObject.last_name, clientObject.first_name];
                                                            if (orderObject.order_status == kUserOrderStatusUserDroppingOff) {
                                                                cell.infoLabel.text = [NSString stringWithFormat:@"Meet at %@", orderObject.park_address];

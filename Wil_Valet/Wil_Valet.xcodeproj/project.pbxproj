@@ -32,6 +32,7 @@
 		629FE1D31E7E64EF0082EF8C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629FE1D11E7E64EF0082EF8C /* ProfileViewController.m */; };
 		629FE1D61E7E65160082EF8C /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 629FE1D51E7E65160082EF8C /* ProfileCell.m */; };
 		629FE1D91E7E65720082EF8C /* FileClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 629FE1D81E7E65720082EF8C /* FileClient.m */; };
+		629FE2021E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 629FE2011E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m */; };
 		62D56EBB1E782B8D00879ECB /* ValetLocationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EBA1E782B8D00879ECB /* ValetLocationClient.m */; };
 		62D56EBE1E7831AA00879ECB /* OrderClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EBD1E7831AA00879ECB /* OrderClient.m */; };
 		62D56EC11E7831D400879ECB /* OrderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D56EC01E7831D400879ECB /* OrderObject.m */; };
@@ -119,6 +120,8 @@
 		629FE1D51E7E65160082EF8C /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileCell.m; path = Views/ProfileCell.m; sourceTree = "<group>"; };
 		629FE1D71E7E65720082EF8C /* FileClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileClient.h; path = API/FileClient.h; sourceTree = "<group>"; };
 		629FE1D81E7E65720082EF8C /* FileClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileClient.m; path = API/FileClient.m; sourceTree = "<group>"; };
+		629FE2001E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AVGeoPoint+CoordinateWithGeoPoint.h"; path = "API/AVGeoPoint+CoordinateWithGeoPoint.h"; sourceTree = "<group>"; };
+		629FE2011E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AVGeoPoint+CoordinateWithGeoPoint.m"; path = "API/AVGeoPoint+CoordinateWithGeoPoint.m"; sourceTree = "<group>"; };
 		62D56EB91E782B8D00879ECB /* ValetLocationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValetLocationClient.h; path = API/ValetLocationClient.h; sourceTree = "<group>"; };
 		62D56EBA1E782B8D00879ECB /* ValetLocationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValetLocationClient.m; path = API/ValetLocationClient.m; sourceTree = "<group>"; };
 		62D56EBC1E7831AA00879ECB /* OrderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderClient.h; path = API/OrderClient.h; sourceTree = "<group>"; };
@@ -349,6 +352,8 @@
 				6241EC641E695CF400249DE1 /* MBProgressHUD+WilShowError.m */,
 				6241EC651E695CF400249DE1 /* UIButton+Status.h */,
 				6241EC661E695CF400249DE1 /* UIButton+Status.m */,
+				629FE2001E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.h */,
+				629FE2011E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -686,6 +691,7 @@
 				621668D91E31D622007292A4 /* main.m in Sources */,
 				6241EC4A1E68086F00249DE1 /* MainViewController.m in Sources */,
 				6241EC431E68081B00249DE1 /* MenuViewController.m in Sources */,
+				629FE2021E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m in Sources */,
 				6241EC461E68085800249DE1 /* SideMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@
 
 #import "OrderDetailViewController.h"
 #import "MapInfoClientView.h"
+#import "AVGeoPoint+CoordinateWithGeoPoint.h"
 
 @interface OrderDetailViewController () <GMSMapViewDelegate, MapClientInfoViewDelegate> {
     BOOL _isMapSetted;
@@ -30,6 +31,8 @@
 @property (strong, nonatomic) GMSMarker *clientMarker;
 @property (strong, nonatomic) GMSMarker *flagMarker;
 @property (strong, nonatomic) MapInfoClientView *mapInfoClientView;
+// the route
+@property (strong, nonatomic) GMSPolyline *route;
 
 @end
 
@@ -113,6 +116,8 @@
         self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:DEFAULT_ZOOM_LEVEL];
         self.mapView.hidden = NO;
         [self fitBounds];
+        
+        [self checkIfShowRoute];
     }
 }
 
@@ -200,9 +205,37 @@
     [self fitBounds];
 }
 
+- (void)checkIfShowRoute {
+    if (self.mapView.myLocation) {
+        if (!self.route.map) {
+            if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
+                [self addRouteToMapWithStartLocation:self.mapView.myLocation endLocation:[self.orderObject.park_location locationWithGeoPoint:self.orderObject.park_location]];
+            } else if ( self.orderObject.order_status == kUserOrderStatusRequestingBack ||
+                       self.orderObject.order_status == kUserOrderStatusReturningBack ) {
+                [self addRouteToMapWithStartLocation:self.mapView.myLocation endLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]];
+            }
+        }
+    }
+}
+
+- (void)addRouteToMapWithStartLocation:(CLLocation *)startLocation endLocation:(CLLocation *)endLocation {
+    [[LibraryAPI sharedInstance] getRouteWithMyLocation:startLocation
+                                    destinationLocation:endLocation
+                                                success:^(GMSPolyline *route) {
+                                                    self.route = route;
+                                                    self.route.map = self.mapView;
+                                                }
+                                                   fail:^(NSError *error) {
+                                                       
+                                                   }];
+}
+
 - (void)setMapToUserOrderStatusUserDroppingOff {
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    
+    // check if add route
+    [self checkIfShowRoute];
     
     // update the view
     [UIView animateWithDuration:0.2
@@ -224,6 +257,9 @@
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
     
+    // remove the route
+    self.route.map = nil;
+    
     // update the view
     [UIView animateWithDuration:0.2
                           delay:0
@@ -244,6 +280,9 @@
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     
+    // check if add route
+    [self checkIfShowRoute];
+    
     // update the view
     [UIView animateWithDuration:0.2
                           delay:0
@@ -263,6 +302,9 @@
 - (void)setMapToUserOrderStatusReturningBack {
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
+    
+    // check if add route
+    [self checkIfShowRoute];
     
     // update the view
     [UIView animateWithDuration:0.2
@@ -430,6 +472,14 @@
     }
     
     return _clientLocationTimer;
+}
+
+- (GMSPolyline *)route {
+    if (!_route) {
+        _route = [[GMSPolyline alloc] init];
+    }
+    
+    return _route;
 }
 
 - (void)didReceiveMemoryWarning {

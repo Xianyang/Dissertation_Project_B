@@ -37,7 +37,11 @@
 - (ClientObject *)findClientObject:(ClientObject *)clientObject {
     for (ClientObject *savedClientObject in self.clients) {
         if ([savedClientObject.objectId isEqualToString:clientObject.objectId]) {
-            return savedClientObject;
+            if (savedClientObject.profile_image_url && ![savedClientObject.profile_image_url isEqualToString:@""]) {
+                return savedClientObject;
+            } else {
+                return nil;
+            }
         }
     }
     

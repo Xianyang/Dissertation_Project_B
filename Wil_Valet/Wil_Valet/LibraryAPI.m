@@ -188,6 +188,17 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
                                              }];
 }
 
+- (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.valetLocationClient getRouteWithMyLocation:myLocation
+                                 destinationLocation:destinationLocation
+                                             success:^(GMSPolyline *route) {
+                                                 successBlock(route);
+                                             }
+                                                fail:^(NSError *error) {
+                                                    failBlock(error);
+                                                }];
+}
+
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID {
     [self.valetLocationClient saveValetLocationObjectIDLocally:valetLocationObjectID];
 }

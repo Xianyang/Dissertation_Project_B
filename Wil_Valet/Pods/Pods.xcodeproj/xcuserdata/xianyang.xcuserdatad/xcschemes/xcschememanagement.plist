@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ASIHTTPRequest.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AVOSCloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -64,10 +69,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>28AFBC0E511B8F40FE4F8AB64E3F6F22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F82923753C90E3C0776C3D228E31EC5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>70C2D5EAE29DE4B4BC8AE3F566035E42</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>82CA472C54474A3DCD2B0B62A702AB79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B39FB7C2E88263AE36B8020371EB6B0</key>
+		<key>9C623D1AF8229419BA603B3C66BE24B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,11 +123,6 @@
 			<true/>
 		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9F6D87967A0EAD634CE80F3FAD164BFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -123,6 +138,11 @@
 			<true/>
 		</dict>
 		<key>CCB7CB485E21C0801790635C83376BA2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F0EA78F8F3362DEBC9840500226DA5E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

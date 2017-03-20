@@ -21,15 +21,19 @@
 }
 
 - (void)getPhotoWithURL:(NSString *)imageURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
-    AVFile *file = [AVFile fileWithURL:imageURL];
-    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-        if (data && !error) {
-            UIImage *image = [UIImage imageWithData:data];
-            successBlock(image);
-        } else {
-            failBlock(error);
-        }
-    }];
+    if (imageURL && ![imageURL isEqualToString:@""]) {
+        AVFile *file = [AVFile fileWithURL:imageURL];
+        [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (data && !error) {
+                UIImage *image = [UIImage imageWithData:data];
+                successBlock(image);
+            } else {
+                failBlock(error);
+            }
+        }];
+    } else {
+        failBlock(nil);
+    }
 }
 
 - (void)getAppUserProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {

@@ -15,4 +15,6 @@
 - (void)saveValetLocationObjectIDLocally:(NSString *)objectID;
 - (void)updateValetServingStatus:(BOOL)isServing;
 
+- (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock;
+
 @end
