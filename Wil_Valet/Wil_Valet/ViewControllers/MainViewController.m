@@ -125,6 +125,8 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
 - (void)configureCell:(OrderCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     // TODO set profile image
     OrderObject *orderObject = [self orderObjectAtIndexPath:indexPath];
+    cell.profileImageView.layer.masksToBounds = YES;
+    cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.height / 2;
     [[LibraryAPI sharedInstance] fetchClientObjectWithObjectID:orderObject.user_object_ID
                                                        success:^(ClientObject *clientObject) {
                                                            [[LibraryAPI sharedInstance] getPhotoWithURL:clientObject.profile_image_url
