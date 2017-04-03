@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		621298191E92325C00A4FED0 /* MapParkInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298181E92325C00A4FED0 /* MapParkInfoView.m */; };
+		6212981C1E92327200A4FED0 /* MapPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212981B1E92327200A4FED0 /* MapPaymentView.m */; };
 		6216691B1E31D65B007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6216691A1E31D65B007292A4 /* main.m */; };
 		6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6216691D1E31D65B007292A4 /* AppDelegate.m */; };
 		621669241E31D65B007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621669221E31D65B007292A4 /* Main.storyboard */; };
@@ -75,6 +77,10 @@
 
 /* Begin PBXFileReference section */
 		3DF9D54C1B89683B49245F37 /* Pods-Wil_UserUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_UserUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_UserUITests/Pods-Wil_UserUITests.release.xcconfig"; sourceTree = "<group>"; };
+		621298171E92325C00A4FED0 /* MapParkInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapParkInfoView.h; path = Views/MapParkInfoView.h; sourceTree = "<group>"; };
+		621298181E92325C00A4FED0 /* MapParkInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapParkInfoView.m; path = Views/MapParkInfoView.m; sourceTree = "<group>"; };
+		6212981A1E92327200A4FED0 /* MapPaymentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapPaymentView.h; path = Views/MapPaymentView.h; sourceTree = "<group>"; };
+		6212981B1E92327200A4FED0 /* MapPaymentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapPaymentView.m; path = Views/MapPaymentView.m; sourceTree = "<group>"; };
 		621669161E31D65B007292A4 /* Wil_User.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_User.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6216691A1E31D65B007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6216691C1E31D65B007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -333,6 +339,10 @@
 				624E60CF1E76A88D006B516E /* MapFlag.m */,
 				624E60D11E76B3A7006B516E /* MapValetInfoView.h */,
 				624E60D21E76B3A7006B516E /* MapValetInfoView.m */,
+				621298171E92325C00A4FED0 /* MapParkInfoView.h */,
+				621298181E92325C00A4FED0 /* MapParkInfoView.m */,
+				6212981A1E92327200A4FED0 /* MapPaymentView.h */,
+				6212981B1E92327200A4FED0 /* MapPaymentView.m */,
 			);
 			name = OnMap;
 			sourceTree = "<group>";
@@ -514,7 +524,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -745,6 +755,7 @@
 				62F7D7041E5AD237001AC360 /* RequestValetButton.m in Sources */,
 				62F7D6FA1E59A75B001AC360 /* LibraryAPI.m in Sources */,
 				625B97511E62D09000F2C6F5 /* SignInViewController.m in Sources */,
+				621298191E92325C00A4FED0 /* MapParkInfoView.m in Sources */,
 				621669271E31D65B007292A4 /* Wil_User.xcdatamodeld in Sources */,
 				62911FB11E7D3C650075AC9E /* MapSearchPlaceView.m in Sources */,
 				625B97541E62D65D00F2C6F5 /* ForgetPasswordFirstViewController.m in Sources */,
@@ -758,6 +769,7 @@
 				62F7D7371E6143D6001AC360 /* UIButton+Status.m in Sources */,
 				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 				62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */,
+				6212981C1E92327200A4FED0 /* MapPaymentView.m in Sources */,
 				62911FB41E7D7F740075AC9E /* ProfileCell.m in Sources */,
 				625B97621E63E8FF00F2C6F5 /* SignUpViewController.m in Sources */,
 				623A67EA1E33633F009A63AC /* SideMenuCell.m in Sources */,
@@ -908,6 +920,7 @@
 			baseConfigurationReference = 6CBAC56BFCAEC4C0C226A786 /* Pods-Wil_User.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wil_User/Wil_User.entitlements;
 				DEVELOPMENT_TEAM = K5J44K984X;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
@@ -923,6 +936,7 @@
 			baseConfigurationReference = EE4A9B1726CF45013FFF6F31 /* Pods-Wil_User.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wil_User/Wil_User.entitlements;
 				DEVELOPMENT_TEAM = K5J44K984X;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";

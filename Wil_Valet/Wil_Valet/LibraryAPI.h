@@ -37,6 +37,9 @@ typedef enum {
     // valet is returning the vehicle
     kUserOrderStatusReturningBack,
     
+    // user needs to pay for the service
+    kUserOrderStatusPaymentPending,
+    
     // the order is finished
     kUserOrderStatusFinished,
     

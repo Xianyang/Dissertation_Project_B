@@ -70,6 +70,7 @@
 		0C1521B0DE968B51B6D75BE9 /* Pods-Wil_ValetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wil_ValetTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wil_ValetTests/Pods-Wil_ValetTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6212981D1E92460700A4FED0 /* Wil_Valet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wil_Valet.entitlements; sourceTree = "<group>"; };
 		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 		621668D61E31D622007292A4 /* Wil_Valet */ = {
 			isa = PBXGroup;
 			children = (
+				6212981D1E92460700A4FED0 /* Wil_Valet.entitlements */,
 				621668DA1E31D622007292A4 /* AppDelegate.h */,
 				621668DB1E31D622007292A4 /* AppDelegate.m */,
 				624E60C21E752E56006B516E /* Model */,
@@ -452,6 +454,9 @@
 						DevelopmentTeam = K5J44K984X;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};

@@ -338,28 +338,33 @@
 
 - (void)tryUpdateOrderStatus {
     if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
-        [self presentAlertViewWithMessage:@"Did you get client's vehicle?" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusParking];
+        [self presentAlertViewWithMessage:@"Did you get client's vehicle?" confirmActionTitle:@"Yes" updateOrderToStatus:kUserOrderStatusParking];
     } else if (self.orderObject.order_status == kUserOrderStatusParking) {
-        [self presentAlertViewWithMessage:@"Did you park client's vehicle?" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusParked];
+        [self presentAlertViewWithMessage:@"Did you park client's vehicle?" confirmActionTitle:@"Yes" updateOrderToStatus:kUserOrderStatusParked];
     } else if (self.orderObject.order_status == kUserOrderStatusRequestingBack) {
-        [self presentAlertViewWithMessage:@"Did you get client's vehicle" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusReturningBack];
+        [self presentAlertViewWithMessage:@"Did you get client's vehicle" confirmActionTitle:@"Yes" updateOrderToStatus:kUserOrderStatusReturningBack];
     } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
-        [self presentAlertViewWithMessage:@"Did you return client's vehicle" confirmActionTitle:@"Yes" updateOrderStatus:kUserOrderStatusFinished];
+        [self presentAlertViewWithMessage:@"Did you return client's vehicle" confirmActionTitle:@"Yes" updateOrderToStatus:kUserOrderStatusPaymentPending];
     }
 }
 
-- (void)updateOrderStatus:(UserOrderStatus)orderStatus {
+- (void)updateOrderToStatus:(UserOrderStatus)orderStatus {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     UserOrderStatus originOrderStatus = self.orderObject.order_status;
     self.orderObject.order_status = orderStatus;
     
-    if (orderStatus == kUserOrderStatusParked) {
+    if (orderStatus == kUserOrderStatusParking) {
+        self.orderObject.drop_off_at = [NSDate date];
+    } else if (orderStatus == kUserOrderStatusParked) {
+        self.orderObject.park_at = [NSDate date];
         self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
         
         // update valetLocation object
         [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
-    } else if (orderStatus == kUserOrderStatusFinished) {
+    } else if (orderStatus == kUserOrderStatusPaymentPending) {
+        self.orderObject.return_at = [NSDate date];
+        // update valetLocation object
         [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
     }
     
@@ -375,7 +380,7 @@
     }];
 }
 
-- (void)presentAlertViewWithMessage:(NSString *)message confirmActionTitle:(NSString *)confirmActionTitle updateOrderStatus:(UserOrderStatus)orderStatus {
+- (void)presentAlertViewWithMessage:(NSString *)message confirmActionTitle:(NSString *)confirmActionTitle updateOrderToStatus:(UserOrderStatus)orderStatus {
     UIAlertController *alert =
     [UIAlertController alertControllerWithTitle:@""
                                         message:message
@@ -384,7 +389,7 @@
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmActionTitle
                                                             style:UIAlertActionStyleDestructive
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                              [self updateOrderStatus:orderStatus];
+                                                              [self updateOrderToStatus:orderStatus];
                                                           }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
@@ -398,8 +403,6 @@
                        animated:YES
                      completion:nil];
 }
-
-
 
 #pragma mark - Client location
 
