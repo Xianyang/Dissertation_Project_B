@@ -11,6 +11,7 @@
 
 @interface MapValetInfoView () {
     BOOL _isProfileImageSet;
+    CGRect _originRect;
 }
 
 @property (strong, nonatomic) NSString *valetMobilePhoneNumber;
@@ -30,6 +31,11 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        _originRect = frame;
+        
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 5;
+        
         // add photo
         self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 15.0f, 70.0f, 70.0f)];
         self.profileImageView.layer.masksToBounds = YES;
@@ -84,11 +90,11 @@
 }
 
 - (void)show {
-    self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+    self.frame = CGRectMake(self.frame.origin.x, 10.0f, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)hide {
-    self.frame = CGRectMake(0.0f, 0.0f - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.frame = _originRect;
 }
 
 - (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus{

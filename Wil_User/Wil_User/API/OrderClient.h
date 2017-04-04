@@ -31,6 +31,11 @@
                              success:(void (^)(OrderObject *orderObject))successBlock
                                 fail:(void (^)(NSError *error))failBlock;
 
+- (void)updateAnOrderWithOrderObject:(OrderObject *)orderObject
+                            toStatus:(UserOrderStatus)orderStatus
+                             success:(void (^)(OrderObject *orderobject))successBlock
+                                fail:(void (^)(NSError *error))failBlock;
+
 
 
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock;

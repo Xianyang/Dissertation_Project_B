@@ -204,6 +204,20 @@
                                               }];
 }
 
+- (void)updateAnOrderWithOrderObject:(OrderObject *)orderObject
+                            toStatus:(UserOrderStatus)orderStatus
+                             success:(void (^)(OrderObject *orderobject))successBlock
+                                fail:(void (^)(NSError *error))failBlock {
+    [self.orderClient updateAnOrderWithOrderObject:orderObject
+                                          toStatus:orderStatus
+                                           success:^(OrderObject *orderobject) {
+                                               successBlock(orderObject);
+                                           }
+                                              fail:^(NSError *error) {
+                                                  failBlock(error);
+                                              }];
+}
+
 - (void)checkIfUserHasUnfinishedOrder:(void (^)(OrderObject *orderObject))hasOrderBlock noOrder:(void(^)())noOrderBlock fail:(void (^)())failBlock {
     [self.orderClient checkIfUserHasUnfinishedOrder:^(OrderObject *orderObject) {
         hasOrderBlock(orderObject);

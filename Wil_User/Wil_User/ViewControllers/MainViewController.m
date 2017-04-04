@@ -19,9 +19,17 @@
 #define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
 
-#define REQUEST_VALET_BTN_HEIGHT                    64
+#define MAP_SEARCH_PLACE_VIEW_HEIGHT                50
+
 #define MAP_VALET_INFO_VIEW_HEIGHT                  100
 
+#define MAP_PARK_INFO_VIEW_ORIGIN_Y                 70
+#define MAP_PARK_INFO_VIEW_HEIGHT                   100
+
+#define MAP_PAYMENT_INFO_VIEW_HEIGHT                64
+#define REQUEST_VALET_BTN_HEIGHT                    64
+
+@import PassKit;
 #import "MainViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
@@ -33,12 +41,14 @@
 #import "MapFlag.h"
 #import "MapValetInfoView.h"
 #import "MapSearchPlaceView.h"
+#import "MapParkInfoView.h"
+#import "MapPaymentView.h"
 #import "OrderObject.h"
 #import "ClientLocation.h"
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate, MapValetInfoViewDelegate, MapSearchPlaceViewDelegate>
+@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate, MapValetInfoViewDelegate, MapSearchPlaceViewDelegate, MapPaymentViewDelegate, PKPaymentAuthorizationViewControllerDelegate>
 {
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
@@ -71,6 +81,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 // the search field
 @property (strong, nonatomic) MapSearchPlaceView *mapSearchPlaceView;
+
+// show parking info
+@property (strong, nonatomic) MapParkInfoView *mapParkInfoView;
+
+// show payment info
+@property (strong, nonatomic) MapPaymentView *mapPaymentView;
 
 // the timer for updating valets' locations
 @property (strong, nonatomic) NSTimer *valetLocationTimer;
@@ -128,8 +144,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [self setMap];
         _isMapSetted = YES;
     }
-    
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -181,6 +195,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     // add the valet info view
     [self.mapView addSubview:self.mapValetInfoView];
+    
+    // add the park info view
+    [self.mapView addSubview:self.mapParkInfoView];
+    
+    // add the payment info view
+    [self.mapView addSubview:self.mapPaymentView];
     
     // ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -244,6 +264,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 #pragma mark - Order Status
 
 - (void)fetchOrderStatus {
+    // check order again to see if there is any change
     if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff ||
         self.orderObject.order_status == kUserOrderStatusParking ||
         self.orderObject.order_status == kUserOrderStatusRequestingBack ||
@@ -297,6 +318,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [self setMapToUserOrderStatusRequestingBack];
     } else if (self.orderObject.order_status == kUserOrderStatusReturningBack) {
         [self setMapToUserOrderStatusReturningBack];
+    } else if (self.orderObject.order_status == kUserOrderStatusPaymentPending) {
+        [self setMapToUserOrderStatusPaymentPending];
     } else if (self.orderObject.order_status == kUserOrderStatusFinished) {
         [self setMapToUserOrderStatusFinished];
     }
@@ -363,10 +386,12 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapValetInfoView show];
                          [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
                          
-                         // 5.2
+                         // 5.2 hide other views
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.wilFlag hideInMapView:self.mapView];
+                         [self.mapParkInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -401,12 +426,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView show];
-                         // TODO pass the order object
                          [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.wilFlag hideInMapView:self.mapView];
+                         [self.mapParkInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -481,6 +507,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.wilFlag hideInMapView:self.mapView];
+                         [self.mapParkInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -530,6 +558,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.wilFlag hideInMapView:self.mapView];
+                         [self.mapParkInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -537,6 +567,42 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      completion:^(BOOL finished) {
                          
                      }];
+}
+
+- (void)setMapToUserOrderStatusPaymentPending {
+    // 1. set status
+    _userOrderStatus = kUserOrderStatusPaymentPending;
+    
+    // 2. set right navigation item to nil
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    // 3. update three maker - valet marker, flag marker and vehicle marker
+    [self removeAllValetMarker];
+    self.flagMarker.map = nil;
+    self.vehicleMarker.map = nil;
+    
+    // 4. remove the route
+    self.route.map = nil;
+    
+    // 5. update the view
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self.mapPaymentView showInMapView:self.mapView];
+                         [self.mapPaymentView setOrderObject:self.orderObject];
+                         [self moveMyLocationBtn:-self.mapPaymentView.frame.size.height];
+                         
+                         [self.mapSearchPlaceView hide];
+                         [self.requestValetButton hideInMapView:self.mapView];
+                         [self.wilFlag hideInMapView:self.mapView];
+                         [self.mapValetInfoView hide];
+                         [self.mapParkInfoView hide];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+    
 }
 
 - (void)setMapToUserOrderStatusFinished {
@@ -615,8 +681,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self.mapSearchPlaceView show];
                          [self moveMyLocationBtn:-self.requestValetButton.frame.size.height];
                          
+                         if (_userOrderStatus == kUserOrderStatusParked) {
+                             [self.mapParkInfoView show];
+                         } else {
+                             [self.mapParkInfoView hide];
+                         }
+                         
                          // hide other views
                          [self.mapValetInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                      }
                      completion:^(BOOL finished) {
                          
@@ -633,14 +706,22 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapSearchPlaceView show];
+                         
                          // 0. hide the view at the bottom
                          [self.requestValetButton hideInMapView:self.mapView];
                          [self.wilFlag showGoToServiceArea];
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                          
+                         if (_userOrderStatus == kUserOrderStatusParked) {
+                             [self.mapParkInfoView show];
+                         } else {
+                             [self.mapParkInfoView hide];
+                         }
+                         
                          // hide other views
                          [self.mapValetInfoView hide];
+                         [self.mapPaymentView hideInMapView:self.mapView];
                      }
                      completion:^(BOOL finished) {
                          
@@ -765,7 +846,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
 - (void)fetchValetsLocation {
     NSLog(@"try to get valets' locations");
-    if (!_isGettingValetsLocations) {
+    if (!_isGettingValetsLocations && _userOrderStatus != kUserOrderStatusPaymentPending) {
         _isGettingValetsLocations = YES;
         
         [[LibraryAPI sharedInstance] fetchValetsLocationsWithStatus:_userOrderStatus
@@ -942,6 +1023,52 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
 }
 
+#pragma mark - MapPaymentViewDelegate
+
+- (void)applePayBtnClicked:(NSDecimalNumber *)amount {
+    PKPaymentRequest *request = [[PKPaymentRequest alloc] init];
+    NSArray *supportedPaymentNetworks = [NSArray arrayWithObjects:PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex, nil];
+    NSString *applePayMerchantID = @"merchant.com.xianyang.wil-user";
+    request.merchantIdentifier  = applePayMerchantID;
+    request.supportedNetworks = supportedPaymentNetworks;
+    request.merchantCapabilities = PKMerchantCapability3DS;
+    request.countryCode = @"HK";
+    request.currencyCode = @"HKD";
+    request.paymentSummaryItems = [NSArray arrayWithObjects:
+                                   [PKPaymentSummaryItem summaryItemWithLabel:@"item"
+                                                                       amount:amount], nil];
+    
+    
+    PKPaymentAuthorizationViewController *applePayController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
+    applePayController.delegate = self;
+    [self presentViewController:applePayController animated:YES completion:nil];
+
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(void (^)(PKPaymentAuthorizationStatus status))completion {
+    completion(PKPaymentAuthorizationStatusSuccess);
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [[LibraryAPI sharedInstance] updateAnOrderWithOrderObject:self.orderObject
+                                                     toStatus:kUserOrderStatusFinished
+                                                      success:^(OrderObject *orderobject) {
+                                                          [hud showMessage:@"Recieved your payment"];
+                                                          self.orderObject = nil;
+                                                          [self setMapToUserOrderStatusNone:self.mapView.camera.target];
+                                                      }
+                                                         fail:^(NSError *error) {
+                                                             
+                                                         }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Some Settings
 
 - (void)showHudWithMessage:(NSString *)message {
@@ -966,6 +1093,34 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
+- (MapSearchPlaceView *)mapSearchPlaceView {
+    if (!_mapSearchPlaceView) {
+        _mapSearchPlaceView = [[MapSearchPlaceView alloc] initWithFrame:CGRectMake(10, -MAP_SEARCH_PLACE_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_SEARCH_PLACE_VIEW_HEIGHT)];
+        _mapSearchPlaceView.delegate = self;
+        _mapSearchPlaceView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _mapSearchPlaceView;
+}
+
+- (MapValetInfoView *)mapValetInfoView {
+    if (!_mapValetInfoView) {
+        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(10, - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapValetInfoView.delegate = self;
+        _mapValetInfoView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _mapValetInfoView;
+}
+
+- (MapParkInfoView *)mapParkInfoView {
+    if (!_mapParkInfoView) {
+        _mapParkInfoView = [[MapParkInfoView alloc] initWithFrame:CGRectMake(10, -MAP_PARK_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_PARK_INFO_VIEW_HEIGHT)];
+    }
+    
+    return _mapParkInfoView;
+}
+
 - (RequestValetButton *)requestValetButton {
     if (!_requestValetButton) {
         _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, REQUEST_VALET_BTN_HEIGHT)];
@@ -975,6 +1130,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     return _requestValetButton;
 }
 
+- (MapPaymentView *)mapPaymentView {
+    if (!_mapPaymentView) {
+        _mapPaymentView = [[MapPaymentView alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, MAP_PAYMENT_INFO_VIEW_HEIGHT)];
+        _mapPaymentView.delegate = self;
+    }
+    
+    return _mapPaymentView;
+}
+
 - (MapFlag *)wilFlag {
     if (!_wilFlag) {
         _wilFlag = [[MapFlag alloc] init];
@@ -982,26 +1146,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _wilFlag;
-}
-
-- (MapValetInfoView *)mapValetInfoView {
-    if (!_mapValetInfoView) {
-        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
-        _mapValetInfoView.delegate = self;
-        _mapValetInfoView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    return _mapValetInfoView;
-}
-
-- (MapSearchPlaceView *)mapSearchPlaceView {
-    if (!_mapSearchPlaceView) {
-        _mapSearchPlaceView = [[MapSearchPlaceView alloc] initWithFrame:CGRectMake(10, 10, DEVICE_WIDTH - 20, 50)];
-        _mapSearchPlaceView.delegate = self;
-        _mapSearchPlaceView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    return _mapSearchPlaceView;
 }
 
 - (GMSGeocoder *)geocoder {

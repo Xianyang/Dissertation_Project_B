@@ -39,7 +39,7 @@
     [orderStatusQueryLowLimit whereKey:@"order_status" greaterThan:@(kUserOrderStatusParked)];
     
     AVQuery *orderStatusQueryHighLimit = [AVQuery queryWithClassName:[OrderObject xyClassName]];
-    [orderStatusQueryHighLimit whereKey:@"order_status" lessThan:@(kUserOrderStatusFinished)];
+    [orderStatusQueryHighLimit whereKey:@"order_status" lessThan:@(kUserOrderStatusPaymentPending)];
     
     AVQuery *query = [AVQuery andQueryWithSubqueries:@[valetObjectIDQuery, orderStatusQueryLowLimit, orderStatusQueryHighLimit]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {

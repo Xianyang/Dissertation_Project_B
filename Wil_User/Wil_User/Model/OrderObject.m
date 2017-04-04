@@ -15,16 +15,20 @@
 @dynamic drop_valet_location_object_ID;
 @dynamic return_valet_object_ID;
 @dynamic return_valet_location_object_ID;
-@dynamic start_at;
-@dynamic finish_at;
+@dynamic request_park_at;
+@dynamic drop_off_at;
+@dynamic park_at;
+@dynamic request_back_at;
+@dynamic return_at;
+@dynamic pay_at;
 @dynamic park_address;
 @dynamic park_location;
 @dynamic parked_location;
 @dynamic return_address;
 @dynamic return_location;
-@dynamic return_Time;
 @dynamic order_status;
 @dynamic vehicle_plate;
+@dynamic payment_amount;
 
 + (NSString *)parseClassName {
     return @"Order";

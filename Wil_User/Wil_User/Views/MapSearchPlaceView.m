@@ -11,9 +11,10 @@
 
 #import "MapSearchPlaceView.h"
 
-@interface MapSearchPlaceView ()
+@interface MapSearchPlaceView () {
+    CGRect _originRect;
+}
 
-@property (assign, nonatomic) CGRect originRect;
 @property (strong, nonatomic) UIImageView *searchImageView;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UIButton *searchBtn;
@@ -29,7 +30,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        self.originRect = frame;
+        _originRect = frame;
         
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 5;
@@ -84,7 +85,7 @@
 }
 
 - (void)hide {
-    self.frame = CGRectMake(self.frame.origin.x, - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.frame = _originRect;
 }
 
 /*

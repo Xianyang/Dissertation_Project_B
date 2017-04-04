@@ -20,7 +20,7 @@
     orderObject.user_object_ID = [[AVUser currentUser] objectId];
     orderObject.drop_valet_object_ID = valetObjectID;
     orderObject.drop_valet_location_object_ID = valetLocationObjectID;
-    orderObject.start_at = [NSDate date];
+    orderObject.request_park_at = [NSDate date];
     orderObject.park_address = parkAddress;
     orderObject.park_location = parkLocation;
     orderObject.order_status = kUserOrderStatusUserDroppingOff;
@@ -71,7 +71,7 @@
     orderObject.return_valet_location_object_ID = valetLocationObjectID;
     orderObject.return_address = returnAddress;
     orderObject.return_location = returnLocation;
-    orderObject.return_Time = returnTime;
+    orderObject.request_back_at = returnTime;
     orderObject.order_status = kUserOrderStatusRequestingBack;
     
     [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -134,6 +134,21 @@
             ValetLocation *valetLocation = [ValetLocation objectWithObjectId:orderObject.drop_valet_location_object_ID];
             valetLocation.valet_is_serving = @(NO);
             [valetLocation saveInBackground];
+        } else {
+            failBlock(error);
+        }
+    }];
+}
+
+- (void)updateAnOrderWithOrderObject:(OrderObject *)orderObject
+                            toStatus:(UserOrderStatus)orderStatus
+                             success:(void (^)(OrderObject *orderobject))successBlock
+                                fail:(void (^)(NSError *error))failBlock {
+    orderObject.order_status = orderStatus;
+    
+    [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            successBlock(orderObject);
         } else {
             failBlock(error);
         }
