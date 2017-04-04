@@ -21,8 +21,8 @@
     orderObject.drop_valet_object_ID = valetObjectID;
     orderObject.drop_valet_location_object_ID = valetLocationObjectID;
     orderObject.request_park_at = [NSDate date];
-    orderObject.park_address = parkAddress;
-    orderObject.park_location = parkLocation;
+    orderObject.drop_off_address = parkAddress;
+    orderObject.drop_off_location = parkLocation;
     orderObject.order_status = kUserOrderStatusUserDroppingOff;
     
     [orderObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

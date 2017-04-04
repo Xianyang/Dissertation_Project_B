@@ -9,13 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "OrderObject.h"
 
+@protocol MapParkInfoViewDelegate
+
+- (void)showLocationOfVehicle;
+- (void)showImageOfVehicle;
+- (void)showAdditionSerivceView;
+
+@end
+
 @interface MapParkInfoView : UIView
 
 - (id)initWithFrame:(CGRect)frame;
 
 - (void)setOrderObject:(OrderObject *)order;
 
-- (void)show;
+- (void)showWithOrder:(OrderObject *)order;
 - (void)hide;
+
+@property (assign, nonatomic) id <MapParkInfoViewDelegate> delegate;
 
 @end

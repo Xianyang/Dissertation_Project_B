@@ -21,8 +21,8 @@
 @dynamic request_back_at;
 @dynamic return_at;
 @dynamic pay_at;
-@dynamic park_address;
-@dynamic park_location;
+@dynamic drop_off_address;
+@dynamic drop_off_location;
 @dynamic parked_location;
 @dynamic return_address;
 @dynamic return_location;

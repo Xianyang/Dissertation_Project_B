@@ -8,7 +8,32 @@
 
 #import "PolygonClient.h"
 
+@interface PolygonClient ()
+
+@property (strong, nonatomic) GMSGeocoder *geoCoder;
+
+@end
+
 @implementation PolygonClient
+
+- (GMSGeocoder *)geoCoder {
+    if (!_geoCoder) {
+        _geoCoder = [[GMSGeocoder alloc] init];
+    }
+    
+    return _geoCoder;
+}
+
+- (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate success:(void(^)(GMSReverseGeocodeResponse *response))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.geoCoder reverseGeocodeCoordinate:coordinate
+                          completionHandler:^(GMSReverseGeocodeResponse * response, NSError * error) {
+                              if (!error) {
+                                  successBlock(response);
+                              } else {
+                                  failBlock(error);
+                              }
+                          }];
+}
 
 - (CLLocationCoordinate2D)serviceLocation {
     return CLLocationCoordinate2DMake(22.284689, 114.158152);

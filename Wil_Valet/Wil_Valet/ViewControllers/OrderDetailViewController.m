@@ -209,7 +209,7 @@
     if (self.mapView.myLocation) {
         if (!self.route.map) {
             if (self.orderObject.order_status == kUserOrderStatusUserDroppingOff) {
-                [self addRouteToMapWithStartLocation:self.mapView.myLocation endLocation:[self.orderObject.park_location locationWithGeoPoint:self.orderObject.park_location]];
+                [self addRouteToMapWithStartLocation:self.mapView.myLocation endLocation:[self.orderObject.drop_off_location locationWithGeoPoint:self.orderObject.drop_off_location]];
             } else if ( self.orderObject.order_status == kUserOrderStatusRequestingBack ||
                        self.orderObject.order_status == kUserOrderStatusReturningBack ) {
                 [self addRouteToMapWithStartLocation:self.mapView.myLocation endLocation:[self.orderObject.return_location locationWithGeoPoint:self.orderObject.return_location]];
@@ -232,7 +232,7 @@
 
 - (void)setMapToUserOrderStatusUserDroppingOff {
     // add flag marker
-    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
     
     // check if add route
     [self checkIfShowRoute];
@@ -243,7 +243,7 @@
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapInfoClientView showInMapView:self.mapView];
-                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address orderStatus:self.orderObject.order_status];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.drop_off_address orderStatus:self.orderObject.order_status];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
@@ -255,7 +255,7 @@
 
 - (void)setMapToUserOrderStatusParking {
     // add flag marker
-    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
     
     // remove the route
     self.route.map = nil;
@@ -266,7 +266,7 @@
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapInfoClientView showInMapView:self.mapView];
-                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.park_address orderStatus:self.orderObject.order_status];
+                         [self.mapInfoClientView setCLientInfo:self.clientObject address:self.orderObject.drop_off_address orderStatus:self.orderObject.order_status];
                          
                          _isMyLocationBtnInOriginalPosition = YES;
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];

@@ -71,6 +71,16 @@
     return [self.polygonClient serviceLocation];
 }
 
+- (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate success:(void(^)(GMSReverseGeocodeResponse *response))successBlock fail:(void (^)(NSError *error))failBlock {
+    [self.polygonClient reverseGeocodeCoordinate:coordinate
+                                         success:^(GMSReverseGeocodeResponse *response) {
+                                             successBlock(response);
+                                         }
+                                            fail:^(NSError *error) {
+                                                failBlock(error);
+                                            }];
+}
+
 #pragma mark - Client's location
 
 - (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock {

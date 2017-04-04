@@ -138,7 +138,7 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
                                                                                                    }];
                                                            cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", clientObject.last_name, clientObject.first_name];
                                                            if (orderObject.order_status == kUserOrderStatusUserDroppingOff) {
-                                                               cell.infoLabel.text = [NSString stringWithFormat:@"Meet at %@", orderObject.park_address];
+                                                               cell.infoLabel.text = [NSString stringWithFormat:@"Meet at %@", orderObject.drop_off_address];
                                                            } else if (orderObject.order_status == kUserOrderStatusParking){
                                                                cell.infoLabel.text = @"Valet is parking";
                                                            } else if (orderObject.order_status == kUserOrderStatusRequestingBack) {

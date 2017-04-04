@@ -17,4 +17,6 @@
 
 - (CLLocationCoordinate2D)serviceLocation;
 
+- (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate success:(void(^)(GMSReverseGeocodeResponse *response))successBlock fail:(void (^)(NSError *error))failBlock;
+
 @end

@@ -48,7 +48,7 @@
 
 static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 
-@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate, MapValetInfoViewDelegate, MapSearchPlaceViewDelegate, MapPaymentViewDelegate, PKPaymentAuthorizationViewControllerDelegate>
+@interface MainViewController () <UITextFieldDelegate, CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate, InstructionVCDelegate, MapFlagDelegate, MapValetInfoViewDelegate, MapSearchPlaceViewDelegate, MapPaymentViewDelegate, MapParkInfoViewDelegate, PKPaymentAuthorizationViewControllerDelegate>
 {
     BOOL _isSignInAnimated;
     BOOL _firstLocationUpdate;
@@ -362,13 +362,13 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isNeedUpdateBounds = YES;
     
     self.flagMarker.map = self.mapView;
-    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
     
     self.vehicleMarker.map = nil;
     
     // 4. add the route from my position to park address
     [[LibraryAPI sharedInstance] getRouteWithMyLocation:self.mapView.myLocation
-                                    destinationLocation:[self.orderObject.park_location locationWithGeoPoint:self.orderObject.park_location]
+                                    destinationLocation:[self.orderObject.drop_off_location locationWithGeoPoint:self.orderObject.drop_off_location]
                                                 success:^(GMSPolyline *route) {
                                                     self.route = route;
                                                     self.route.map = self.mapView;
@@ -384,7 +384,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      animations:^{
                          // 5.1 show map info view
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.drop_off_address orderStatus:_userOrderStatus];
                          
                          // 5.2 hide other views
                          [self.mapSearchPlaceView hide];
@@ -413,7 +413,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isNeedUpdateBounds = YES;
     
     self.flagMarker.map = self.mapView;
-    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.park_location.latitude, self.orderObject.park_location.longitude);
+    self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
     
     self.vehicleMarker.map = nil;
     
@@ -426,7 +426,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.park_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.drop_off_address orderStatus:_userOrderStatus];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
@@ -667,10 +667,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)showRequestServiceView {
-//    if ([[self.wilFlag text] isEqualToString:@"WIL"]) {
-//        return;
-//    }
-    
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -682,7 +678,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [self moveMyLocationBtn:-self.requestValetButton.frame.size.height];
                          
                          if (_userOrderStatus == kUserOrderStatusParked) {
-                             [self.mapParkInfoView show];
+                             [self.mapParkInfoView showWithOrder:self.orderObject];
                          } else {
                              [self.mapParkInfoView hide];
                          }
@@ -697,10 +693,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 }
 
 - (void)hideRequestServiceView {
-//    if (![[self.wilFlag text] isEqualToString:@"WIL"]) {
-//        return;
-//    }
-    
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -714,7 +706,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                          [[self myLocationBtn] setFrame:_myLocationBtnFrame];
                          
                          if (_userOrderStatus == kUserOrderStatusParked) {
-                             [self.mapParkInfoView show];
+                             [self.mapParkInfoView showWithOrder:self.orderObject];
                          } else {
                              [self.mapParkInfoView hide];
                          }
@@ -953,6 +945,20 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self launchSearch];
 }
 
+#pragma mark - MapParkInfoViewDelegate 
+
+- (void)showLocationOfVehicle {
+    [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:[self.orderObject.parked_location coordinateWithGeoPoint:self.orderObject.parked_location] zoom:DEFAULT_ZOOM_LEVEL]];
+}
+
+- (void)showImageOfVehicle {
+    
+}
+
+- (void)showAdditionSerivceView {
+    
+}
+
 #pragma mark - User 
 
 - (void)checkCurrentUser {
@@ -1116,6 +1122,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (MapParkInfoView *)mapParkInfoView {
     if (!_mapParkInfoView) {
         _mapParkInfoView = [[MapParkInfoView alloc] initWithFrame:CGRectMake(10, -MAP_PARK_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_PARK_INFO_VIEW_HEIGHT)];
+        _mapParkInfoView.delegate = self;
     }
     
     return _mapParkInfoView;

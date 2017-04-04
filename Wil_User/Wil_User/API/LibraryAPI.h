@@ -54,6 +54,7 @@ typedef enum {
 - (GMSPolygon *)polygonForHKIsland;
 - (GMSPolygon *)polygonForKowloon;
 - (CLLocationCoordinate2D)serviceLocation;
+- (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate success:(void(^)(GMSReverseGeocodeResponse *response))successBlock fail:(void (^)(NSError *error))failBlock;
 
 // clien's location
 - (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;
