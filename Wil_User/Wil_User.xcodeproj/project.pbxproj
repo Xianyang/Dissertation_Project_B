@@ -333,16 +333,16 @@
 			children = (
 				62911FAF1E7D3C650075AC9E /* MapSearchPlaceView.h */,
 				62911FB01E7D3C650075AC9E /* MapSearchPlaceView.m */,
-				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
-				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
-				624E60CE1E76A88D006B516E /* MapFlag.h */,
-				624E60CF1E76A88D006B516E /* MapFlag.m */,
 				624E60D11E76B3A7006B516E /* MapValetInfoView.h */,
 				624E60D21E76B3A7006B516E /* MapValetInfoView.m */,
 				621298171E92325C00A4FED0 /* MapParkInfoView.h */,
 				621298181E92325C00A4FED0 /* MapParkInfoView.m */,
+				62F7D7021E5AD237001AC360 /* RequestValetButton.h */,
+				62F7D7031E5AD237001AC360 /* RequestValetButton.m */,
 				6212981A1E92327200A4FED0 /* MapPaymentView.h */,
 				6212981B1E92327200A4FED0 /* MapPaymentView.m */,
+				624E60CE1E76A88D006B516E /* MapFlag.h */,
+				624E60CF1E76A88D006B516E /* MapFlag.m */,
 			);
 			name = OnMap;
 			sourceTree = "<group>";

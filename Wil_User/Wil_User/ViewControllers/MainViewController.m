@@ -19,12 +19,15 @@
 #define RIGHT_BOTTOM_CORNER_LATITUDE_HONG_KONG      22.131892
 #define RIGHT_BOTTOM_CORNER_LONGITUDE_HONG_KONG     114.392184
 
-#define REQUEST_VALET_BTN_HEIGHT                    64
+#define MAP_SEARCH_PLACE_VIEW_HEIGHT                50
+
 #define MAP_VALET_INFO_VIEW_HEIGHT                  100
 
 #define MAP_PARK_INFO_VIEW_ORIGIN_Y                 70
 #define MAP_PARK_INFO_VIEW_HEIGHT                   100
+
 #define MAP_PAYMENT_INFO_VIEW_HEIGHT                64
+#define REQUEST_VALET_BTN_HEIGHT                    64
 
 @import PassKit;
 #import "MainViewController.h"
@@ -141,8 +144,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [self setMap];
         _isMapSetted = YES;
     }
-    
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -1092,6 +1093,34 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 //    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
+- (MapSearchPlaceView *)mapSearchPlaceView {
+    if (!_mapSearchPlaceView) {
+        _mapSearchPlaceView = [[MapSearchPlaceView alloc] initWithFrame:CGRectMake(10, -MAP_SEARCH_PLACE_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_SEARCH_PLACE_VIEW_HEIGHT)];
+        _mapSearchPlaceView.delegate = self;
+        _mapSearchPlaceView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _mapSearchPlaceView;
+}
+
+- (MapValetInfoView *)mapValetInfoView {
+    if (!_mapValetInfoView) {
+        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(10, - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapValetInfoView.delegate = self;
+        _mapValetInfoView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _mapValetInfoView;
+}
+
+- (MapParkInfoView *)mapParkInfoView {
+    if (!_mapParkInfoView) {
+        _mapParkInfoView = [[MapParkInfoView alloc] initWithFrame:CGRectMake(10, -MAP_PARK_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_PARK_INFO_VIEW_HEIGHT)];
+    }
+    
+    return _mapParkInfoView;
+}
+
 - (RequestValetButton *)requestValetButton {
     if (!_requestValetButton) {
         _requestValetButton = [[RequestValetButton alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, REQUEST_VALET_BTN_HEIGHT)];
@@ -1101,43 +1130,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     return _requestValetButton;
 }
 
-- (MapFlag *)wilFlag {
-    if (!_wilFlag) {
-        _wilFlag = [[MapFlag alloc] init];
-        _wilFlag.delegate = self;
-    }
-    
-    return _wilFlag;
-}
-
-- (MapValetInfoView *)mapValetInfoView {
-    if (!_mapValetInfoView) {
-        _mapValetInfoView = [[MapValetInfoView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
-        _mapValetInfoView.delegate = self;
-        _mapValetInfoView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    return _mapValetInfoView;
-}
-
-- (MapSearchPlaceView *)mapSearchPlaceView {
-    if (!_mapSearchPlaceView) {
-        _mapSearchPlaceView = [[MapSearchPlaceView alloc] initWithFrame:CGRectMake(10, 10, DEVICE_WIDTH - 20, 50)];
-        _mapSearchPlaceView.delegate = self;
-        _mapSearchPlaceView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    return _mapSearchPlaceView;
-}
-
-- (MapParkInfoView *)mapParkInfoView {
-    if (!_mapParkInfoView) {
-        _mapParkInfoView = [[MapParkInfoView alloc] initWithFrame:CGRectMake(10, - MAP_PARK_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_PARK_INFO_VIEW_HEIGHT)];
-    }
-    
-    return _mapParkInfoView;
-}
-
 - (MapPaymentView *)mapPaymentView {
     if (!_mapPaymentView) {
         _mapPaymentView = [[MapPaymentView alloc] initWithFrame:CGRectMake(0, self.mapView.frame.size.height, DEVICE_WIDTH, MAP_PAYMENT_INFO_VIEW_HEIGHT)];
@@ -1145,6 +1137,15 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     }
     
     return _mapPaymentView;
+}
+
+- (MapFlag *)wilFlag {
+    if (!_wilFlag) {
+        _wilFlag = [[MapFlag alloc] init];
+        _wilFlag.delegate = self;
+    }
+    
+    return _wilFlag;
 }
 
 - (GMSGeocoder *)geocoder {

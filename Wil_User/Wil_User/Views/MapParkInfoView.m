@@ -6,9 +6,13 @@
 //  Copyright © 2017 xianyang. All rights reserved.
 //
 
+#define ORIGIN_Y_WHEN_SHOW     70
+
 #import "MapParkInfoView.h"
 
-@interface MapParkInfoView ()
+@interface MapParkInfoView () {
+    CGRect _originRect;
+}
 
 @property (strong, nonatomic) OrderObject *order;
 
@@ -22,6 +26,11 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        _originRect = frame;
+        
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 5;
+        
         self.backgroundColor = [UIColor whiteColor];
     }
     
@@ -29,11 +38,11 @@
 }
 
 - (void)show {
-    self.frame = CGRectMake(self.frame.origin.x, 70, self.frame.size.width, self.frame.size.height);
+    self.frame = CGRectMake(self.frame.origin.x, ORIGIN_Y_WHEN_SHOW, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)hide {
-    self.frame = CGRectMake(self.frame.origin.x, - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.frame = _originRect;
 }
 
 - (void)setOrderObject:(OrderObject *)order {
