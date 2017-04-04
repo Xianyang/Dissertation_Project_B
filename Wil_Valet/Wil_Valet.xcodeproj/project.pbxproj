@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		621298AF1E940F1500A4FED0 /* SWGDefaultApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298851E940F1500A4FED0 /* SWGDefaultApi.m */; };
+		621298B01E940F1500A4FED0 /* JSONValueTransformer+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298881E940F1500A4FED0 /* JSONValueTransformer+ISO8601.m */; };
+		621298B11E940F1500A4FED0 /* SWGApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212988B1E940F1500A4FED0 /* SWGApiClient.m */; };
+		621298B21E940F1500A4FED0 /* SWGConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212988D1E940F1500A4FED0 /* SWGConfiguration.m */; };
+		621298B31E940F1500A4FED0 /* SWGJSONRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212988F1E940F1500A4FED0 /* SWGJSONRequestSerializer.m */; };
+		621298B41E940F1500A4FED0 /* SWGJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298911E940F1500A4FED0 /* SWGJSONResponseSerializer.m */; };
+		621298B51E940F1500A4FED0 /* SWGLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298931E940F1500A4FED0 /* SWGLogger.m */; };
+		621298B61E940F1500A4FED0 /* SWGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298951E940F1500A4FED0 /* SWGObject.m */; };
+		621298B71E940F1500A4FED0 /* SWGQueryParamCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298971E940F1500A4FED0 /* SWGQueryParamCollection.m */; };
+		621298B81E940F1500A4FED0 /* SWGResponseDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298991E940F1500A4FED0 /* SWGResponseDeserializer.m */; };
+		621298B91E940F1500A4FED0 /* SWGSanitizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212989B1E940F1500A4FED0 /* SWGSanitizer.m */; };
+		621298BA1E940F1500A4FED0 /* SWGCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6212989E1E940F1500A4FED0 /* SWGCoordinate.m */; };
+		621298BB1E940F1500A4FED0 /* SWGInlineResponse200.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298A01E940F1500A4FED0 /* SWGInlineResponse200.m */; };
+		621298BC1E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298A21E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.m */; };
+		621298BD1E940F1500A4FED0 /* SWGInlineResponse400.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298A41E940F1500A4FED0 /* SWGInlineResponse400.m */; };
+		621298BE1E940F1500A4FED0 /* SWGPlateCandidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298A61E940F1500A4FED0 /* SWGPlateCandidate.m */; };
+		621298BF1E940F1500A4FED0 /* SWGPlateDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298A81E940F1500A4FED0 /* SWGPlateDetails.m */; };
+		621298C01E940F1500A4FED0 /* SWGRegionOfInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AA1E940F1500A4FED0 /* SWGRegionOfInterest.m */; };
+		621298C11E940F1500A4FED0 /* SWGVehicleCandidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AC1E940F1500A4FED0 /* SWGVehicleCandidate.m */; };
+		621298C21E940F1500A4FED0 /* SWGVehicleDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */; };
+		621298C51E940F4600A4FED0 /* TakeVehicleImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */; };
 		621668D91E31D622007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668D81E31D622007292A4 /* main.m */; };
 		621668DC1E31D622007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DB1E31D622007292A4 /* AppDelegate.m */; };
 		621668E21E31D622007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E01E31D622007292A4 /* Main.storyboard */; };
@@ -71,6 +92,49 @@
 		5A5C3CA693878E13C66628FF /* libPods-Wil_ValetUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EFE5B6FA7B21174842AF85A /* libPods-Wil_ValetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wil_ValetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6212981D1E92460700A4FED0 /* Wil_Valet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wil_Valet.entitlements; sourceTree = "<group>"; };
+		621298841E940F1500A4FED0 /* SWGDefaultApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGDefaultApi.h; sourceTree = "<group>"; };
+		621298851E940F1500A4FED0 /* SWGDefaultApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGDefaultApi.m; sourceTree = "<group>"; };
+		621298871E940F1500A4FED0 /* JSONValueTransformer+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONValueTransformer+ISO8601.h"; sourceTree = "<group>"; };
+		621298881E940F1500A4FED0 /* JSONValueTransformer+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONValueTransformer+ISO8601.m"; sourceTree = "<group>"; };
+		621298891E940F1500A4FED0 /* SWGApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGApi.h; sourceTree = "<group>"; };
+		6212988A1E940F1500A4FED0 /* SWGApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGApiClient.h; sourceTree = "<group>"; };
+		6212988B1E940F1500A4FED0 /* SWGApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGApiClient.m; sourceTree = "<group>"; };
+		6212988C1E940F1500A4FED0 /* SWGConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGConfiguration.h; sourceTree = "<group>"; };
+		6212988D1E940F1500A4FED0 /* SWGConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGConfiguration.m; sourceTree = "<group>"; };
+		6212988E1E940F1500A4FED0 /* SWGJSONRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGJSONRequestSerializer.h; sourceTree = "<group>"; };
+		6212988F1E940F1500A4FED0 /* SWGJSONRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGJSONRequestSerializer.m; sourceTree = "<group>"; };
+		621298901E940F1500A4FED0 /* SWGJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGJSONResponseSerializer.h; sourceTree = "<group>"; };
+		621298911E940F1500A4FED0 /* SWGJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGJSONResponseSerializer.m; sourceTree = "<group>"; };
+		621298921E940F1500A4FED0 /* SWGLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGLogger.h; sourceTree = "<group>"; };
+		621298931E940F1500A4FED0 /* SWGLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGLogger.m; sourceTree = "<group>"; };
+		621298941E940F1500A4FED0 /* SWGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGObject.h; sourceTree = "<group>"; };
+		621298951E940F1500A4FED0 /* SWGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGObject.m; sourceTree = "<group>"; };
+		621298961E940F1500A4FED0 /* SWGQueryParamCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGQueryParamCollection.h; sourceTree = "<group>"; };
+		621298971E940F1500A4FED0 /* SWGQueryParamCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGQueryParamCollection.m; sourceTree = "<group>"; };
+		621298981E940F1500A4FED0 /* SWGResponseDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGResponseDeserializer.h; sourceTree = "<group>"; };
+		621298991E940F1500A4FED0 /* SWGResponseDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGResponseDeserializer.m; sourceTree = "<group>"; };
+		6212989A1E940F1500A4FED0 /* SWGSanitizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGSanitizer.h; sourceTree = "<group>"; };
+		6212989B1E940F1500A4FED0 /* SWGSanitizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGSanitizer.m; sourceTree = "<group>"; };
+		6212989D1E940F1500A4FED0 /* SWGCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGCoordinate.h; sourceTree = "<group>"; };
+		6212989E1E940F1500A4FED0 /* SWGCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGCoordinate.m; sourceTree = "<group>"; };
+		6212989F1E940F1500A4FED0 /* SWGInlineResponse200.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGInlineResponse200.h; sourceTree = "<group>"; };
+		621298A01E940F1500A4FED0 /* SWGInlineResponse200.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGInlineResponse200.m; sourceTree = "<group>"; };
+		621298A11E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGInlineResponse200ProcessingTime.h; sourceTree = "<group>"; };
+		621298A21E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGInlineResponse200ProcessingTime.m; sourceTree = "<group>"; };
+		621298A31E940F1500A4FED0 /* SWGInlineResponse400.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGInlineResponse400.h; sourceTree = "<group>"; };
+		621298A41E940F1500A4FED0 /* SWGInlineResponse400.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGInlineResponse400.m; sourceTree = "<group>"; };
+		621298A51E940F1500A4FED0 /* SWGPlateCandidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGPlateCandidate.h; sourceTree = "<group>"; };
+		621298A61E940F1500A4FED0 /* SWGPlateCandidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGPlateCandidate.m; sourceTree = "<group>"; };
+		621298A71E940F1500A4FED0 /* SWGPlateDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGPlateDetails.h; sourceTree = "<group>"; };
+		621298A81E940F1500A4FED0 /* SWGPlateDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGPlateDetails.m; sourceTree = "<group>"; };
+		621298A91E940F1500A4FED0 /* SWGRegionOfInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGRegionOfInterest.h; sourceTree = "<group>"; };
+		621298AA1E940F1500A4FED0 /* SWGRegionOfInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGRegionOfInterest.m; sourceTree = "<group>"; };
+		621298AB1E940F1500A4FED0 /* SWGVehicleCandidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGVehicleCandidate.h; sourceTree = "<group>"; };
+		621298AC1E940F1500A4FED0 /* SWGVehicleCandidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGVehicleCandidate.m; sourceTree = "<group>"; };
+		621298AD1E940F1500A4FED0 /* SWGVehicleDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWGVehicleDetails.h; sourceTree = "<group>"; };
+		621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGVehicleDetails.m; sourceTree = "<group>"; };
+		621298C31E940F4600A4FED0 /* TakeVehicleImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakeVehicleImageViewController.h; path = ViewControllers/TakeVehicleImageViewController.h; sourceTree = "<group>"; };
+		621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakeVehicleImageViewController.m; path = ViewControllers/TakeVehicleImageViewController.m; sourceTree = "<group>"; };
 		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -204,6 +268,78 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		621298821E940F1500A4FED0 /* SwaggerClient */ = {
+			isa = PBXGroup;
+			children = (
+				621298831E940F1500A4FED0 /* Api */,
+				621298861E940F1500A4FED0 /* Core */,
+				6212989C1E940F1500A4FED0 /* Model */,
+			);
+			path = SwaggerClient;
+			sourceTree = "<group>";
+		};
+		621298831E940F1500A4FED0 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				621298841E940F1500A4FED0 /* SWGDefaultApi.h */,
+				621298851E940F1500A4FED0 /* SWGDefaultApi.m */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		621298861E940F1500A4FED0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				621298871E940F1500A4FED0 /* JSONValueTransformer+ISO8601.h */,
+				621298881E940F1500A4FED0 /* JSONValueTransformer+ISO8601.m */,
+				621298891E940F1500A4FED0 /* SWGApi.h */,
+				6212988A1E940F1500A4FED0 /* SWGApiClient.h */,
+				6212988B1E940F1500A4FED0 /* SWGApiClient.m */,
+				6212988C1E940F1500A4FED0 /* SWGConfiguration.h */,
+				6212988D1E940F1500A4FED0 /* SWGConfiguration.m */,
+				6212988E1E940F1500A4FED0 /* SWGJSONRequestSerializer.h */,
+				6212988F1E940F1500A4FED0 /* SWGJSONRequestSerializer.m */,
+				621298901E940F1500A4FED0 /* SWGJSONResponseSerializer.h */,
+				621298911E940F1500A4FED0 /* SWGJSONResponseSerializer.m */,
+				621298921E940F1500A4FED0 /* SWGLogger.h */,
+				621298931E940F1500A4FED0 /* SWGLogger.m */,
+				621298941E940F1500A4FED0 /* SWGObject.h */,
+				621298951E940F1500A4FED0 /* SWGObject.m */,
+				621298961E940F1500A4FED0 /* SWGQueryParamCollection.h */,
+				621298971E940F1500A4FED0 /* SWGQueryParamCollection.m */,
+				621298981E940F1500A4FED0 /* SWGResponseDeserializer.h */,
+				621298991E940F1500A4FED0 /* SWGResponseDeserializer.m */,
+				6212989A1E940F1500A4FED0 /* SWGSanitizer.h */,
+				6212989B1E940F1500A4FED0 /* SWGSanitizer.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6212989C1E940F1500A4FED0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6212989D1E940F1500A4FED0 /* SWGCoordinate.h */,
+				6212989E1E940F1500A4FED0 /* SWGCoordinate.m */,
+				6212989F1E940F1500A4FED0 /* SWGInlineResponse200.h */,
+				621298A01E940F1500A4FED0 /* SWGInlineResponse200.m */,
+				621298A11E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.h */,
+				621298A21E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.m */,
+				621298A31E940F1500A4FED0 /* SWGInlineResponse400.h */,
+				621298A41E940F1500A4FED0 /* SWGInlineResponse400.m */,
+				621298A51E940F1500A4FED0 /* SWGPlateCandidate.h */,
+				621298A61E940F1500A4FED0 /* SWGPlateCandidate.m */,
+				621298A71E940F1500A4FED0 /* SWGPlateDetails.h */,
+				621298A81E940F1500A4FED0 /* SWGPlateDetails.m */,
+				621298A91E940F1500A4FED0 /* SWGRegionOfInterest.h */,
+				621298AA1E940F1500A4FED0 /* SWGRegionOfInterest.m */,
+				621298AB1E940F1500A4FED0 /* SWGVehicleCandidate.h */,
+				621298AC1E940F1500A4FED0 /* SWGVehicleCandidate.m */,
+				621298AD1E940F1500A4FED0 /* SWGVehicleDetails.h */,
+				621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		621668CB1E31D622007292A4 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +368,7 @@
 				6212981D1E92460700A4FED0 /* Wil_Valet.entitlements */,
 				621668DA1E31D622007292A4 /* AppDelegate.h */,
 				621668DB1E31D622007292A4 /* AppDelegate.m */,
+				621298821E940F1500A4FED0 /* SwaggerClient */,
 				624E60C21E752E56006B516E /* Model */,
 				6241EC691E695CF700249DE1 /* API */,
 				6241EC471E68085D00249DE1 /* Views */,
@@ -308,6 +445,8 @@
 				6241EC491E68086F00249DE1 /* MainViewController.m */,
 				62D56ED41E79480000879ECB /* OrderDetailViewController.h */,
 				62D56ED51E79480000879ECB /* OrderDetailViewController.m */,
+				621298C31E940F4600A4FED0 /* TakeVehicleImageViewController.h */,
+				621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */,
 				629FE1D01E7E64EF0082EF8C /* ProfileViewController.h */,
 				629FE1D11E7E64EF0082EF8C /* ProfileViewController.m */,
 				629FE1CE1E7E64EF0082EF8C /* ChangeInfoViewContoller.h */,
@@ -668,16 +807,27 @@
 			files = (
 				6241EC621E695CB500249DE1 /* ForgetPasswordSecondViewController.m in Sources */,
 				6241EC531E68108D00249DE1 /* AboutViewController.m in Sources */,
+				621298B41E940F1500A4FED0 /* SWGJSONResponseSerializer.m in Sources */,
 				621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */,
 				62D56ECD1E79208600879ECB /* ClientClient.m in Sources */,
 				621668DC1E31D622007292A4 /* AppDelegate.m in Sources */,
+				621298BC1E940F1500A4FED0 /* SWGInlineResponse200ProcessingTime.m in Sources */,
 				6241EC681E695CF400249DE1 /* UIButton+Status.m in Sources */,
+				621298BA1E940F1500A4FED0 /* SWGCoordinate.m in Sources */,
+				621298B71E940F1500A4FED0 /* SWGQueryParamCollection.m in Sources */,
 				6241EC6C1E695D2C00249DE1 /* LibraryAPI.m in Sources */,
 				6241EC5B1E695C0800249DE1 /* SignInViewController.m in Sources */,
 				629FE1D91E7E65720082EF8C /* FileClient.m in Sources */,
+				621298BD1E940F1500A4FED0 /* SWGInlineResponse400.m in Sources */,
+				621298C01E940F1500A4FED0 /* SWGRegionOfInterest.m in Sources */,
+				621298B81E940F1500A4FED0 /* SWGResponseDeserializer.m in Sources */,
+				621298B11E940F1500A4FED0 /* SWGApiClient.m in Sources */,
+				621298C51E940F4600A4FED0 /* TakeVehicleImageViewController.m in Sources */,
 				62D56EBE1E7831AA00879ECB /* OrderClient.m in Sources */,
+				621298BB1E940F1500A4FED0 /* SWGInlineResponse200.m in Sources */,
 				62D56EE21E7998E200879ECB /* MapInfoClientView.m in Sources */,
 				62D56EC41E784D6800879ECB /* OrderCell.m in Sources */,
+				621298BF1E940F1500A4FED0 /* SWGPlateDetails.m in Sources */,
 				6241EC401E6807BA00249DE1 /* RootViewController.m in Sources */,
 				62D56ED61E79480000879ECB /* OrderDetailViewController.m in Sources */,
 				6241EC541E68108D00249DE1 /* ContactViewController.m in Sources */,
@@ -685,18 +835,28 @@
 				6241EC671E695CF400249DE1 /* MBProgressHUD+WilShowError.m in Sources */,
 				62D56EDF1E798C5000879ECB /* ClientLocationClient.m in Sources */,
 				6241EC611E695CB500249DE1 /* ForgetPasswordFirstViewController.m in Sources */,
+				621298C21E940F1500A4FED0 /* SWGVehicleDetails.m in Sources */,
 				62D56EBB1E782B8D00879ECB /* ValetLocationClient.m in Sources */,
+				621298AF1E940F1500A4FED0 /* SWGDefaultApi.m in Sources */,
 				629FE1D61E7E65160082EF8C /* ProfileCell.m in Sources */,
+				621298B01E940F1500A4FED0 /* JSONValueTransformer+ISO8601.m in Sources */,
 				62D56ED91E7987E500879ECB /* PolygonClient.m in Sources */,
 				629FE1D31E7E64EF0082EF8C /* ProfileViewController.m in Sources */,
 				62D56ECA1E791FD700879ECB /* ClientObject.m in Sources */,
+				621298BE1E940F1500A4FED0 /* SWGPlateCandidate.m in Sources */,
 				624E60C11E752E51006B516E /* ValetLocation.m in Sources */,
+				621298B51E940F1500A4FED0 /* SWGLogger.m in Sources */,
+				621298B91E940F1500A4FED0 /* SWGSanitizer.m in Sources */,
+				621298B61E940F1500A4FED0 /* SWGObject.m in Sources */,
 				62D56EDC1E798C3900879ECB /* ClientLocation.m in Sources */,
 				629FE1D21E7E64EF0082EF8C /* ChangeInfoViewContoller.m in Sources */,
 				621668D91E31D622007292A4 /* main.m in Sources */,
 				6241EC4A1E68086F00249DE1 /* MainViewController.m in Sources */,
 				6241EC431E68081B00249DE1 /* MenuViewController.m in Sources */,
+				621298B31E940F1500A4FED0 /* SWGJSONRequestSerializer.m in Sources */,
 				629FE2021E8032A10082EF8C /* AVGeoPoint+CoordinateWithGeoPoint.m in Sources */,
+				621298C11E940F1500A4FED0 /* SWGVehicleCandidate.m in Sources */,
+				621298B21E940F1500A4FED0 /* SWGConfiguration.m in Sources */,
 				6241EC461E68085800249DE1 /* SideMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

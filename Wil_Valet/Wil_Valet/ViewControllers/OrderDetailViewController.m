@@ -12,6 +12,7 @@
 #import "OrderDetailViewController.h"
 #import "MapInfoClientView.h"
 #import "AVGeoPoint+CoordinateWithGeoPoint.h"
+#import "TakeVehicleImageViewController.h"
 
 @interface OrderDetailViewController () <GMSMapViewDelegate, MapClientInfoViewDelegate> {
     BOOL _isMapSetted;
@@ -349,6 +350,11 @@
 }
 
 - (void)updateOrderToStatus:(UserOrderStatus)orderStatus {
+    if (orderStatus == kUserOrderStatusParked) {
+        [self askForInfo];
+        return;
+    }
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     UserOrderStatus originOrderStatus = self.orderObject.order_status;
@@ -357,11 +363,15 @@
     if (orderStatus == kUserOrderStatusParking) {
         self.orderObject.drop_off_at = [NSDate date];
     } else if (orderStatus == kUserOrderStatusParked) {
-        self.orderObject.park_at = [NSDate date];
-        self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
-        
-        // update valetLocation object
-        [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
+//        // show take image view
+//        TakeVehicleImageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TakeVehicleImageViewController"];
+//        [self.navigationController pushViewController:vc animated:YES];
+//        return;
+//        self.orderObject.park_at = [NSDate date];
+//        self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
+//        
+//        // update valetLocation object
+//        [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
     } else if (orderStatus == kUserOrderStatusPaymentPending) {
         self.orderObject.return_at = [NSDate date];
         // update valetLocation object
@@ -402,6 +412,19 @@
     [self presentViewController:alert
                        animated:YES
                      completion:nil];
+}
+
+- (void)askForInfo {
+    // show take image view
+    TakeVehicleImageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TakeVehicleImageViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+//    return;
+//    
+//    self.orderObject.park_at = [NSDate date];
+//    self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
+//    
+//    // update valetLocation object
+//    [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
 }
 
 #pragma mark - Client location

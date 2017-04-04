@@ -7,6 +7,7 @@
 //
 
 #define ORIGIN_Y_WHEN_SHOW     70
+#define VERTICAL_MARGIN        10
 
 #import "MapParkInfoView.h"
 
@@ -18,9 +19,13 @@
 @property (strong, nonatomic) OrderObject *order;
 
 @property (strong, nonatomic) UILabel *parkLabel;
+@property (strong, nonatomic) UILabel *priceLabel;
+@property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) UIButton *checkLocationBtn;
 @property (strong, nonatomic) UIButton *checkImageBtn;
 @property (strong, nonatomic) UIButton *additionalServiceBtn;
+
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -44,8 +49,18 @@
         self.parkLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.parkLabel.numberOfLines = 0;
         
+        // add price label
+        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.parkLabel.frame.origin.y + self.parkLabel.frame.size.height + VERTICAL_MARGIN, 100, 20)];
+        self.priceLabel.font = [UIFont systemFontOfSize:16.0f];
+        self.priceLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
+        
+        // add time label
+        self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.priceLabel.frame.origin.x + self.priceLabel.frame.size.width + 20, self.priceLabel.frame.origin.y, 90, 20)];
+        self.timeLabel.font = [UIFont systemFontOfSize:16.0f];
+        self.timeLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
+        
         // add three buttons
-        self.checkLocationBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, self.parkLabel.frame.origin.y + self.parkLabel.frame.size.height + 15, 100, 20)];
+        self.checkLocationBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height + VERTICAL_MARGIN, 100, 20)];
         [self.checkLocationBtn setTitle:@"check location" forState:UIControlStateNormal];
         [self.checkLocationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.checkLocationBtn setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
@@ -75,6 +90,8 @@
         
 
         [self addSubview:self.parkLabel];
+        [self addSubview:self.priceLabel];
+        [self addSubview:self.timeLabel];
         [self addSubview:self.checkLocationBtn];
         [self addSubview:self.checkImageBtn];
         [self addSubview:self.additionalServiceBtn];
@@ -88,6 +105,7 @@
         return;
     }
     
+    self.order = order;
     _isShow = YES;
     
     self.frame = CGRectMake(self.frame.origin.x, ORIGIN_Y_WHEN_SHOW, self.frame.size.width, self.frame.size.height);
@@ -104,12 +122,20 @@
                                                       currentFrame.size.height = expected.height;
                                                       self.parkLabel.frame = currentFrame;
                                                       
+                                                      // update labels' text
+                                                      self.priceLabel.text = @"$50/hr";
+                                                      [self.timer setFireDate:[NSDate date]];
+                                                      
+                                                      // update labels' frame
+                                                      self.priceLabel.frame = CGRectMake(20, self.parkLabel.frame.origin.y + self.parkLabel.frame.size.height + VERTICAL_MARGIN, 100, 20);
+                                                      self.timeLabel.frame = CGRectMake(self.priceLabel.frame.origin.x + self.priceLabel.frame.size.width + 20, self.priceLabel.frame.origin.y, 90, 20);
+                                                      
                                                       // update buttons' frame
                                                       self.checkLocationBtn.hidden = NO;
                                                       self.checkImageBtn.hidden = NO;
                                                       self.additionalServiceBtn.hidden = NO;
                                                       
-                                                      self.checkLocationBtn.frame = CGRectMake(20, self.parkLabel.frame.origin.y + self.parkLabel.frame.size.height + 15, 100, 20);
+                                                      self.checkLocationBtn.frame = CGRectMake(20, self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height + VERTICAL_MARGIN, 100, 20);
                                                       self.checkImageBtn.frame = CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 90, 20);
                                                       self.additionalServiceBtn.frame = CGRectMake(self.checkImageBtn.frame.origin.x + self.checkImageBtn.frame.size.width + 20, self.checkImageBtn.frame.origin.y, 120, 20);
                                                       
@@ -125,15 +151,23 @@
                                                      }];
 }
 
+- (void)updateTimeLabel {
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.order.drop_off_at];
+    self.timeLabel.text = [self stringFromTimeInterval:timeInterval];
+}
+
+- (NSString *)stringFromTimeInterval:(NSTimeInterval)interval {
+    NSInteger ti = (NSInteger)interval;
+    NSInteger seconds = ti % 60;
+    NSInteger minutes = (ti / 60) % 60;
+    NSInteger hours = (ti / 3600);
+    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
+}
+
 - (void)hide {
     _isShow = NO;
     self.frame = _originRect;
 }
-
-- (void)setOrderObject:(OrderObject *)order {
-    self.order = order;
-    
-    }
 
 - (void)checkLocationBtnClicked {
     [self.delegate showLocationOfVehicle];
@@ -145,6 +179,18 @@
 
 - (void)additionalServiceBtnClicked {
     [self.delegate showAdditionSerivceView];
+}
+
+- (NSTimer *)timer {
+    if (!_timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(updateTimeLabel)
+                                                userInfo:nil
+                                                 repeats:YES];
+    }
+    
+    return _timer;
 }
 
 @end

@@ -12,6 +12,7 @@
 // ----------------------------------------------
 
 #define DEFAULT_ZOOM_LEVEL                          15.5
+#define DEFAULT_CHECK_VEHICLE_ZOOM_LEVEL            17
 #define SEARCH_TABLEVIEW_ORIGIN_Y                   140
 #define SEARCH_TABLEVIEW_HEIGHT                     250
 #define LEFT_TOP_CORNER_LATITUDE_HONG_KONG          22.514216
@@ -948,7 +949,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 #pragma mark - MapParkInfoViewDelegate 
 
 - (void)showLocationOfVehicle {
-    [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:[self.orderObject.parked_location coordinateWithGeoPoint:self.orderObject.parked_location] zoom:DEFAULT_ZOOM_LEVEL]];
+    [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:[self.orderObject.parked_location coordinateWithGeoPoint:self.orderObject.parked_location] zoom:DEFAULT_CHECK_VEHICLE_ZOOM_LEVEL]];
 }
 
 - (void)showImageOfVehicle {
