@@ -13,6 +13,8 @@
 #import "MapInfoClientView.h"
 #import "AVGeoPoint+CoordinateWithGeoPoint.h"
 #import "TakeVehicleImageViewController.h"
+#import "VehicleInfoViewController.h"
+#import "NameCardView.h"
 
 @interface OrderDetailViewController () <GMSMapViewDelegate, MapClientInfoViewDelegate> {
     BOOL _isMapSetted;
@@ -32,8 +34,12 @@
 @property (strong, nonatomic) GMSMarker *clientMarker;
 @property (strong, nonatomic) GMSMarker *flagMarker;
 @property (strong, nonatomic) MapInfoClientView *mapInfoClientView;
+@property (strong, nonatomic) NameCardView *nameCardView;
 // the route
 @property (strong, nonatomic) GMSPolyline *route;
+
+@property (strong, nonatomic) UIBarButtonItem *nameCardItem;
+@property (strong, nonatomic) UIBarButtonItem *vehicleInfoItem;
 
 @end
 
@@ -94,6 +100,8 @@
     // add client info view
     [self.mapView addSubview:self.mapInfoClientView];
     
+    // add name card view
+    [self.mapView addSubview:self.nameCardView];
     
     // ask for My Location data after the map has already been added to the UI.
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -235,6 +243,9 @@
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
     
+    // set navigation item
+    self.navigationItem.rightBarButtonItem = self.nameCardItem;
+    
     // check if add route
     [self checkIfShowRoute];
     
@@ -257,6 +268,9 @@
 - (void)setMapToUserOrderStatusParking {
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.drop_off_location.latitude, self.orderObject.drop_off_location.longitude);
+    
+    // set navigation item
+    self.navigationItem.rightBarButtonItem = self.nameCardItem;
     
     // remove the route
     self.route.map = nil;
@@ -281,6 +295,9 @@
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
     
+    // set navigation item
+    self.navigationItem.rightBarButtonItem = self.vehicleInfoItem;
+    
     // check if add route
     [self checkIfShowRoute];
     
@@ -303,6 +320,8 @@
 - (void)setMapToUserOrderStatusReturningBack {
     // add flag marker
     self.flagMarker.position = CLLocationCoordinate2DMake(self.orderObject.return_location.latitude, self.orderObject.return_location.longitude);
+    // set navigation item
+    self.navigationItem.rightBarButtonItem = self.vehicleInfoItem;
     
     // check if add route
     [self checkIfShowRoute];
@@ -321,6 +340,16 @@
                      completion:^(BOOL finished) {
                          
                      }];
+}
+
+- (void)showNameCard {
+    [self.nameCardView show];
+}
+
+- (void)showVehicleInfo {
+    VehicleInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VehicleInfoViewController"];
+    [vc setOrder:self.orderObject currentLocation:self.mapView.myLocation Plate:self.orderObject.vehicle_plate model:self.orderObject.vehicle_model color:self.orderObject.vehicle_color image:nil imageURL:self.orderObject.vehicle_image_url editable:NO];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - MapClientInfoViewDelegate
@@ -484,6 +513,14 @@
     return _mapInfoClientView;
 }
 
+- (NameCardView *)nameCardView {
+    if (!_nameCardView) {
+        _nameCardView = [[NameCardView alloc] initWithFrame:CGRectMake(80, self.mapView.frame.size.height, DEVICE_WIDTH - 160, 250)];
+    }
+    
+    return _nameCardView;
+}
+
 - (NSTimer *)clientLocationTimer {
     if (!_clientLocationTimer) {
         _clientLocationTimer = [NSTimer scheduledTimerWithTimeInterval:5
@@ -494,6 +531,23 @@
     }
     
     return _clientLocationTimer;
+}
+
+- (UIBarButtonItem *)nameCardItem {
+    if (!_nameCardItem) {
+//        _nameCardItem = [[UIBarButtonItem alloc] initWithTitle:@"name card" style:UIBarButtonItemStylePlain target:self action:@selector(showNameCard)];
+        _nameCardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"name_card"] style:UIBarButtonItemStylePlain target:self action:@selector(showNameCard)];
+    }
+    
+    return _nameCardItem;
+}
+
+- (UIBarButtonItem *)vehicleInfoItem {
+    if (!_vehicleInfoItem) {
+        _vehicleInfoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vehicle_info"] style:UIBarButtonItemStylePlain target:self action:@selector(showVehicleInfo)];
+    }
+    
+    return _vehicleInfoItem;
 }
 
 - (GMSPolyline *)route {

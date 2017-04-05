@@ -36,6 +36,7 @@
 #import <GooglePlaces/GooglePlaces.h>
 #import "InstructionViewController.h"
 #import "ValetLocation.h"
+#import "VehicleInfoViewController.h"
 #import "LibraryAPI.h"
 #import "RequestValetButton.h"
 #import "ValetMarker.h"
@@ -952,8 +953,10 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self.mapView animateToCameraPosition:[GMSCameraPosition cameraWithTarget:[self.orderObject.parked_location coordinateWithGeoPoint:self.orderObject.parked_location] zoom:DEFAULT_CHECK_VEHICLE_ZOOM_LEVEL]];
 }
 
-- (void)showImageOfVehicle {
-    
+- (void)showInfoOfVehicle {
+    VehicleInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VehicleInfoViewController"];
+    [vc setOrder:self.orderObject Plate:self.orderObject.vehicle_plate model:self.orderObject.vehicle_model color:self.orderObject.vehicle_color imageURL:self.orderObject.vehicle_image_url];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showAdditionSerivceView {

@@ -29,6 +29,7 @@
 		621298C21E940F1500A4FED0 /* SWGVehicleDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */; };
 		621298C51E940F4600A4FED0 /* TakeVehicleImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */; };
 		621298C81E949A9700A4FED0 /* VehicleInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298C71E949A9700A4FED0 /* VehicleInfoViewController.m */; };
+		621298CB1E94CD3F00A4FED0 /* NameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298CA1E94CD3F00A4FED0 /* NameCardView.m */; };
 		621668D91E31D622007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668D81E31D622007292A4 /* main.m */; };
 		621668DC1E31D622007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DB1E31D622007292A4 /* AppDelegate.m */; };
 		621668E21E31D622007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E01E31D622007292A4 /* Main.storyboard */; };
@@ -138,6 +139,8 @@
 		621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakeVehicleImageViewController.m; path = ViewControllers/TakeVehicleImageViewController.m; sourceTree = "<group>"; };
 		621298C61E949A9700A4FED0 /* VehicleInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VehicleInfoViewController.h; path = ViewControllers/VehicleInfoViewController.h; sourceTree = "<group>"; };
 		621298C71E949A9700A4FED0 /* VehicleInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VehicleInfoViewController.m; path = ViewControllers/VehicleInfoViewController.m; sourceTree = "<group>"; };
+		621298C91E94CD3F00A4FED0 /* NameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NameCardView.h; path = Views/NameCardView.h; sourceTree = "<group>"; };
+		621298CA1E94CD3F00A4FED0 /* NameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NameCardView.m; path = Views/NameCardView.m; sourceTree = "<group>"; };
 		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -435,6 +438,8 @@
 				62D56EC31E784D6800879ECB /* OrderCell.m */,
 				62D56EE01E7998E200879ECB /* MapInfoClientView.h */,
 				62D56EE11E7998E200879ECB /* MapInfoClientView.m */,
+				621298C91E94CD3F00A4FED0 /* NameCardView.h */,
+				621298CA1E94CD3F00A4FED0 /* NameCardView.m */,
 				629FE1D41E7E65160082EF8C /* ProfileCell.h */,
 				629FE1D51E7E65160082EF8C /* ProfileCell.m */,
 			);
@@ -823,6 +828,7 @@
 				621298B71E940F1500A4FED0 /* SWGQueryParamCollection.m in Sources */,
 				6241EC6C1E695D2C00249DE1 /* LibraryAPI.m in Sources */,
 				6241EC5B1E695C0800249DE1 /* SignInViewController.m in Sources */,
+				621298CB1E94CD3F00A4FED0 /* NameCardView.m in Sources */,
 				629FE1D91E7E65720082EF8C /* FileClient.m in Sources */,
 				621298BD1E940F1500A4FED0 /* SWGInlineResponse400.m in Sources */,
 				621298C01E940F1500A4FED0 /* SWGRegionOfInterest.m in Sources */,

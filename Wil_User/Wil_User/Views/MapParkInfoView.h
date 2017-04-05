@@ -12,7 +12,7 @@
 @protocol MapParkInfoViewDelegate
 
 - (void)showLocationOfVehicle;
-- (void)showImageOfVehicle;
+- (void)showInfoOfVehicle;
 - (void)showAdditionSerivceView;
 
 @end

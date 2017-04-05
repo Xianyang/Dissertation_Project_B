@@ -92,4 +92,8 @@ typedef enum {
 - (GMSPolygon *)polygonForKowloon;
 - (CLLocationCoordinate2D)serviceLocation;
 
+// color
+- (UIColor *)themeBlueColor;
+- (UIColor *)themeLightBlueColor;
+
 @end

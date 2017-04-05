@@ -22,7 +22,7 @@
 @property (strong, nonatomic) UILabel *priceLabel;
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) UIButton *checkLocationBtn;
-@property (strong, nonatomic) UIButton *checkImageBtn;
+@property (strong, nonatomic) UIButton *checkVehicleBtn;
 @property (strong, nonatomic) UIButton *additionalServiceBtn;
 
 @property (strong, nonatomic) NSTimer *timer;
@@ -44,7 +44,7 @@
         self.backgroundColor = [UIColor whiteColor];
         
         // add a label
-        self.parkLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, self.frame.size.width, 20)];
+        self.parkLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, self.frame.size.width - 40, 20)];
         self.parkLabel.font = [UIFont systemFontOfSize:16.0f];
         self.parkLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.parkLabel.numberOfLines = 0;
@@ -68,15 +68,15 @@
         [self.checkLocationBtn addTarget:self action:@selector(checkLocationBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 //        [self.checkLocationBtn setBackgroundColor:[UIColor yellowColor]];
         
-        self.checkImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 90, 20)];
-        [self.checkImageBtn setTitle:@"check image" forState:UIControlStateNormal];
-        [self.checkImageBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [self.checkImageBtn setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
-        [self.checkImageBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [self.checkImageBtn addTarget:self action:@selector(checkImageBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-//        [self.checkImageBtn setBackgroundColor:[UIColor greenColor]];
+        self.checkVehicleBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 100, 20)];
+        [self.checkVehicleBtn setTitle:@"check vehicle" forState:UIControlStateNormal];
+        [self.checkVehicleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.checkVehicleBtn setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.checkVehicleBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [self.checkVehicleBtn addTarget:self action:@selector(checkVehicleBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//        [self.checkVehicleBtn setBackgroundColor:[UIColor greenColor]];
         
-        self.additionalServiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.checkImageBtn.frame.origin.x + self.checkImageBtn.frame.size.width + 20, self.checkImageBtn.frame.origin.y, 120, 20)];
+        self.additionalServiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.checkVehicleBtn.frame.origin.x + self.checkVehicleBtn.frame.size.width + 20, self.checkVehicleBtn.frame.origin.y, 120, 20)];
         [self.additionalServiceBtn setTitle:@"additional serivce" forState:UIControlStateNormal];
         [self.additionalServiceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.additionalServiceBtn setTitleColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
@@ -85,7 +85,7 @@
 //        [self.additionalServiceBtn setBackgroundColor:[UIColor yellowColor]];
         
         self.checkLocationBtn.hidden = YES;
-        self.checkImageBtn.hidden = YES;
+        self.checkVehicleBtn.hidden = YES;
         self.additionalServiceBtn.hidden = YES;
         
 
@@ -93,7 +93,7 @@
         [self addSubview:self.priceLabel];
         [self addSubview:self.timeLabel];
         [self addSubview:self.checkLocationBtn];
-        [self addSubview:self.checkImageBtn];
+        [self addSubview:self.checkVehicleBtn];
         [self addSubview:self.additionalServiceBtn];
     }
     
@@ -132,12 +132,12 @@
                                                       
                                                       // update buttons' frame
                                                       self.checkLocationBtn.hidden = NO;
-                                                      self.checkImageBtn.hidden = NO;
+                                                      self.checkVehicleBtn.hidden = NO;
                                                       self.additionalServiceBtn.hidden = NO;
                                                       
                                                       self.checkLocationBtn.frame = CGRectMake(20, self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height + VERTICAL_MARGIN, 100, 20);
-                                                      self.checkImageBtn.frame = CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 90, 20);
-                                                      self.additionalServiceBtn.frame = CGRectMake(self.checkImageBtn.frame.origin.x + self.checkImageBtn.frame.size.width + 20, self.checkImageBtn.frame.origin.y, 120, 20);
+                                                      self.checkVehicleBtn.frame = CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 100, 20);
+                                                      self.additionalServiceBtn.frame = CGRectMake(self.checkVehicleBtn.frame.origin.x + self.checkVehicleBtn.frame.size.width + 20, self.checkVehicleBtn.frame.origin.y, 120, 20);
                                                       
                                                       // update self.frame
                                                       CGRect frame = self.frame;
@@ -173,8 +173,8 @@
     [self.delegate showLocationOfVehicle];
 }
 
-- (void)checkImageBtnClicked {
-    [self.delegate showImageOfVehicle];
+- (void)checkVehicleBtnClicked {
+    [self.delegate showInfoOfVehicle];
 }
 
 - (void)additionalServiceBtnClicked {
