@@ -417,14 +417,10 @@
 - (void)askForInfo {
     // show take image view
     TakeVehicleImageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TakeVehicleImageViewController"];
+    [vc setOrderObject:self.orderObject currentLocation:self.mapView.myLocation];
     [self.navigationController pushViewController:vc animated:YES];
 //    return;
 //    
-//    self.orderObject.park_at = [NSDate date];
-//    self.orderObject.parked_location = [AVGeoPoint geoPointWithLocation:self.mapView.myLocation];
-//    
-//    // update valetLocation object
-//    [[LibraryAPI sharedInstance] updateValetServingStatus:NO];
 }
 
 #pragma mark - Client location
@@ -480,7 +476,7 @@
 
 - (MapInfoClientView *)mapInfoClientView {
     if (!_mapInfoClientView) {
-        _mapInfoClientView = [[MapInfoClientView alloc] initWithFrame:CGRectMake(0, 0 - MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH, MAP_VALET_INFO_VIEW_HEIGHT)];
+        _mapInfoClientView = [[MapInfoClientView alloc] initWithFrame:CGRectMake(10, -MAP_VALET_INFO_VIEW_HEIGHT, DEVICE_WIDTH - 20, MAP_VALET_INFO_VIEW_HEIGHT)];
         _mapInfoClientView.delegate = self;
         _mapInfoClientView.backgroundColor = [UIColor whiteColor];
     }

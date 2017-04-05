@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderObject.h"
 
 @interface TakeVehicleImageViewController : UIViewController
+
+- (void)setOrderObject:(OrderObject *)order currentLocation:(CLLocation *)currentLocation;
 
 @end

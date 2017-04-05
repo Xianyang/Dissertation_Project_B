@@ -28,6 +28,7 @@
 		621298C11E940F1500A4FED0 /* SWGVehicleCandidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AC1E940F1500A4FED0 /* SWGVehicleCandidate.m */; };
 		621298C21E940F1500A4FED0 /* SWGVehicleDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */; };
 		621298C51E940F4600A4FED0 /* TakeVehicleImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */; };
+		621298C81E949A9700A4FED0 /* VehicleInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621298C71E949A9700A4FED0 /* VehicleInfoViewController.m */; };
 		621668D91E31D622007292A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668D81E31D622007292A4 /* main.m */; };
 		621668DC1E31D622007292A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 621668DB1E31D622007292A4 /* AppDelegate.m */; };
 		621668E21E31D622007292A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 621668E01E31D622007292A4 /* Main.storyboard */; };
@@ -135,6 +136,8 @@
 		621298AE1E940F1500A4FED0 /* SWGVehicleDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWGVehicleDetails.m; sourceTree = "<group>"; };
 		621298C31E940F4600A4FED0 /* TakeVehicleImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakeVehicleImageViewController.h; path = ViewControllers/TakeVehicleImageViewController.h; sourceTree = "<group>"; };
 		621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakeVehicleImageViewController.m; path = ViewControllers/TakeVehicleImageViewController.m; sourceTree = "<group>"; };
+		621298C61E949A9700A4FED0 /* VehicleInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VehicleInfoViewController.h; path = ViewControllers/VehicleInfoViewController.h; sourceTree = "<group>"; };
+		621298C71E949A9700A4FED0 /* VehicleInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VehicleInfoViewController.m; path = ViewControllers/VehicleInfoViewController.m; sourceTree = "<group>"; };
 		621668D41E31D622007292A4 /* Wil_Valet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wil_Valet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621668D81E31D622007292A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		621668DA1E31D622007292A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				62D56ED51E79480000879ECB /* OrderDetailViewController.m */,
 				621298C31E940F4600A4FED0 /* TakeVehicleImageViewController.h */,
 				621298C41E940F4600A4FED0 /* TakeVehicleImageViewController.m */,
+				621298C61E949A9700A4FED0 /* VehicleInfoViewController.h */,
+				621298C71E949A9700A4FED0 /* VehicleInfoViewController.m */,
 				629FE1D01E7E64EF0082EF8C /* ProfileViewController.h */,
 				629FE1D11E7E64EF0082EF8C /* ProfileViewController.m */,
 				629FE1CE1E7E64EF0082EF8C /* ChangeInfoViewContoller.h */,
@@ -806,6 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6241EC621E695CB500249DE1 /* ForgetPasswordSecondViewController.m in Sources */,
+				621298C81E949A9700A4FED0 /* VehicleInfoViewController.m in Sources */,
 				6241EC531E68108D00249DE1 /* AboutViewController.m in Sources */,
 				621298B41E940F1500A4FED0 /* SWGJSONResponseSerializer.m in Sources */,
 				621668E51E31D622007292A4 /* Wil_Valet.xcdatamodeld in Sources */,

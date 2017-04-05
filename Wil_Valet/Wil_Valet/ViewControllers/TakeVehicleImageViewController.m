@@ -21,12 +21,14 @@
 #import "SWGVehicleDetails.h"
 // load API classes for accessing endpoints
 #import "SWGDefaultApi.h"
+#import "VehicleInfoViewController.h"
 
 @interface TakeVehicleImageViewController () <UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *confirmBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoBtn;
-
+@property (strong, nonatomic) OrderObject *order;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
 @implementation TakeVehicleImageViewController
@@ -38,6 +40,11 @@
     self.takePhotoBtn.layer.cornerRadius = self.takePhotoBtn.frame.size.height / 2;
     [self.takePhotoBtn addTarget:self action:@selector(takePhotoBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     self.confirmBtn.enabled = NO;
+}
+
+- (void)setOrderObject:(OrderObject *)order currentLocation:(CLLocation *)currentLocation {
+    self.order = order;
+    self.currentLocation = currentLocation;
 }
 
 - (void)takePhotoBtnClicked {
@@ -80,7 +87,10 @@
     
     SWGDefaultApi *apiInstance = [[SWGDefaultApi alloc] init];
     
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.confirmBtn.enabled = NO;
+    [self.takePhotoBtn setDisableStatus];
     
     [apiInstance recognizeBytesWithImageBytes:imageBytes
                                     secretKey:secretKey
@@ -91,14 +101,56 @@
                                          topn:topn
                                       prewarp:prewarp
                             completionHandler: ^(SWGInlineResponse200* output, NSError* error) {
+                                NSString *plate = @"";
+                                NSString *model = @"";
+                                NSString *color = @"";
+                                
                                 if (output) {
-                                    [hud hideAnimated:YES];
-                                    NSLog(@"%@", output);
+                                    if (output.results.count) {
+                                        SWGPlateDetails *plateDetails = output.results[0];
+                                        plate = plateDetails.plate;
+                                        
+                                        if (plateDetails.vehicle.make.count) {
+                                            SWGVehicleCandidate *candidate = plateDetails.vehicle.make[0];
+                                            model = candidate.name;
+                                        }
+                                        
+                                        if (plateDetails.vehicle.color.count) {
+                                            SWGVehicleCandidate *candidate = plateDetails.vehicle.color[0];
+                                            color = candidate.name;
+                                        }
+                                    }
                                 }
-                                if (error) {
-                                    [hud hideAnimated:YES];
-                                    NSLog(@"Error: %@", error);
-                                }
+                                
+                                // update this image to leancloud
+                                [[LibraryAPI sharedInstance] uploadFile:[AVFile fileWithData:UIImagePNGRepresentation(self.imageView.image)]
+                                                                success:^(NSString *fileURL) {
+                                                                    // save the image url to order
+                                                                    self.order.vehicle_image_url = fileURL;
+                                                                    [self.order saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                        if (succeeded) {
+                                                                            NSLog(@"success");
+                                                                            NSLog(@"%@, %@, %@", plate, model, color);
+                                                                            [hud hideAnimated:YES];
+                                                                            self.confirmBtn.enabled = YES;
+                                                                            [self.takePhotoBtn setEnableStatus];
+                                                                            
+                                                                            // push to next view
+                                                                            VehicleInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VehicleInfoViewController"];
+                                                                            [vc setOrder:self.order currentLocation:self.currentLocation Plate:plate model:model color:color image:self.imageView.image imageURL:fileURL editable:YES];
+                                                                            [self.navigationController pushViewController:vc animated:YES];
+                                                                        } else {
+                                                                            [hud showMessage:@"save order failed, try again"];
+                                                                            self.confirmBtn.enabled = YES;
+                                                                            [self.takePhotoBtn setEnableStatus];
+                                                                        }
+                                                                    }];
+                                                                }
+                                                                   fail:^(NSError *error) {
+                                                                       [hud showMessage:@"upload image failed, try again"];
+                                                                       self.confirmBtn.enabled = YES;
+                                                                       [self.takePhotoBtn setEnableStatus];
+                                                                   }];
                             }];
 }
 

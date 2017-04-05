@@ -10,6 +10,7 @@
 
 @interface MapInfoClientView () {
     BOOL _isProfileImageSet;
+    CGRect _originRect;
 }
 
 @property (strong, nonatomic) NSString *clientMobilePhoneNumber;
@@ -29,6 +30,11 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        _originRect = frame;
+        
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 5;
+        
         // add photo
         self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 15.0f, 70.0f, 70.0f)];
         self.profileImageView.layer.masksToBounds = YES;
@@ -141,11 +147,11 @@
 }
 
 - (void)showInMapView:(GMSMapView *)mapView {
-    self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+    self.frame = CGRectMake(self.frame.origin.x, 10.0f, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)hideInMapView:(GMSMapView *)mapView {
-    self.frame = CGRectMake(0.0f, 0.0f - self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.frame = _originRect;
 }
 
 /*

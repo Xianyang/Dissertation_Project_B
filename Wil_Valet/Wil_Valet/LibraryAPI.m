@@ -117,29 +117,29 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
                                 }];
 }
 
-- (void)getAppUserProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
-    [self.fileClient getAppUserProfilePhotoWithURL:fileURL
-                                           success:^(UIImage *image) {
-                                               successBlock(image);
-                                           }
-                                              fail:^(NSError *error) {
-                                                  failBlock(error);
-                                              }];
-}
-
-- (void)getClientProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
-    [self.fileClient getClientProfilePhotoWithURL:fileURL
-                                          success:^(UIImage *image) {
-                                              successBlock(image);
-                                          }
-                                             fail:^(NSError *error) {
-                                                 failBlock(error);
-                                             }];
-}
-
-- (void)getValetProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
-    
-}
+//- (void)getAppUserProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+//    [self.fileClient getAppUserProfilePhotoWithURL:fileURL
+//                                           success:^(UIImage *image) {
+//                                               successBlock(image);
+//                                           }
+//                                              fail:^(NSError *error) {
+//                                                  failBlock(error);
+//                                              }];
+//}
+//
+//- (void)getClientProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+//    [self.fileClient getClientProfilePhotoWithURL:fileURL
+//                                          success:^(UIImage *image) {
+//                                              successBlock(image);
+//                                          }
+//                                             fail:^(NSError *error) {
+//                                                 failBlock(error);
+//                                             }];
+//}
+//
+//- (void)getValetProfilePhotoWithURL:(NSString *)fileURL success:(void (^)(UIImage *image))successBlock fail:(void (^)(NSError *error))failBlock {
+//    
+//}
 
 #pragma mark - limit for user's registration
 

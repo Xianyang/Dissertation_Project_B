@@ -27,7 +27,10 @@
 @property (nonatomic, copy) NSString *return_address;
 @property (nonatomic, copy) AVGeoPoint *return_location;
 @property int order_status;
+@property (nonatomic, copy) NSString *vehicle_image_url;
 @property (nonatomic, copy) NSString *vehicle_plate;
+@property (nonatomic, copy) NSString *vehicle_model;
+@property (nonatomic, copy) NSString *vehicle_color;
 @property (nonatomic, copy) NSNumber *payment_amount;
 
 + (NSString *)xyClassName;

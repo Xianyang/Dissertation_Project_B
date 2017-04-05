@@ -27,7 +27,10 @@
 @dynamic return_address;
 @dynamic return_location;
 @dynamic order_status;
+@dynamic vehicle_image_url;
 @dynamic vehicle_plate;
+@dynamic vehicle_model;
+@dynamic vehicle_color;
 @dynamic payment_amount;
 
 + (NSString *)parseClassName {
