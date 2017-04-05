@@ -116,4 +116,8 @@ static NSString * const LocationCLientObjectID = @"wil_local_client_location_obj
     }
 }
 
+- (void)resetClientLocationObjectID {
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LocationCLientObjectID];
+}
+
 @end

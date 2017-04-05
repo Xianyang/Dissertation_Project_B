@@ -72,7 +72,7 @@
         
         // add the time label
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
-                                                                   100, 20)];
+                                                                   150, 20)];
         
         self.timeLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
         self.timeLabel.font = [UIFont systemFontOfSize:15];
@@ -97,52 +97,75 @@
     self.frame = _originRect;
 }
 
-- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus{
-    ValetObject *valetObject = [ValetObject objectWithObjectId:valetObjectID];
+- (void)setOrder:(OrderObject *)orderObject {
+    ValetObject *valetObject;
+    if (orderObject.order_status == kUserOrderStatusUserDroppingOff || orderObject.order_status == kUserOrderStatusParking) {
+        valetObject = [ValetObject objectWithObjectId:orderObject.drop_valet_object_ID];
+    } else if (orderObject.order_status == kUserOrderStatusRequestingBack || orderObject.order_status == kUserOrderStatusReturningBack) {
+        valetObject = [ValetObject objectWithObjectId:orderObject.return_valet_object_ID];
+    } else {
+        return;
+    }
+    
     [valetObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
         if (object && !error) {
             self.valetMobilePhoneNumber = [valetObject objectForKey:@"mobilePhoneNumber"];
             
-            if (!_isProfileImageSet) {
-                self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
-                
+//            if (!_isProfileImageSet) {
+//                self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
+//                
+//                if (valetObject.profile_image_url && ![valetObject.profile_image_url isEqualToString:@""]) {
+//                    [[LibraryAPI sharedInstance] getPhotoWithURL:valetObject.profile_image_url
+//                                                         success:^(UIImage *image) {
+//                                                             _isProfileImageSet = YES;
+//                                                             self.profileImageView.image = image;
+//                                                         }
+//                                                            fail:^(NSError *error) {
+//                                                                
+//                                                            }];
+//                }
+//            }
+            
+            if (valetObject.profile_image_url && ![valetObject.profile_image_url isEqualToString:@""]) {
                 [[LibraryAPI sharedInstance] getPhotoWithURL:valetObject.profile_image_url
                                                      success:^(UIImage *image) {
                                                          _isProfileImageSet = YES;
                                                          self.profileImageView.image = image;
                                                      }
                                                         fail:^(NSError *error) {
-                                                            
+                                                            self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
                                                         }];
+            } else {
+                self.profileImageView.image = [UIImage imageNamed:@"valet_profile_default"];
             }
             
             
-            if (orderStatus == kUserOrderStatusUserDroppingOff) {
+            if (orderObject.order_status == kUserOrderStatusUserDroppingOff) {
                 self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
-                self.subInfoLabel.text = [NSString stringWithFormat:@"Meet him at %@", address];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Meet him at %@", orderObject.drop_off_address];
                 [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
                 self.timeLabel.hidden = NO;
-                self.timeLabel.text = @"5 minutes";
-            } else if (orderStatus == kUserOrderStatusParking) {
+                self.timeLabel.text = [[LibraryAPI sharedInstance] timeFromValetLocationToMeetLocation:orderObject.drop_valet_object_ID meetLocation:[orderObject.drop_off_location locationWithGeoPoint:orderObject.drop_off_location]];
+            } else if (orderObject.order_status == kUserOrderStatusParking) {
                 self.nameLabel.text = [NSString stringWithFormat:@"Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
                 self.subInfoLabel.text = @"He is parking your vehicle";
                 [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
                 self.timeLabel.hidden = NO;
                 self.timeLabel.text = @"Enjoy!";
-            } else if (orderStatus == kUserOrderStatusRequestingBack) {
+            } else if (orderObject.order_status == kUserOrderStatusRequestingBack) {
                 self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
-                self.subInfoLabel.text = [NSString stringWithFormat:@"Return vehicle at %@", address];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Return vehicle at %@", orderObject.return_address];
                 [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
                 self.timeLabel.hidden = NO;
                 // TODO set time
-                self.timeLabel.text = @"5 minutes";
-            } else if (orderStatus == kUserOrderStatusReturningBack) {
+                self.timeLabel.text = [[LibraryAPI sharedInstance] timeFromValetLocationToMeetLocation:orderObject.return_valet_object_ID meetLocation:[orderObject.return_location locationWithGeoPoint:orderObject.return_location]];
+            } else if (orderObject.order_status == kUserOrderStatusReturningBack) {
                 self.nameLabel.text = [NSString stringWithFormat:@"Meet Your Valet: %@ %@", valetObject.last_name, valetObject.first_name];
-                self.subInfoLabel.text = [NSString stringWithFormat:@"Returning vehicle at %@", address];
+                self.subInfoLabel.text = [NSString stringWithFormat:@"Returning vehicle at %@", orderObject.return_address];
                 [self.callButton setTitle:@"Call" forState:UIControlStateNormal];
                 self.timeLabel.hidden = NO;
                 // TODO set time
-                self.timeLabel.text = @"5 minutes";
+                self.timeLabel.text = [[LibraryAPI sharedInstance] timeFromValetLocationToMeetLocation:orderObject.return_valet_object_ID meetLocation:[orderObject.return_location locationWithGeoPoint:orderObject.return_location]];
             }
             
             CGRect currentFrame = self.subInfoLabel.frame;
@@ -157,7 +180,7 @@
             self.lineView.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + 2,
                                              1, self.callButton.frame.size.height - 4);
             self.timeLabel.frame = CGRectMake(self.lineView.frame.origin.x + self.lineView.frame.size.width + 20, self.callButton.frame.origin.y,
-                                              100, 20);
+                                              150, 20);
         } else {
             
         }

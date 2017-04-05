@@ -24,5 +24,6 @@
                                   fail:(void (^)(NSError *error))failBlock;
 
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate;
+- (NSString *)timeFromValetLocationToMeetLocation:(NSString *)valetObjectID meetLocation:(CLLocation *)meetLocation;
 
 @end

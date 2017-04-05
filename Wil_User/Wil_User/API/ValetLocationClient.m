@@ -113,6 +113,20 @@
     return nearestValetLocation;
 }
 
+- (NSString *)timeFromValetLocationToMeetLocation:(NSString *)valetObjectID meetLocation:(CLLocation *)meetLocation {
+    CLLocation *valetCLLocation;
+    for (ValetLocation *valetLocation in self.onlineValetLocations) {
+        if ([valetLocation.valet_object_ID isEqualToString:valetObjectID]) {
+            valetCLLocation = [[CLLocation alloc] initWithLatitude:valetLocation.valet_location.latitude longitude:valetLocation.valet_location.longitude];
+        }
+    }
+    
+    CLLocationDistance distance = [valetCLLocation distanceFromLocation:meetLocation];
+    double timeIntervalInMinute = distance / 8 / 60;
+    int timeInterval = (int)ceil(timeIntervalInMinute);
+    return [NSString stringWithFormat:@"About %d minutes", timeInterval];
+}
+
 - (NSMutableArray *)onlineValetLocations {
     if (!_onlineValetLocations) {
         _onlineValetLocations = [[NSMutableArray alloc] init];

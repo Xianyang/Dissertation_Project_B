@@ -123,7 +123,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     _isMapSetted = NO;
     _isMyLocationBtnInOriginalPosition = YES;
     _userOrderStatus = kUserOrderStatusUndefine;
-    [[LibraryAPI sharedInstance] saveClientLocationObjectIDLocally:@""];
+    [[LibraryAPI sharedInstance] resetClientLocationObjectID];
     
     [self checkCurrentUser];
     [self setNavigationBar];
@@ -431,7 +431,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                      animations:^{
                          // 5.1 show map info view
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.drop_off_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setOrder:self.orderObject];
                          
                          // 5.2 hide other views
                          [self.mapSearchPlaceView hide];
@@ -473,7 +473,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.drop_valet_object_ID address:self.orderObject.drop_off_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setOrder:self.orderObject];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
@@ -549,7 +549,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.return_valet_object_ID address:self.orderObject.return_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setOrder:self.orderObject];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];
@@ -600,7 +600,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          [self.mapValetInfoView show];
-                         [self.mapValetInfoView setValetInfo:self.orderObject.return_valet_object_ID address:self.orderObject.return_address orderStatus:_userOrderStatus];
+                         [self.mapValetInfoView setOrder:self.orderObject];
                          
                          [self.mapSearchPlaceView hide];
                          [self.requestValetButton hideInMapView:self.mapView];

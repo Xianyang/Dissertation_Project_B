@@ -203,6 +203,10 @@ static NSString * const LocationObjectName = @"valet_location_object_id";
     [self.valetLocationClient saveValetLocationObjectIDLocally:valetLocationObjectID];
 }
 
+- (void)resetValetLocationObjectID {
+    [self.valetLocationClient resetValetLocationObjectID];
+}
+
 - (void)fetchClientLocationWithClientObjectID:(NSString *)clientObjectID success:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock {
     [self.clientLocationClient fetchClientLocationWithClientObjectID:clientObjectID
                                                              success:^(ClientLocation *clientLocation) {

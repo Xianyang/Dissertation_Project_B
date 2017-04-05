@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderObject.h"
 
 @protocol MapValetInfoViewDelegate
 
@@ -24,7 +25,7 @@
 - (void)show;
 - (void)hide;
 
-- (void)setValetInfo:(NSString *)valetObjectID address:(NSString *)address orderStatus:(UserOrderStatus)orderStatus;
+- (void)setOrder:(OrderObject *)orderObject;
 
 
 

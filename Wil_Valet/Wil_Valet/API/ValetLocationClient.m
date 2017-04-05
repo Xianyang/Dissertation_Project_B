@@ -122,4 +122,8 @@ static NSString * const LocationObjectName = @"wil_local_valet_location_object_i
     }
 }
 
+- (void)resetValetLocationObjectID {
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LocationObjectName];
+}
+
 @end

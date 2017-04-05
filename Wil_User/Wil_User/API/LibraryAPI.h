@@ -59,6 +59,7 @@ typedef enum {
 // clien's location
 - (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveClientLocationObjectIDLocally:(NSString *)objectID;
+- (void)resetClientLocationObjectID;
 - (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock;
 
 // valets' locations
@@ -75,6 +76,7 @@ typedef enum {
                                   fail:(void (^)(NSError *error))failBlock;
 
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate;
+- (NSString *)timeFromValetLocationToMeetLocation:(NSString *)valetObjectID meetLocation:(CLLocation *)meetLocation;
 
 // order
 - (void)createAnOrderWithValetObjectID:(NSString *)valetObjectID

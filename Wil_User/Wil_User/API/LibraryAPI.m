@@ -97,6 +97,10 @@
     [self.clientLocationClient saveClientLocationObjectIDLocally:objectID];
 }
 
+- (void)resetClientLocationObjectID {
+    [self.clientLocationClient resetClientLocationObjectID];
+}
+
 - (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock {
     [self.clientLocationClient getRouteWithMyLocation:myLocation
                                   destinationLocation:destinationLocation
@@ -148,6 +152,10 @@
 
 - (ValetLocation *)nearestValetLocation:(CLLocationCoordinate2D)coordinate {
     return [self.valetLocationClient nearestValetLocation:coordinate];
+}
+
+- (NSString *)timeFromValetLocationToMeetLocation:(NSString *)valetObjectID meetLocation:(CLLocation *)meetLocation {
+    return [self.valetLocationClient timeFromValetLocationToMeetLocation:valetObjectID meetLocation:meetLocation];
 }
 
 #pragma mark - Orders

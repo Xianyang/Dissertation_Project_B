@@ -94,13 +94,15 @@
     
     if (!_isProfileImageSet) {
         self.profileImageView.image = [UIImage imageNamed:@"client_profile_default"];
-        [[LibraryAPI sharedInstance] getPhotoWithURL:clientObject.profile_image_url
-                                             success:^(UIImage *image) {
-                                                 self.profileImageView.image = image;
-                                                 _isProfileImageSet = YES;
-                                             }
-                                                fail:^(NSError *error) {
-                                                }];
+        if (clientObject.profile_image_url && ![clientObject.profile_image_url isEqualToString:@""]) {
+            [[LibraryAPI sharedInstance] getPhotoWithURL:clientObject.profile_image_url
+                                                 success:^(UIImage *image) {
+                                                     self.profileImageView.image = image;
+                                                     _isProfileImageSet = YES;
+                                                 }
+                                                    fail:^(NSError *error) {
+                                                    }];
+        }
     }
     
     self.nameLabel.text = [NSString stringWithFormat:@"Client: %@ %@", clientObject.last_name, clientObject.first_name];

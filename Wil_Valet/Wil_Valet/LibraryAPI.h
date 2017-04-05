@@ -66,6 +66,7 @@ typedef enum {
 - (void)uploadValetLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ValetLocation *valetLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveValetLocationObjectIDLocally:(NSString *)valetLocationObjectID;
 - (void)updateValetServingStatus:(BOOL)isServing;
+- (void)resetValetLocationObjectID;
 - (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock;
 
 // Client Location

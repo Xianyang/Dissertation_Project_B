@@ -35,7 +35,7 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     
     [self setNavigationBar];
     [self checkCurrentUser];
-    [[LibraryAPI sharedInstance] saveValetLocationObjectIDLocally:@""];
+    [[LibraryAPI sharedInstance] resetValetLocationObjectID];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

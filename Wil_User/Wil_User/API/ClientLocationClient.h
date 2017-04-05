@@ -14,5 +14,6 @@
 - (void)uploadClientLocation:(AVGeoPoint *)geoPoint successful:(void (^)(ClientLocation *clientLocation))successBlock fail:(void (^)(NSError *error))failBlock;
 - (void)saveClientLocationObjectIDLocally:(NSString *)objectID;
 - (void)getRouteWithMyLocation:(CLLocation *)myLocation destinationLocation:(CLLocation *)destinationLocation success:(void (^)(GMSPolyline *route))successBlock fail:(void (^)(NSError *error))failBlock;
+- (void)resetClientLocationObjectID;
 
 @end
