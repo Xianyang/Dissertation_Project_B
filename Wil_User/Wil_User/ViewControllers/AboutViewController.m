@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 
 @interface AboutViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @end
 
@@ -18,6 +19,9 @@
     [super viewDidLoad];
     
     [self setNavigationBar];
+    
+    self.iconImageView.layer.masksToBounds = YES;
+    self.iconImageView.layer.cornerRadius = 20;
 }
 
 - (void)setNavigationBar {

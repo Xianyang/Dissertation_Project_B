@@ -57,7 +57,8 @@
         // add time label
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.priceLabel.frame.origin.x + self.priceLabel.frame.size.width + 20, self.priceLabel.frame.origin.y, 90, 20)];
         self.timeLabel.font = [UIFont systemFontOfSize:16.0f];
-        self.timeLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
+//        self.timeLabel.textColor = [UIColor colorWithRed:124.0f / 255.0f green:160.0f / 255.0f blue:98.0f / 255.0f alpha:1.0f];
+        self.timeLabel.textColor = [UIColor orangeColor];
         
         // add three buttons
         self.checkLocationBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height + VERTICAL_MARGIN, 100, 20)];
@@ -114,7 +115,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     [[LibraryAPI sharedInstance] reverseGeocodeCoordinate:[order.parked_location coordinateWithGeoPoint:order.parked_location]
                                                   success:^(GMSReverseGeocodeResponse *response) {
-                                                      self.parkLabel.text = [NSString stringWithFormat:@"Your vehicle is parked at %@, you can request it back anytime", response.results[0].lines[0]];
+                                                      self.parkLabel.text = [NSString stringWithFormat:@"Your vehicle is parked at %@, you can request it back at anytime", response.results[0].lines[0]];
                                                       
                                                       CGRect currentFrame = self.parkLabel.frame;
                                                       CGSize max = CGSizeMake(self.parkLabel.frame.size.width, 40);
@@ -133,7 +134,7 @@
                                                       // update buttons' frame
                                                       self.checkLocationBtn.hidden = NO;
                                                       self.checkVehicleBtn.hidden = NO;
-                                                      self.additionalServiceBtn.hidden = NO;
+//                                                      self.additionalServiceBtn.hidden = NO;
                                                       
                                                       self.checkLocationBtn.frame = CGRectMake(20, self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height + VERTICAL_MARGIN, 100, 20);
                                                       self.checkVehicleBtn.frame = CGRectMake(self.checkLocationBtn.frame.origin.x + self.checkLocationBtn.frame.size.width + 20, self.checkLocationBtn.frame.origin.y, 100, 20);

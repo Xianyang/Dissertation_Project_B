@@ -269,7 +269,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ContentViewController" automaticallyAdjustsScrollViewInsets="NO" id="7Ub-rj-h5m" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mxp-pN-ebF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mxp-pN-ebF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -382,7 +382,51 @@
                     <view key="view" contentMode="scaleToFill" id="6NK-P1-LZL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Instruction_Bg" translatesAutoresizingMaskIntoConstraints="NO" id="koK-hT-ESX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wil_valet_180" translatesAutoresizingMaskIntoConstraints="NO" id="dM0-0g-VGW">
+                                <rect key="frame" x="137" y="110" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Ile-1l-5Fq"/>
+                                    <constraint firstAttribute="height" constant="100" id="rgT-K0-iPU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed and Designed by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtU-fF-82x">
+                                <rect key="frame" x="80" y="229" width="215" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="gOH-K8-Jl6"/>
+                                    <constraint firstAttribute="width" constant="215" id="ivS-lq-Mlq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Luo Xianyang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4h-VH-cUp">
+                                <rect key="frame" x="136" y="258" width="103" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="fIZ-9k-Vx4"/>
+                                    <constraint firstAttribute="width" constant="103" id="lR8-sM-dLt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="E4h-VH-cUp" firstAttribute="top" secondItem="GtU-fF-82x" secondAttribute="bottom" constant="8" id="0Ul-j6-5Ov"/>
+                            <constraint firstItem="dM0-0g-VGW" firstAttribute="top" secondItem="ipI-rU-fwB" secondAttribute="bottom" constant="46" id="83c-Ud-vjb"/>
+                            <constraint firstItem="GtU-fF-82x" firstAttribute="centerX" secondItem="6NK-P1-LZL" secondAttribute="centerX" id="AIz-v8-qh7"/>
+                            <constraint firstAttribute="trailing" secondItem="koK-hT-ESX" secondAttribute="trailing" id="BML-27-ccP"/>
+                            <constraint firstItem="GtU-fF-82x" firstAttribute="top" secondItem="dM0-0g-VGW" secondAttribute="bottom" constant="19" id="Pw2-Fh-wJ1"/>
+                            <constraint firstItem="ouL-UN-aN9" firstAttribute="top" secondItem="koK-hT-ESX" secondAttribute="bottom" id="Tlz-6n-6GZ"/>
+                            <constraint firstItem="koK-hT-ESX" firstAttribute="top" secondItem="6NK-P1-LZL" secondAttribute="top" id="c7f-mw-DMF"/>
+                            <constraint firstItem="E4h-VH-cUp" firstAttribute="centerX" secondItem="6NK-P1-LZL" secondAttribute="centerX" id="dbD-qf-tcr"/>
+                            <constraint firstItem="dM0-0g-VGW" firstAttribute="centerX" secondItem="6NK-P1-LZL" secondAttribute="centerX" id="pxm-rq-Aca"/>
+                            <constraint firstItem="koK-hT-ESX" firstAttribute="leading" secondItem="6NK-P1-LZL" secondAttribute="leading" id="tZb-Rk-MFo"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="h8M-Rv-TG4">
                         <barButtonItem key="leftBarButtonItem" image="menu_white" id="SPm-nj-VvH">
@@ -391,10 +435,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="iconImageView" destination="dM0-0g-VGW" id="crG-bJ-KLZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUI-T6-Hdf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486" y="931"/>
+            <point key="canvasLocation" x="1485.5999999999999" y="930.58470764617698"/>
         </scene>
         <!--Contact-->
         <scene sceneID="EYB-FL-rw2">
@@ -597,7 +644,7 @@
                 <navigationController storyboardIdentifier="SignInVCNav" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="tqI-gu-GyY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mqo-NF-YKv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mqo-NF-YKv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -969,7 +1016,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ChangeInfoNavC" automaticallyAdjustsScrollViewInsets="NO" id="DqI-zO-Nob" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SJa-Kd-pWM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SJa-Kd-pWM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1236,5 +1283,6 @@
         <image name="menu_home" width="20" height="14"/>
         <image name="menu_white" width="18" height="18"/>
         <image name="user_profile" width="48" height="48"/>
+        <image name="wil_valet_180" width="180" height="180"/>
     </resources>
 </document>

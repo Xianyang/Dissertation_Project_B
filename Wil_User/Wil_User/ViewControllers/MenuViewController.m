@@ -79,7 +79,7 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 6;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,15 +103,18 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 }
 
 + (NSArray *)cellTitles {
-    return @[@"HOME", @"PROFILE", @"ORDERS", @"SUBSCRIPTIONS", @"ABOUT", @"CONTACT"];
+//    return @[@"HOME", @"PROFILE", @"ORDERS", @"SUBSCRIPTIONS", @"ABOUT", @"CONTACT"];
+    return @[@"HOME", @"PROFILE", @"ORDERS", @"ABOUT"];
 }
 
 + (NSArray *)cellImageNames {
-    return @[@"menu_home", @"menu_profile", @"menu_payment", @"menu_subscriptions", @"menu_about", @"menu_contact"];
+//    return @[@"menu_home", @"menu_profile", @"menu_payment", @"menu_subscriptions", @"menu_about", @"menu_contact"];
+    return @[@"menu_home", @"menu_profile", @"menu_payment", @"menu_about"];
 }
 
 + (NSArray *)nameOfContentVC {
-    return @[@"MainViewController", @"ProfileViewController", @"OrderViewController", @"SubscriptionsViewController", @"AboutViewController", @"ContactViewController"];
+//    return @[@"MainViewController", @"ProfileViewController", @"OrderViewController", @"SubscriptionsViewController", @"AboutViewController", @"ContactViewController"];
+    return @[@"MainViewController", @"ProfileViewController", @"OrderViewController", @"AboutViewController"];
 }
 
 @end
