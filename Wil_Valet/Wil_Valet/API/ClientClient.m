@@ -20,7 +20,8 @@
     ClientObject *clientObject = [ClientObject objectWithObjectId:clientObjectID];
     ClientObject *tempClientObject = [self findClientObject:clientObject];
     
-    if (tempClientObject) {
+//    if (tempClientObject) {
+    if (NO) {
         successBlock(tempClientObject);
     } else {
         [clientObject fetchIfNeededInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {

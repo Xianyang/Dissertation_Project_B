@@ -25,15 +25,17 @@
 #define MAP_VALET_INFO_VIEW_HEIGHT                  100
 
 #define MAP_PARK_INFO_VIEW_ORIGIN_Y                 70
-#define MAP_PARK_INFO_VIEW_HEIGHT                   100
+#define MAP_PARK_INFO_VIEW_HEIGHT                   123.1875
 
 #define MAP_PAYMENT_INFO_VIEW_HEIGHT                64
 #define REQUEST_VALET_BTN_HEIGHT                    64
 
 @import PassKit;
 #import "MainViewController.h"
+#import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import "InstructionViewController.h"
 #import "ValetLocation.h"
 #import "VehicleInfoViewController.h"
@@ -127,6 +129,41 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     [self setNavigationBar];
 }
 
+- (void)checkAuthentication {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (!appDelegate.isAuthenticate) {
+        // need to authenticate user
+        LAContext *myContext = [[LAContext alloc] init];
+        NSError *authError = nil;
+        NSString *myLocalizedReasonString = @"Check you identity for security";
+        
+        if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+            [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                      localizedReason:myLocalizedReasonString
+                                reply:^(BOOL success, NSError *error) {
+                                    if (success) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            appDelegate.isAuthenticate = YES;
+                                            [self initilizeMap];
+                                        });
+                                    } else {
+                                        [AVUser logOut];
+                                        _isSignInAnimated = YES;
+                                        [self checkCurrentUser];
+                                    }
+                                }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [AVUser logOut];
+                _isSignInAnimated = YES;
+                [self checkCurrentUser];
+            });
+        }
+    } else {
+        [self initilizeMap];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -135,6 +172,22 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    if (![AVUser currentUser]) {
+        return;
+    }
+    
+    [self checkAuthentication];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // stop all timers
+    [self.valetLocationTimer setFireDate:[NSDate distantFuture]];
+    [self.orderStatusTimer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)initilizeMap {
     // open all timers
     [self.valetLocationTimer setFireDate:[NSDate date]];
     [self.orderStatusTimer setFireDate:[NSDate date]];
@@ -146,14 +199,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         [self setMap];
         _isMapSetted = YES;
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    // stop all timers
-    [self.valetLocationTimer setFireDate:[NSDate distantFuture]];
-    [self.orderStatusTimer setFireDate:[NSDate distantFuture]];
 }
 
 - (void)animateSignInView {
@@ -931,6 +976,8 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
 #pragma mark - InstructionVCDelegate
 
 - (void)doneProcessInInstructionVC {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.isAuthenticate = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
     [self requestLocationService];
 }
@@ -1045,7 +1092,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     request.countryCode = @"HK";
     request.currencyCode = @"HKD";
     request.paymentSummaryItems = [NSArray arrayWithObjects:
-                                   [PKPaymentSummaryItem summaryItemWithLabel:@"item"
+                                   [PKPaymentSummaryItem summaryItemWithLabel:@"Parking Fee"
                                                                        amount:amount], nil];
     
     

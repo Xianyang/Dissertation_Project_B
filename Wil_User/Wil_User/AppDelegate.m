@@ -33,6 +33,8 @@
     [ValetObject registerSubclass];
     [AVOSCloud setApplicationId:@"LofD16jEuaeoAu0e7fBn7Ug5-gzGzoHsz" clientKey:@"78OBNxyLGXz4iMr2sUcqdhXD"];
     
+    self.isAuthenticate = NO;
+    
     return YES;
 }
 

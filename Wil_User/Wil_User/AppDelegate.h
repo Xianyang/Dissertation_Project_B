@@ -15,6 +15,8 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
+@property (assign, nonatomic) BOOL isAuthenticate;
+
 - (void)saveContext;
 
 

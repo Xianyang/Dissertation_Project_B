@@ -997,8 +997,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Instruction_Bg" translatesAutoresizingMaskIntoConstraints="NO" id="8Hh-eB-fB3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAKE A PIC OF THE VEHICLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGV-pv-iE7">
-                                <rect key="frame" x="20" y="85" width="233" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAKE A PHOTO OF THE VEHICLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGV-pv-iE7">
+                                <rect key="frame" x="20" y="85" width="335" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="aDQ-0f-4tW"/>
                                 </constraints>
@@ -1031,8 +1031,11 @@
                             <constraint firstItem="8Hh-eB-fB3" firstAttribute="top" secondItem="qwR-jh-wE0" secondAttribute="top" id="HEM-zo-Hwj"/>
                             <constraint firstItem="lGV-pv-iE7" firstAttribute="leading" secondItem="qwR-jh-wE0" secondAttribute="leading" constant="20" id="Mvz-hf-htg"/>
                             <constraint firstAttribute="trailing" secondItem="vs6-cc-slw" secondAttribute="trailing" constant="20" id="RuK-sc-90M"/>
+                            <constraint firstAttribute="trailing" secondItem="lGV-pv-iE7" secondAttribute="trailing" constant="20" id="TFx-EG-wBz"/>
                             <constraint firstAttribute="trailing" secondItem="hpT-TV-Vec" secondAttribute="trailing" constant="16" id="eCa-a4-KyN"/>
+                            <constraint firstItem="lGV-pv-iE7" firstAttribute="top" secondItem="eLF-24-o4J" secondAttribute="bottom" constant="21" id="ghn-mQ-Rdc"/>
                             <constraint firstItem="vs6-cc-slw" firstAttribute="top" secondItem="hpT-TV-Vec" secondAttribute="bottom" constant="28" id="mDo-60-Hre"/>
+                            <constraint firstItem="lGV-pv-iE7" firstAttribute="leading" secondItem="qwR-jh-wE0" secondAttribute="leading" constant="20" id="owh-Wy-G2d"/>
                             <constraint firstItem="8Hh-eB-fB3" firstAttribute="leading" secondItem="qwR-jh-wE0" secondAttribute="leading" id="uBJ-2F-AEU"/>
                             <constraint firstItem="acv-yi-t3K" firstAttribute="top" secondItem="vs6-cc-slw" secondAttribute="bottom" constant="40" id="w4w-Nz-1fZ"/>
                         </constraints>
