@@ -22,6 +22,7 @@
 - (id)initWithFrame:(CGRect)frame;
 
 - (void)setOrderObject:(OrderObject *)order;
+- (NSNumber *)paymentAmount;
 
 - (void)hideInMapView:(GMSMapView *)mapView;
 - (void)showInMapView:(GMSMapView *)mapView;

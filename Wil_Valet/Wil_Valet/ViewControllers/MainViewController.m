@@ -26,6 +26,8 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
 @property (strong, nonatomic) NSArray *currentDropOrders;
 @property (strong, nonatomic) NSArray *currentReturnOrders;
 
+@property (strong, nonatomic) NSTimer *refreshOrderTimer;
+
 @end
 
 @implementation MainViewController
@@ -42,8 +44,13 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     [super viewDidAppear:animated];
     
     if ([AVUser currentUser]) {
+        [self.refreshOrderTimer setFireDate:[NSDate date]];
         [self getCurrentOrders];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.refreshOrderTimer setFireDate:[NSDate distantFuture]];
 }
 
 - (IBAction)refreshBtnClicked:(id)sender {
@@ -269,6 +276,18 @@ static NSString * const OrderCellIdentifier = @"OrderCell";
     }
     
     return _currentReturnOrders;
+}
+
+- (NSTimer *)refreshOrderTimer {
+    if (!_refreshOrderTimer) {
+        _refreshOrderTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                              target:self
+                                                            selector:@selector(getCurrentOrders)
+                                                            userInfo:nil
+                                                             repeats:YES];
+    }
+    
+    return _refreshOrderTimer;
 }
 
 - (void)didReceiveMemoryWarning {

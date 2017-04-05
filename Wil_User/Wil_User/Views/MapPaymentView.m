@@ -65,6 +65,10 @@
     self.billLabel.text = [NSString stringWithFormat:@"Pay your bill:$%.2f", amountValue];
 }
 
+- (NSNumber *)paymentAmount {
+    return self.amount;
+}
+
 - (void)applePayButtonClicked {
     [self.delegate applePayBtnClicked:self.amount];
 }

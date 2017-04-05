@@ -22,7 +22,8 @@
 		6216695A1E324390007292A4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621669591E324390007292A4 /* MainViewController.m */; };
 		6216695D1E32439D007292A4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6216695C1E32439D007292A4 /* ProfileViewController.m */; };
 		622638AB1E94D78900570FCC /* VehicleInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 622638AA1E94D78900570FCC /* VehicleInfoViewController.m */; };
-		623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67DC1E335181009A63AC /* PaymentViewController.m */; };
+		622638AE1E95258800570FCC /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622638AD1E95258800570FCC /* OrderCell.m */; };
+		622638B11E95265500570FCC /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 622638B01E95265500570FCC /* OrderViewController.m */; };
 		623A67E01E335193009A63AC /* SubscriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67DF1E335193009A63AC /* SubscriptionsViewController.m */; };
 		623A67E31E335199009A63AC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E21E335199009A63AC /* AboutViewController.m */; };
 		623A67E61E3351A0009A63AC /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623A67E51E3351A0009A63AC /* ContactViewController.m */; };
@@ -107,8 +108,10 @@
 		6216695C1E32439D007292A4 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ViewControllers/ProfileViewController.m; sourceTree = "<group>"; };
 		622638A91E94D78900570FCC /* VehicleInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VehicleInfoViewController.h; path = ViewControllers/VehicleInfoViewController.h; sourceTree = "<group>"; };
 		622638AA1E94D78900570FCC /* VehicleInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VehicleInfoViewController.m; path = ViewControllers/VehicleInfoViewController.m; sourceTree = "<group>"; };
-		623A67DB1E335181009A63AC /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentViewController.h; path = ViewControllers/PaymentViewController.h; sourceTree = "<group>"; };
-		623A67DC1E335181009A63AC /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentViewController.m; path = ViewControllers/PaymentViewController.m; sourceTree = "<group>"; };
+		622638AC1E95258800570FCC /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCell.h; path = Views/OrderCell.h; sourceTree = "<group>"; };
+		622638AD1E95258800570FCC /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderCell.m; path = Views/OrderCell.m; sourceTree = "<group>"; };
+		622638AF1E95265500570FCC /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderViewController.h; path = ViewControllers/OrderViewController.h; sourceTree = "<group>"; };
+		622638B01E95265500570FCC /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderViewController.m; path = ViewControllers/OrderViewController.m; sourceTree = "<group>"; };
 		623A67DE1E335193009A63AC /* SubscriptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubscriptionsViewController.h; path = ViewControllers/SubscriptionsViewController.h; sourceTree = "<group>"; };
 		623A67DF1E335193009A63AC /* SubscriptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubscriptionsViewController.m; path = ViewControllers/SubscriptionsViewController.m; sourceTree = "<group>"; };
 		623A67E11E335199009A63AC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ViewControllers/AboutViewController.h; sourceTree = "<group>"; };
@@ -304,8 +307,8 @@
 				6216695C1E32439D007292A4 /* ProfileViewController.m */,
 				62911FB51E7D84A00075AC9E /* ChangeInfoViewContoller.h */,
 				62911FB61E7D84A00075AC9E /* ChangeInfoViewContoller.m */,
-				623A67DB1E335181009A63AC /* PaymentViewController.h */,
-				623A67DC1E335181009A63AC /* PaymentViewController.m */,
+				622638AF1E95265500570FCC /* OrderViewController.h */,
+				622638B01E95265500570FCC /* OrderViewController.m */,
 				623A67DE1E335193009A63AC /* SubscriptionsViewController.h */,
 				623A67DF1E335193009A63AC /* SubscriptionsViewController.m */,
 				623A67E11E335199009A63AC /* AboutViewController.h */,
@@ -384,6 +387,8 @@
 				623A67E91E33633F009A63AC /* SideMenuCell.m */,
 				62911FB21E7D7F740075AC9E /* ProfileCell.h */,
 				62911FB31E7D7F740075AC9E /* ProfileCell.m */,
+				622638AC1E95258800570FCC /* OrderCell.h */,
+				622638AD1E95258800570FCC /* OrderCell.m */,
 				62F7D72B1E5EDFE6001AC360 /* InstructionPage.h */,
 				62F7D72C1E5EDFE6001AC360 /* InstructionPage.m */,
 			);
@@ -740,8 +745,10 @@
 				624E60C51E753A8C006B516E /* ValetLocation.m in Sources */,
 				6216691E1E31D65B007292A4 /* AppDelegate.m in Sources */,
 				62D56ED31E793E4A00879ECB /* ClientLocationClient.m in Sources */,
+				622638B11E95265500570FCC /* OrderViewController.m in Sources */,
 				6216695A1E324390007292A4 /* MainViewController.m in Sources */,
 				624E60DC1E76D146006B516E /* OrderClient.m in Sources */,
+				622638AE1E95258800570FCC /* OrderCell.m in Sources */,
 				624E60D31E76B3A7006B516E /* MapValetInfoView.m in Sources */,
 				62F7D7011E59F9C5001AC360 /* PolygonClient.m in Sources */,
 				622638AB1E94D78900570FCC /* VehicleInfoViewController.m in Sources */,
@@ -773,7 +780,6 @@
 				629FE1C71E7E38CD0082EF8C /* FileClient.m in Sources */,
 				625B975A1E62D67900F2C6F5 /* ForgetPasswordSecondViewController.m in Sources */,
 				62F7D7371E6143D6001AC360 /* UIButton+Status.m in Sources */,
-				623A67DD1E335181009A63AC /* PaymentViewController.m in Sources */,
 				62F7D72D1E5EDFE6001AC360 /* InstructionPage.m in Sources */,
 				6212981C1E92327200A4FED0 /* MapPaymentView.m in Sources */,
 				62911FB41E7D7F740075AC9E /* ProfileCell.m in Sources */,

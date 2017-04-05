@@ -1099,7 +1099,6 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     PKPaymentAuthorizationViewController *applePayController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
     applePayController.delegate = self;
     [self presentViewController:applePayController animated:YES completion:nil];
-
 }
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
@@ -1109,6 +1108,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    self.orderObject.payment_amount = [self.mapPaymentView paymentAmount];
     [[LibraryAPI sharedInstance] updateAnOrderWithOrderObject:self.orderObject
                                                      toStatus:kUserOrderStatusFinished
                                                       success:^(OrderObject *orderobject) {

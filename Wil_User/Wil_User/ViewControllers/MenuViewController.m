@@ -103,7 +103,7 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 }
 
 + (NSArray *)cellTitles {
-    return @[@"HOME", @"PROFILE", @"PAYMENT", @"SUBSCRIPTIONS", @"ABOUT", @"CONTACT"];
+    return @[@"HOME", @"PROFILE", @"ORDERS", @"SUBSCRIPTIONS", @"ABOUT", @"CONTACT"];
 }
 
 + (NSArray *)cellImageNames {
@@ -111,7 +111,7 @@ static NSString * const SideMenuCellIdentifier = @"SideMenuCell";
 }
 
 + (NSArray *)nameOfContentVC {
-    return @[@"MainViewController", @"ProfileViewController", @"PaymentViewController", @"SubscriptionsViewController", @"AboutViewController", @"ContactViewController"];
+    return @[@"MainViewController", @"ProfileViewController", @"OrderViewController", @"SubscriptionsViewController", @"AboutViewController", @"ContactViewController"];
 }
 
 @end
