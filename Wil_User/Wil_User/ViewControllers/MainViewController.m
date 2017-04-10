@@ -135,7 +135,7 @@ static NSString * const SearchResultCellIdentifier = @"SearchResultCell";
         // need to authenticate user
         LAContext *myContext = [[LAContext alloc] init];
         NSError *authError = nil;
-        NSString *myLocalizedReasonString = @"Check you identity for security";
+        NSString *myLocalizedReasonString = @"Check your identity for security";
         
         if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
             [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
